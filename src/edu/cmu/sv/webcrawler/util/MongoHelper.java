@@ -1,4 +1,4 @@
-package src.edu.cmu.sv.webcrawler.util;
+package edu.cmu.sv.webcrawler.util;
 
 import java.util.ArrayList;
 import java.util.Map;
