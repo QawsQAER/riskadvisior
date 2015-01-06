@@ -43,13 +43,16 @@
 	<div id="chartContainer" style="height: 300px; width: 100%;"></div>
 	<%@  include file="./templates/footer.jsp"%>
 	<script>
+	var url = location.href;
+	var host = url.substring(0, url.lastIndexOf("/"));	
 		$('button').on('click', function(event) {
 			event.preventDefault();
 			var A = $('#companyA').val();
 			var B = $('#companyB').val();
-			var categoryurl = "/api/category/";
-			var categoryA = categoryurl + A + "?year=2013";
-			var categoryB = categoryurl + B + "?year=2013";
+			var year = $('#year').val();
+			var categoryurl = host+"/api/category/";
+			var categoryA = categoryurl + A + "?year="+year;
+			var categoryB = categoryurl + B + "?year="+year;
 			//for sync
 			var finished = 0;
 			var dataA = null;
@@ -67,8 +70,11 @@
 			});
 		});
 		function showComparison(dataA, dataB, A, B) {
-			var dpA = convert(dataA);
-			var dpB = convert(dataB);
+			var keys = [];
+			keys = gatherKeys(dataA,keys);
+			keys = gatherKeys(dataB,keys);
+			var dpA = convert(dataA,keys);
+			var dpB = convert(dataB,keys);
 			var chart = new CanvasJS.Chart("chartContainer", {
 				title : {
 					text : "Financial Risk Comparison"
@@ -88,16 +94,33 @@
 
 			chart.render();
 		}
-		//convert a key=>value into x:? y:?
-		function convert(data) {
-			var dataPoints = [];
+		function gatherKeys(data,keys) {
+			// append unique keys from the data set
 			for (key in data) {
 				if (data[key] <= 0) {
 					continue;
 				}
+				else if (keys.indexOf(key) < 0)
+		        {
+			        keys.push(key);
+				}				
+			}
+			// return the updated keys array
+			return keys;
+		}
+		//convert a key=>value into x:? y:?
+		function convert(data,keys) {
+			var dataPoints = [];
+			for (var i = 0; i < keys.length; i++) {
+				var value = 0;
+				if (data[keys[i]] <= 0) {
+					value = 0;
+				}
+				else 
+					value = data[keys[i]];
 				dataPoints.push({
-					label : key,
-					y : data[key]
+					label : keys[i],
+					y : value
 				});
 			}
 			return dataPoints;

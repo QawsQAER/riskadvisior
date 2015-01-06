@@ -38,13 +38,16 @@
 
 
 	<script>
+	var url = location.href;
+	var host = url.substring(0, url.lastIndexOf("/"));
 		$("#begincrawl")
 				.click(
 						function(event) {
+							
 							event.preventDefault();
 							var symbol = $("#companyname").val();
 							var output = $("#crawl-info");
-							var crawlurl = "/api/crawl/" + symbol;
+							var crawlurl = host+"/api/crawl/" + symbol;
 							$
 									.ajax({
 										url : crawlurl,
@@ -61,7 +64,7 @@
 					event.preventDefault();
 					var symbol = $("#deletesymbol").val();
 					var output = $("#crawl-delete");
-					var deleteurl = "/api/results/" + symbol;
+					var deleteurl = host+"/api/results/" + symbol;
 					$.ajax({
 						type : "DELETE",
 						url : deleteurl,

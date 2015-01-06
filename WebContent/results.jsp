@@ -54,13 +54,15 @@
 	</div>
 
 	<script>
+		var url = location.href;
+		var host = url.substring(0, url.lastIndexOf("/"));
 		$("#searchrecords").click(
 				function(event) {
 					event.preventDefault();
 					var symbol = $("#symbol").val();
 					var year = $("#year option:selected").text();
-					var crawlurl = "/api/results/" + symbol;
-					var categoryurl="/api/category/" + symbol;
+					var crawlurl = host+"/api/results/" + symbol;
+					var categoryurl=host+"/api/category/" + symbol;
 					if (year != "all") {
 						crawlurl = crawlurl + "/?year=" + year;
 						categoryurl=categoryurl+"/?year=" + year;

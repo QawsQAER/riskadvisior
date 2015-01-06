@@ -1,4 +1,4 @@
-package edu.cmu.sv.webcrawler.util;
+package src.edu.cmu.sv.webcrawler.util;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -44,7 +44,8 @@ public class MongoHelper {
 		try {
 			Mongo mongo = new Mongo(MongoConstants.HOST, MongoConstants.PORT);
 			db = mongo.getDB(MongoConstants.DATABASE);
-			auth = db.authenticate(MongoConstants.USERNAME,
+			if (MongoConstants.USEAUTH) // set authentication credentials
+				auth = db.authenticate(MongoConstants.USERNAME,
 					MongoConstants.PASSWORD.toCharArray());
 			collection = db.getCollection(MongoConstants.COLLECTIONS);
 		} catch (Exception e) {
