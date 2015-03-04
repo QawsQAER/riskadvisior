@@ -1,7 +1,7 @@
 applications:
 - disk_quota: 1024M
-  host: risk-analysis
-  name: risk-analysis
+  host: mingqi
+  name: mingqi
   path: webStarterApp.war
   domain: mybluemix.net
   instances: 1
