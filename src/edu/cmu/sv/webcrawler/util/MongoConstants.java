@@ -13,12 +13,12 @@ public class MongoConstants {
 
 	// external mongolab, use authentication
     public final static boolean USEAUTH = true;
-	public final static String HOST = "ds033699.mongolab.com";
-	public final static int PORT = 33699;
-	public final static String DATABASE = "riskanalysis";
+	public final static String HOST = "23.246.199.111";
+	public final static int PORT = 10026;
+	public final static String DATABASE = "db";
 	public final static String COLLECTIONS = "webcrawler";
-	public final static String USERNAME = "riskanalysis";
-	public final static String PASSWORD = "just4you";	
+	public final static String USERNAME = "e8f0f844-da34-4c69-a5e3-559cfd15d666";
+	public final static String PASSWORD = "a2043e9b-6693-459b-a688-b58b6b681b46";	
 	
 	
 	// ds033699.mongolab.com:33699/riskanalysis -u <dbuser> -p <dbpassword>

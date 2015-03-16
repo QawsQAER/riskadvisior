@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.cmu.sv.webcrawler.models.Categories;
 import edu.cmu.sv.webcrawler.models.Keywords;
+import edu.cmu.sv.webcrawler.util.MongoHelper;
 
 @WebServlet("/dummy")
 public class DummyServlet extends HttpServlet {
@@ -19,7 +20,8 @@ public class DummyServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		//insertKeywords(request, response);
+		insertSymbols(request, response);
+		insertKeywords(request, response);
 		insertCategories(request, response);
 		
 	}
@@ -58,6 +60,27 @@ public class DummyServlet extends HttpServlet {
 			}
 		} catch (Exception e) {
 
+		}
+	}
+	
+	private void insertSymbols(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			String filename = "stocksymbol";
+			InputStream is = getServletContext().getResourceAsStream(filename);
+			PrintWriter out = response.getWriter();
+			MongoHelper helper = new MongoHelper();
+			if (is != null) {
+				InputStreamReader isr = new InputStreamReader(is);
+				BufferedReader reader = new BufferedReader(isr);
+				String text = "";
+				while ((text = reader.readLine()) != null) {
+					out.println(text);
+					helper.insertCompanySymbol(text);
+					System.out.println(text);
+				}
+			}
+		}
+		catch (IOException e) {
 		}
 	}
 
