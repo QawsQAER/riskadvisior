@@ -116,7 +116,11 @@ public class Get10K {
 	 */
 	public void Download10KbyCIK(String symbol, boolean isCurrent) {
 		GetURL gURL = new GetURL();
+		
 		ArrayList<String> URLs = gURL.Get10kURLwithCIK(symbol, isCurrent);
+		String companyName = gURL.GetCompanyNameFromsBuffer();
+		String SIC = gURL.GetSICFromsBuffer();
+		
 		Iterator<String> it = URLs.iterator();
 		while (it.hasNext()) {
 			String str = it.next();

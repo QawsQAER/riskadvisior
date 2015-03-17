@@ -65,11 +65,24 @@ public class GetURL {
 		else {
 			queryURL = "http://www.sec.gov/cgi-bin/current.pl?q1=1&q2=0";
 			this.sBuffer = Get10kSearchPage(queryURL);
-		}				
+		}		
+		//this function will parse the content in sBuffer, and store all the URLs into URLs
 		ParseURLs(isCurrent);
 		return URLs;
 	}
 	
+	//This function must be called after Get10kURLwithCIK()
+	public String GetCompanyNameFromsBuffer(){
+		String companyName = null;
+		
+		return companyName;
+	}
+	
+	public String GetSICFromsBuffer(){
+		String SIC = null;
+		
+		return SIC;
+	}
 	private StringBuffer Get10kSearchPage(String urlStr)
     {
         /** the length of input stream */
