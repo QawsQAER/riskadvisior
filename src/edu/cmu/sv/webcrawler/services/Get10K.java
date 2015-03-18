@@ -158,7 +158,7 @@ public class Get10K {
 				s_10K = extractAllText(sb_10K.toString());
 			}
 			
-			//output(s_10K, year, symbol);
+			output(s_10K, year, symbol, companyName, SIC, SICName);
 
 			System.out.println(fileName);
 		}
@@ -172,11 +172,15 @@ public class Get10K {
 	 * @param year
 	 * @param symbol
 	 */
-	private void output(String s_10K, String year, String symbol) {
+	private void output(String s_10K, String year, String symbol, String companyName, String SIC, String SICName) {
 		if (s_10K == null || s_10K.isEmpty()) {
 			return;
 		}
 		Record record = new Record("10-K", s_10K, symbol, year, null);
+		record.setCompanyName(companyName);
+		record.setSIC(SIC);
+		record.setSICName(SICName);
+		
 		record.save();
 	}
 

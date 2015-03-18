@@ -189,6 +189,7 @@ public class Record {
 			System.out.println(s + "=>" + map.get(s));
 		}
 		doc.put("symbol", symbol);
+		doc.put("companyName", companyName);
 		doc.put("year", year);
 		doc.put("riskFactor", riskFactor);
 		doc.put("keywords", list);
