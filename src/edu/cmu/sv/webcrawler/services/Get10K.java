@@ -231,7 +231,8 @@ public class Get10K {
 	// Main
 	public static void main(String[] args) {
 		System.out.println("Start crawling from www.sec.gov...");
-		String CIK = "HPQ"; // "ABIO"
+		//String CIK = "HPQ"; // "ABIO"
+		String CIK = "ABIO";
 		Get10K g10K = new Get10K();
 		g10K.Download10KbyCIK(CIK, false);
 		// g10K.Download10KbyCIKList("stocksymbol");

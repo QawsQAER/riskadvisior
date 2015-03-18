@@ -66,6 +66,9 @@ public class GetURL {
 			queryURL = "http://www.sec.gov/cgi-bin/current.pl?q1=1&q2=0";
 			this.sBuffer = Get10kSearchPage(queryURL);
 		}		
+		//print out sBuffer
+		System.out.println(sBuffer);
+		
 		//this function will parse the content in sBuffer, and store all the URLs into URLs
 		ParseURLs(isCurrent);
 		return URLs;
@@ -75,6 +78,15 @@ public class GetURL {
 	public String GetCompanyNameFromsBuffer(){
 		String companyName = null;
 		
+		int startIndex = sBuffer.indexOf("companyName") + 13;     // the start index is end of "<span class="companyName">"
+		int endIndex = sBuffer.indexOf("<acronym");               // the end index is start of "<acronym title="
+		
+		companyName = sBuffer.substring(startIndex, endIndex).trim();
+		
+		//int len = companyName.length();
+		//System.out.println("len = " + len);
+		//System.out.println(companyName);
+		
 		return companyName;
 	}
 	
@@ -83,6 +95,7 @@ public class GetURL {
 		
 		return SIC;
 	}
+	
 	private StringBuffer Get10kSearchPage(String urlStr)
     {
         /** the length of input stream */
