@@ -122,7 +122,6 @@ public class Get10K {
 		String SIC = gURL.GetSICFromsBuffer();
 		String SICName = gURL.GetSICNameFromsBuffer();
 		
-		System.out.println(companyName + ", " + SIC + ", " + SICName);
 		Iterator<String> it = URLs.iterator();
 		while (it.hasNext()) {
 			String str = it.next();
@@ -159,14 +158,9 @@ public class Get10K {
 				s_10K = extractAllText(sb_10K.toString());
 			}
 			
-<<<<<<< HEAD
-			output(s_10K, year, symbol);
-
-=======
-//			System.out.println("*****" + companyName + " " + SIC + " " + SICName );
+			System.out.println("*****" + companyName + ", " + SIC + ", " + SICName );
 			output(s_10K, year, symbol, companyName, SIC, SICName);
 			
->>>>>>> 0ef6f15cb9b76f00d34eea56c48a5c0fd38840cd
 			System.out.println(fileName);
 		}
 	}
