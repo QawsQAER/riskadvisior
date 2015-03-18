@@ -20,6 +20,11 @@ public class Record {
 	String year;
 	String riskFactor;
 	String symbol;
+	String document;
+	String url;
+	String SIC;
+	String SICName;
+	
 	Map<String, Integer> keywords;
 	Map<String, Integer> categories;
 
@@ -38,12 +43,13 @@ public class Record {
 		this.keywords = keywords;
 	}
 
-	public Record(String riskFactor, String symbol, String year,
+	public Record(String document, String riskFactor, String symbol, String year,
 			Map<String, Integer> keywords) {
 		this.year = year;
 		this.riskFactor = riskFactor;
 		this.symbol = symbol;
 		this.keywords = keywords;
+		this.document = document;
 	}
 
 	/**
@@ -59,6 +65,51 @@ public class Record {
 	 */
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
+	}
+	
+	/**
+	 * @return the SIC
+	 */
+	public String getSIC() {
+		return SIC;
+	}
+
+	/**
+	 * @param SIC
+	 *            the SIC to set
+	 */
+	public void setSIC(String SIC) {
+		this.SIC = SIC;
+	}
+	
+	/**
+	 * @return the SICName
+	 */
+	public String getSICName() {
+		return SICName;
+	}
+
+	/**
+	 * @param SICName
+	 *            the SICName to set
+	 */
+	public void setSICName(String SICName) {
+		this.SICName = SICName;
+	}
+	
+	/**
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
+	}
+
+	/**
+	 * @param url
+	 *            the url to set
+	 */
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	/**
@@ -159,7 +210,7 @@ public class Record {
 				String riskFactor = (String) obj.get("riskFactor");
 				BasicDBList keywords = (BasicDBList) obj.get("keywords");
 				Map<String, Integer> map = Keywords.getMap(keywords);
-				records.add(new Record(riskFactor, symbol, year, map));
+				records.add(new Record("10-K", riskFactor, symbol, year, map));
 			}
 		} catch (Exception e) {
 		}
@@ -179,7 +230,7 @@ public class Record {
 				String riskFactor = (String) obj.get("riskFactor");
 				BasicDBList keywords = (BasicDBList) obj.get("keywords");
 				Map<String, Integer> map = Keywords.getMap(keywords);
-				records.add(new Record(riskFactor, symbol, year, map));
+				records.add(new Record("10-K", riskFactor, symbol, year, map));
 			}
 		} catch (Exception e) {
 		}
