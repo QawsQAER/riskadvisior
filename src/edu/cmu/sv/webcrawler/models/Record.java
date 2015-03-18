@@ -192,6 +192,10 @@ public class Record {
 		doc.put("year", year);
 		doc.put("riskFactor", riskFactor);
 		doc.put("keywords", list);
+		doc.put("url", url);
+		doc.put("document", document);
+		doc.put("SIC", SIC);
+		doc.put("SICName", SICName);
 		db.insert(doc);
 		this.keywords = map;
 		return true;
