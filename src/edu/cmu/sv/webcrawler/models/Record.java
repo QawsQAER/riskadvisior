@@ -213,9 +213,18 @@ public class Record {
 				DBObject obj = cursor.next();
 				String year = (String) obj.get("year");
 				String riskFactor = (String) obj.get("riskFactor");
+				String companyName = (String) obj.get("companyName");
+				String SIC = (String) obj.get("SIC");
+				String SICName = (String) obj.get("SICName");
+				String url = (String) obj.get("url");
 				BasicDBList keywords = (BasicDBList) obj.get("keywords");
 				Map<String, Integer> map = Keywords.getMap(keywords);
-				records.add(new Record("10-K", riskFactor, symbol, year, map));
+				Record record = new Record("10-K", riskFactor, symbol, year, map);
+				record.setCompanyName(companyName);
+				record.setSIC(SIC);
+				record.setSICName(SICName);
+				record.setUrl(url);
+				records.add(record);
 			}
 		} catch (Exception e) {
 		}
@@ -233,9 +242,18 @@ public class Record {
 			while (cursor.hasNext()) {
 				DBObject obj = cursor.next();
 				String riskFactor = (String) obj.get("riskFactor");
+				String companyName = (String) obj.get("companyName");
+				String SIC = (String) obj.get("SIC");
+				String SICName = (String) obj.get("SICName");
+				String url = (String) obj.get("url");
 				BasicDBList keywords = (BasicDBList) obj.get("keywords");
 				Map<String, Integer> map = Keywords.getMap(keywords);
-				records.add(new Record("10-K", riskFactor, symbol, year, map));
+				Record record = new Record("10-K", riskFactor, symbol, year, map);
+				record.setCompanyName(companyName);
+				record.setSIC(SIC);
+				record.setSICName(SICName);
+				record.setUrl(url);
+				records.add(record);
 			}
 		} catch (Exception e) {
 		}

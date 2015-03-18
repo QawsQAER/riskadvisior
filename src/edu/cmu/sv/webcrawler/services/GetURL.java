@@ -67,7 +67,7 @@ public class GetURL {
 			this.sBuffer = Get10kSearchPage(queryURL);
 		}		
 		//print out sBuffer
-		System.out.println(sBuffer);
+		//System.out.println(sBuffer);
 		
 		//this function will parse the content in sBuffer, and store all the URLs into URLs
 		ParseURLs(isCurrent);
