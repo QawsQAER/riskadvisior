@@ -159,8 +159,14 @@ public class Get10K {
 				s_10K = extractAllText(sb_10K.toString());
 			}
 			
+<<<<<<< HEAD
 			output(s_10K, year, symbol);
 
+=======
+//			System.out.println("*****" + companyName + " " + SIC + " " + SICName );
+			output(s_10K, year, symbol, companyName, SIC, SICName);
+			
+>>>>>>> 0ef6f15cb9b76f00d34eea56c48a5c0fd38840cd
 			System.out.println(fileName);
 		}
 	}
@@ -173,12 +179,17 @@ public class Get10K {
 	 * @param year
 	 * @param symbol
 	 */
-	private void output(String s_10K, String year, String symbol) {
+	private void output(String s_10K, String year, String symbol, String companyName, String SIC, String SICName) {
 		if (s_10K == null || s_10K.isEmpty()) {
 			return;
 		}
 		Record record = new Record("10-K", s_10K, symbol, year, null);
+		record.setCompanyName(companyName);
+		record.setSIC(SIC);
+		record.setSICName(SICName);
+		
 		record.save();
+		//System.out.println("*****" + record.getCompanyName() + " " + record.getSIC() + " " + record.getSICName() );
 	}
 
 	/**
@@ -235,7 +246,7 @@ public class Get10K {
 	public static void main(String[] args) {
 		System.out.println("Start crawling from www.sec.gov...");
 		//String CIK = "HPQ"; // "ABIO"
-		String CIK = "ABIO";
+		String CIK = "IBM";
 		Get10K g10K = new Get10K();
 		g10K.Download10KbyCIK(CIK, false);
 		// g10K.Download10KbyCIKList("stocksymbol");
