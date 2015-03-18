@@ -120,7 +120,7 @@ public class Get10K {
 		ArrayList<String> URLs = gURL.Get10kURLwithCIK(symbol, isCurrent);
 		String companyName = gURL.GetCompanyNameFromsBuffer();
 		String SIC = gURL.GetSICFromsBuffer();
-		
+		String SICName = gURL.GetSICNameFromsBuffer();
 		Iterator<String> it = URLs.iterator();
 		while (it.hasNext()) {
 			String str = it.next();
@@ -156,7 +156,8 @@ public class Get10K {
 			} else if (sb_10K != null) {
 				s_10K = extractAllText(sb_10K.toString());
 			}
-			output(s_10K, year, symbol);
+			
+			//output(s_10K, year, symbol);
 
 			System.out.println(fileName);
 		}

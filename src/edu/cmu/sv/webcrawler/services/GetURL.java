@@ -71,17 +71,45 @@ public class GetURL {
 		return URLs;
 	}
 	
-	//This function must be called after Get10kURLwithCIK()
+	/**
+	 * This function must be called after Get10kURLwithCIK()
+	 * @return the companyName
+	 */
 	public String GetCompanyNameFromsBuffer(){
 		String companyName = null;
 		
 		return companyName;
 	}
 	
+	/**
+	 * This function must be called after Get10kURLwithCIK()
+	 * @return the SIC of the company
+	 */
 	public String GetSICFromsBuffer(){
 		String SIC = null;
-		
+		String SICKeyword = "SIC</acronym>";
+		String tmp = this.sBuffer.toString();
+		//Currently it's a very stupid implementation of getting SIC of the company.
+		int idxOfSIC = tmp.indexOf(SICKeyword);
+		String tmp2 = tmp.substring(idxOfSIC + SICKeyword.length());
+		String tmp3 = tmp2.substring(tmp2.indexOf(">") + 1,tmp2.indexOf("</a>"));
+		//System.out.printf("%s", tmp3);
+		SIC = tmp3;
 		return SIC;
+	}
+	
+	public String GetSICNameFromsBuffer(){
+		String SICName = null;
+		String SICKeyword = "SIC</acronym>";
+		String tmp = this.sBuffer.toString();
+		//Currently it's a very stupid implementation of getting SICName of the company.
+		int idxOfSIC = tmp.indexOf(SICKeyword);
+		String tmp2 = tmp.substring(idxOfSIC + SICKeyword.length());
+		String tmp3 = tmp2.substring(tmp2.indexOf("</a>") + 7);
+		String tmp4 = tmp3.substring(0,tmp3.indexOf("<br"));
+		System.out.printf("%s", tmp4);
+		SICName = tmp4;
+		return SICName;
 	}
 	private StringBuffer Get10kSearchPage(String urlStr)
     {
