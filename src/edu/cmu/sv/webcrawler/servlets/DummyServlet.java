@@ -69,6 +69,7 @@ public class DummyServlet extends HttpServlet {
 			InputStream is = getServletContext().getResourceAsStream(filename);
 			PrintWriter out = response.getWriter();
 			MongoHelper helper = new MongoHelper();
+			helper.removeAllCompanySymbol();
 			if (is != null) {
 				InputStreamReader isr = new InputStreamReader(is);
 				BufferedReader reader = new BufferedReader(isr);

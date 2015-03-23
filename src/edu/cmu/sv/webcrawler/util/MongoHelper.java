@@ -60,6 +60,12 @@ public class MongoHelper {
 		doc.put("symbol", symbol);
 		cs.insert(doc);
 	}
+	
+	public void removeAllCompanySymbol() {
+		DBCollection cs = db.getCollection("companysymbols");
+		BasicDBObject doc = new BasicDBObject();
+		cs.remove(doc);
+	}
 
 	public ArrayList<String> getAllSymbols() {
 		ArrayList<String> list = new ArrayList<String>();

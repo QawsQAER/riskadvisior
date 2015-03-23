@@ -189,9 +189,14 @@ public class Record {
 			System.out.println(s + "=>" + map.get(s));
 		}
 		doc.put("symbol", symbol);
+		doc.put("companyName", companyName);
 		doc.put("year", year);
 		doc.put("riskFactor", riskFactor);
 		doc.put("keywords", list);
+		doc.put("url", url);
+		doc.put("document", document);
+		doc.put("SIC", SIC);
+		doc.put("SICName", SICName);
 		db.insert(doc);
 		this.keywords = map;
 		return true;
@@ -208,9 +213,18 @@ public class Record {
 				DBObject obj = cursor.next();
 				String year = (String) obj.get("year");
 				String riskFactor = (String) obj.get("riskFactor");
+				String companyName = (String) obj.get("companyName");
+				String SIC = (String) obj.get("SIC");
+				String SICName = (String) obj.get("SICName");
+				String url = (String) obj.get("url");
 				BasicDBList keywords = (BasicDBList) obj.get("keywords");
 				Map<String, Integer> map = Keywords.getMap(keywords);
-				records.add(new Record("10-K", riskFactor, symbol, year, map));
+				Record record = new Record("10-K", riskFactor, symbol, year, map);
+				record.setCompanyName(companyName);
+				record.setSIC(SIC);
+				record.setSICName(SICName);
+				record.setUrl(url);
+				records.add(record);
 			}
 		} catch (Exception e) {
 		}
@@ -228,9 +242,18 @@ public class Record {
 			while (cursor.hasNext()) {
 				DBObject obj = cursor.next();
 				String riskFactor = (String) obj.get("riskFactor");
+				String companyName = (String) obj.get("companyName");
+				String SIC = (String) obj.get("SIC");
+				String SICName = (String) obj.get("SICName");
+				String url = (String) obj.get("url");
 				BasicDBList keywords = (BasicDBList) obj.get("keywords");
 				Map<String, Integer> map = Keywords.getMap(keywords);
-				records.add(new Record("10-K", riskFactor, symbol, year, map));
+				Record record = new Record("10-K", riskFactor, symbol, year, map);
+				record.setCompanyName(companyName);
+				record.setSIC(SIC);
+				record.setSICName(SICName);
+				record.setUrl(url);
+				records.add(record);
 			}
 		} catch (Exception e) {
 		}

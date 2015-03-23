@@ -66,23 +66,65 @@ public class GetURL {
 			queryURL = "http://www.sec.gov/cgi-bin/current.pl?q1=1&q2=0";
 			this.sBuffer = Get10kSearchPage(queryURL);
 		}		
+		//print out sBuffer
+		//System.out.println(sBuffer);
+		
 		//this function will parse the content in sBuffer, and store all the URLs into URLs
 		ParseURLs(isCurrent);
 		return URLs;
 	}
 	
-	//This function must be called after Get10kURLwithCIK()
+	/**
+	 * This function must be called after Get10kURLwithCIK()
+	 * @return the companyName
+	 */
 	public String GetCompanyNameFromsBuffer(){
 		String companyName = null;
+		
+		int startIndex = sBuffer.indexOf("companyName") + 13;     // the start index is end of "<span class="companyName">"
+		int endIndex = sBuffer.indexOf("<acronym");               // the end index is start of "<acronym title="
+		
+		companyName = sBuffer.substring(startIndex, endIndex).trim();
+		
+		//int len = companyName.length();
+		//System.out.println("len = " + len);
+		//System.out.println(companyName);
 		
 		return companyName;
 	}
 	
+	/**
+	 * This function must be called after Get10kURLwithCIK()
+	 * @return the SIC of the company
+	 */
 	public String GetSICFromsBuffer(){
 		String SIC = null;
-		
+		String SICKeyword = "SIC</acronym>";
+		String tmp = this.sBuffer.toString();
+		//Currently it's a very stupid implementation of getting SIC of the company.
+		int idxOfSIC = tmp.indexOf(SICKeyword);
+		String tmp2 = tmp.substring(idxOfSIC + SICKeyword.length());
+		String tmp3 = tmp2.substring(tmp2.indexOf(">") + 1,tmp2.indexOf("</a>"));
+		//System.out.printf("%s", tmp3);
+		SIC = tmp3;
 		return SIC;
 	}
+	
+
+	public String GetSICNameFromsBuffer(){
+		String SICName = null;
+		String SICKeyword = "SIC</acronym>";
+		String tmp = this.sBuffer.toString();
+		//Currently it's a very stupid implementation of getting SICName of the company.
+		int idxOfSIC = tmp.indexOf(SICKeyword);
+		String tmp2 = tmp.substring(idxOfSIC + SICKeyword.length());
+		String tmp3 = tmp2.substring(tmp2.indexOf("</a>") + 7);
+		String tmp4 = tmp3.substring(0,tmp3.indexOf("<br"));
+		System.out.printf("%s", tmp4);
+		SICName = tmp4;
+		return SICName;
+	}
+
 	private StringBuffer Get10kSearchPage(String urlStr)
     {
         /** the length of input stream */
