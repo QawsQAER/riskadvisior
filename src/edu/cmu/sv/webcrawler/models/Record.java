@@ -16,14 +16,14 @@ import edu.cmu.sv.webcrawler.util.MongoHelper;
 
 public class Record {
 
-	String companyName;
+	String companyName;//pending
 	String year;
 	String riskFactor;
 	String symbol;
-	String document;
-	String url;
-	String SIC;
-	String SICName;
+	String document;//pending
+	String url;//pending
+	String SIC;//pending
+	String SICName;//pending
 	
 	Map<String, Integer> keywords;
 	Map<String, Integer> categories;
