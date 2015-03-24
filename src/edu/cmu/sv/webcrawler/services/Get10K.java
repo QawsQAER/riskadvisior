@@ -159,7 +159,7 @@ public class Get10K {
 			}
 			
 			System.out.println("*****" + companyName + ", " + SIC + ", " + SICName );
-			output(s_10K, year, symbol, companyName, SIC, SICName);
+			output(s_10K, year, symbol, companyName, SIC, SICName, url);
 			
 			System.out.println(fileName);
 		}
@@ -173,7 +173,7 @@ public class Get10K {
 	 * @param year
 	 * @param symbol
 	 */
-	private void output(String s_10K, String year, String symbol, String companyName, String SIC, String SICName) {
+	private void output(String s_10K, String year, String symbol, String companyName, String SIC, String SICName, String url) {
 		if (s_10K == null || s_10K.isEmpty()) {
 			return;
 		}
@@ -181,6 +181,7 @@ public class Get10K {
 		record.setCompanyName(companyName);
 		record.setSIC(SIC);
 		record.setSICName(SICName);
+		record.setUrl(url);
 		
 		record.save();
 		//System.out.println("*****" + record.getCompanyName() + " " + record.getSIC() + " " + record.getSICName() );
