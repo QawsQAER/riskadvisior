@@ -56,8 +56,8 @@ public class Categories {
 		for (String key : keywordsMap.keySet()) {
 			String cateKey = getCateKey(key);
 			System.out.println(cateKey);
-			if(cateKey!=null){
-				map.put(cateKey, map.get(cateKey)+keywordsMap.get(key));
+			if (cateKey != null) {
+				map.put(cateKey, map.get(cateKey) + keywordsMap.get(key));
 			}
 		}
 	}
