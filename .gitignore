@@ -6,3 +6,4 @@ bin/*
 *.class
 *.war
 webStarterApp.war
+/bin
