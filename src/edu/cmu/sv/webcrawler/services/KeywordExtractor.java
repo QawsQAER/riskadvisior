@@ -13,12 +13,12 @@ public class KeywordExtractor implements KeywordsService{
 
 	public KeywordExtractor(String risk) {
 		Keywords key=new Keywords();
-		this.risk=risk;
+		this.risk = risk;
 		keywords = new HashSet<String>();
-		result=new HashMap<String,Integer>();
+		result = new HashMap<String,Integer>();
 		sentences = new ArrayList<String>();
 		keywordExtracted = new HashMap<String, KeywordInfo>();
-		keywords=key.getKeywords();
+		keywords = key.getKeywords();
 		this.getKeywords();
 	}
 
@@ -44,7 +44,7 @@ public class KeywordExtractor implements KeywordsService{
 					KeywordInfo ki = new KeywordInfo();
 					keywordExtracted.put(s, ki);
 				}
-				keywordExtracted.get(s).num++;
+				keywordExtracted.get(s).num ++;
 				keywordExtracted.get(s).indexOfSentence.add(index);
 			}
 		}

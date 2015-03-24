@@ -20,7 +20,7 @@ public class Record {
 	String year;
 	String riskFactor;
 	String symbol;
-	String document;
+	String documentType;
 	String url;
 	String SIC;
 	String SICName;
@@ -49,7 +49,7 @@ public class Record {
 		this.riskFactor = riskFactor;
 		this.symbol = symbol;
 		this.keywords = keywords;
-		this.document = document;
+		this.documentType = document;
 	}
 
 	/**
@@ -164,8 +164,8 @@ public class Record {
 	 */
 	@Override
 	public String toString() {
-		return "Record [year=" + year + ", riskFactor=" + riskFactor
-				+ ", symbol=" + symbol + "]";
+		return "Record [companyName" + companyName + ", year=" + year + ", riskFactor=" + riskFactor
+				+ ", symbol=" + symbol + ", url=" + url + ", SIC=" + SIC + ", SICName=" + SICName + "]";
 	}
 
 	/**
@@ -194,7 +194,7 @@ public class Record {
 		doc.put("riskFactor", riskFactor);
 		doc.put("keywords", list);
 		doc.put("url", url);
-		doc.put("document", document);
+		doc.put("document", documentType);
 		doc.put("SIC", SIC);
 		doc.put("SICName", SICName);
 		db.insert(doc);

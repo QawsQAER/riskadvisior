@@ -184,7 +184,6 @@ public class Get10K {
 		record.setUrl(url);
 		
 		record.save();
-		//System.out.println("*****" + record.getCompanyName() + " " + record.getSIC() + " " + record.getSICName() );
 	}
 
 	/**
