@@ -179,5 +179,12 @@ public class GetURL {
             }
         }
         return sb;
-    }	
+    }
+	
+	public static void main(String Args[]){
+		GetURL tester = new GetURL();
+		tester.Get10kURLwithCIK("IBM",false);
+		tester.GetCompanyNameFromsBuffer();
+		return ;
+	}
 }
