@@ -24,6 +24,7 @@
 					<label for="year" class="control-label">Year</label> <select
 						id="year" class="form-control">
 						<option>all</option>
+						<option>2015</option>
 						<option>2014</option>
 						<option>2013</option>
 						<option>2012</option>
