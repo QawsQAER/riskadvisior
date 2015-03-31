@@ -32,7 +32,7 @@ public class MongoHelper {
 	//No need to maintain two mongo dbs.
 	private static void localConnect() {
 		//connect();
-		try {
+        try {
 			Mongo mongo = new Mongo("localhost", 27017);
 			db = mongo.getDB("db");
 			collection = db.getCollection(MongoConstants.COLLECTIONS);
