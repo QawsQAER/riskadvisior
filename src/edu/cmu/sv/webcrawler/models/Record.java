@@ -16,18 +16,27 @@ import edu.cmu.sv.webcrawler.util.MongoHelper;
 
 public class Record {
 
-	String companyName;//pending
+	String companyName;
 	String year;
 	String riskFactor;
 	String symbol;
-	String document;//pending
-	String url;//pending
-	String SIC;//pending
-	String SICName;//pending
+	String documentType;
+	String url;
+	String SIC;
+	String SICName;
 	
 	Map<String, Integer> keywords;
 	Map<String, Integer> categories;
-
+	
+	public Record(String document, String riskFactor, String symbol, String year,
+			Map<String, Integer> keywords) {
+		this.year = year;
+		this.riskFactor = riskFactor;
+		this.symbol = symbol;
+		this.keywords = keywords;
+		this.documentType = document;
+	}
+	
 	/**
 	 * @return the keywords
 	 */
@@ -43,14 +52,7 @@ public class Record {
 		this.keywords = keywords;
 	}
 
-	public Record(String document, String riskFactor, String symbol, String year,
-			Map<String, Integer> keywords) {
-		this.year = year;
-		this.riskFactor = riskFactor;
-		this.symbol = symbol;
-		this.keywords = keywords;
-		this.document = document;
-	}
+
 
 	/**
 	 * @return the companyName
@@ -164,8 +166,8 @@ public class Record {
 	 */
 	@Override
 	public String toString() {
-		return "Record [year=" + year + ", riskFactor=" + riskFactor
-				+ ", symbol=" + symbol + "]";
+		return "Record [companyName" + companyName + ", year=" + year + ", riskFactor=" + riskFactor
+				+ ", symbol=" + symbol + ", url=" + url + ", SIC=" + SIC + ", SICName=" + SICName + "]";
 	}
 
 	/**
@@ -186,15 +188,16 @@ public class Record {
 			DBObject tmp = new BasicDBObject();
 			tmp.put(s, map.get(s));
 			list.add(tmp);
-			System.out.println(s + "=>" + map.get(s));
 		}
 		doc.put("symbol", symbol);
 		doc.put("companyName", companyName);
 		doc.put("year", year);
-		doc.put("riskFactor", riskFactor);
+		System.out.printf("Saving from record\n");
+		doc.put("riskFactor", this.riskFactor);
+		System.out.printf("Saving done from record\n");
 		doc.put("keywords", list);
 		doc.put("url", url);
-		doc.put("document", document);
+		doc.put("document", documentType);
 		doc.put("SIC", SIC);
 		doc.put("SICName", SICName);
 		db.insert(doc);

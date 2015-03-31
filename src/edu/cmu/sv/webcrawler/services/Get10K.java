@@ -17,63 +17,12 @@ import net.htmlparser.jericho.Source;
 import edu.cmu.sv.webcrawler.models.Record;
 
 public class Get10K {
-	/**
-	 * Download 10-k file to local machine
-	 * 
-	 * @param urlStr
-	 *            url of resource need to download
-	 * @param outPath
-	 *            include the name
-	 */
-
-	private void DownLoad10K(String urlStr, String outPath) {
-		// the length of input stream
-		int chByte = 0;
-
-		// the url of the doc to download
-		URL url = null;
-
-		// HTTP connection
-		HttpURLConnection httpConn = null;
-		InputStream in = null;
-		FileOutputStream out = null;
-
-		try {
-			url = new URL(urlStr);
-			httpConn = (HttpURLConnection) url.openConnection();
-			HttpURLConnection.setFollowRedirects(true);
-			httpConn.setRequestMethod("GET");
-			in = httpConn.getInputStream();
-			out = new FileOutputStream(new File(outPath));
-			chByte = in.read();
-			while (chByte != -1) {
-				out.write(chByte);
-				chByte = in.read();
-			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				out.close();
-				in.close();
-				httpConn.disconnect();
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-	}
 
 	private StringBuffer Get10kContent(String urlStr) {
 		int chByte = 0;
-
 		URL url = null;
-
 		HttpURLConnection httpConn = null;
-
 		InputStream in = null;
-
 		StringBuffer sb = new StringBuffer("");
 
 		try {
@@ -113,16 +62,21 @@ public class Get10K {
 	 * @param symbol
 	 * @param isCurrent
 	 *            true - download 10K for the day
+	 * @return return 1 when no error(s) occurs, 
+	 * 			return -1 when no URLs is fetched from the given symbol
 	 */
-	public void Download10KbyCIK(String symbol, boolean isCurrent) {
+	public int Download10KbyCIK(String symbol, boolean isCurrent) {
 		GetURL gURL = new GetURL();
 		
-		ArrayList<String> URLs = gURL.Get10kURLwithCIK(symbol, isCurrent);
+		ArrayList<String> urls = gURL.Get10kURLwithCIK(symbol, isCurrent);
+		if(urls.size() == 0)
+			return -1;
+		
 		String companyName = gURL.GetCompanyNameFromsBuffer();
 		String SIC = gURL.GetSICFromsBuffer();
 		String SICName = gURL.GetSICNameFromsBuffer();
 		
-		Iterator<String> it = URLs.iterator();
+		Iterator<String> it = urls.iterator();
 		while (it.hasNext()) {
 			String str = it.next();
 			int index0 = str.indexOf("data");
@@ -145,11 +99,6 @@ public class Get10K {
 				url = str;
 			}
 			String ext = url.substring(index2);
-			String fileName = "./10K/" + CIK + "_" + year + ".txt";// + "_" +
-																	// index +
-																	// ext;
-			// DownLoad10K(url, fileName);
-
 			StringBuffer sb_10K = Get10kContent(url);
 			String s_10K = null;
 			if (ext.equals(".txt")) {
@@ -158,11 +107,10 @@ public class Get10K {
 				s_10K = extractAllText(sb_10K.toString());
 			}
 			
-			System.out.println("*****" + companyName + ", " + SIC + ", " + SICName );
-			output(s_10K, year, symbol, companyName, SIC, SICName);
-			
-			System.out.println(fileName);
+			System.out.printf("companyName = [%s], SIC = [%s],SICName = [%s]\n",companyName,SIC,SICName );
+			output(s_10K, year, symbol, companyName, SIC, SICName, url);	
 		}
+		return 1;
 	}
 
 	/**
@@ -173,7 +121,9 @@ public class Get10K {
 	 * @param year
 	 * @param symbol
 	 */
-	private void output(String s_10K, String year, String symbol, String companyName, String SIC, String SICName) {
+	private void output(String s_10K, String year, 
+			String symbol, String companyName, 
+			String SIC, String SICName, String url) {
 		if (s_10K == null || s_10K.isEmpty()) {
 			return;
 		}
@@ -181,9 +131,8 @@ public class Get10K {
 		record.setCompanyName(companyName);
 		record.setSIC(SIC);
 		record.setSICName(SICName);
-		
+		record.setUrl(url);	
 		record.save();
-		//System.out.println("*****" + record.getCompanyName() + " " + record.getSIC() + " " + record.getSICName() );
 	}
 
 	/**
@@ -239,11 +188,19 @@ public class Get10K {
 	// Main
 	public static void main(String[] args) {
 		System.out.println("Start crawling from www.sec.gov...");
-		//String CIK = "HPQ"; // "ABIO"
+
 		String CIK = "IBM";
 		Get10K g10K = new Get10K();
-		g10K.Download10KbyCIK(CIK, false);
-		// g10K.Download10KbyCIKList("stocksymbol");
-		System.out.println("Finished crawling.");
+		//test case where symbol is valid.
+		if(g10K.Download10KbyCIK(CIK, false) < 0)
+			System.out.printf("Errors when fetching for %s\n",CIK);
+		System.out.printf("Test passed for valid symbol\n");
+		
+		CIK = "ThisDoesNotExist";
+		//test case where symbol is not valid.
+		if(g10K.Download10KbyCIK(CIK,false) < 0)
+			System.out.printf("Errors when fetching for %s\n",CIK);
+		System.out.printf("Test passed for invalid symbol\n");
+		System.out.println("Finished Testing.");
 	}
 }

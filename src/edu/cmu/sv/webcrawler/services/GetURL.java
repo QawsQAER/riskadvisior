@@ -85,11 +85,6 @@ public class GetURL {
 		int endIndex = sBuffer.indexOf("<acronym");               // the end index is start of "<acronym title="
 		
 		companyName = sBuffer.substring(startIndex, endIndex).trim();
-		
-		//int len = companyName.length();
-		//System.out.println("len = " + len);
-		//System.out.println(companyName);
-		
 		return companyName;
 	}
 	
@@ -105,7 +100,6 @@ public class GetURL {
 		int idxOfSIC = tmp.indexOf(SICKeyword);
 		String tmp2 = tmp.substring(idxOfSIC + SICKeyword.length());
 		String tmp3 = tmp2.substring(tmp2.indexOf(">") + 1,tmp2.indexOf("</a>"));
-		//System.out.printf("%s", tmp3);
 		SIC = tmp3;
 		return SIC;
 	}
@@ -120,7 +114,6 @@ public class GetURL {
 		String tmp2 = tmp.substring(idxOfSIC + SICKeyword.length());
 		String tmp3 = tmp2.substring(tmp2.indexOf("</a>") + 7);
 		String tmp4 = tmp3.substring(0,tmp3.indexOf("<br"));
-		System.out.printf("%s", tmp4);
 		SICName = tmp4;
 		return SICName;
 	}
@@ -179,5 +172,12 @@ public class GetURL {
             }
         }
         return sb;
-    }	
+    }
+	
+	public static void main(String Args[]){
+		GetURL tester = new GetURL();
+		tester.Get10kURLwithCIK("IBM",false);
+		tester.GetCompanyNameFromsBuffer();
+		return ;
+	}
 }

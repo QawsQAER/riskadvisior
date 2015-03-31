@@ -1,3 +1,4 @@
+.DS_store
 *.war
 bin/*
 .classpath
@@ -6,3 +7,4 @@ bin/*
 *.class
 *.war
 webStarterApp.war
+/bin

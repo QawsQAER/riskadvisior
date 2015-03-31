@@ -100,4 +100,12 @@ public class MongoHelper {
 	public DB getDb(){
 		return db;
 	}
+	
+	public static void main(String Args[]){
+		MongoHelper tester = new MongoHelper();
+		ArrayList<String> symbols = tester.getAllSymbols();
+		for(String s : symbols){
+			System.out.printf("Symbol %s\n",s);
+		}
+	}
 }

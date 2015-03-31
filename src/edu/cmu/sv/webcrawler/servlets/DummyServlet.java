@@ -2,6 +2,8 @@ package edu.cmu.sv.webcrawler.servlets;
 
 import java.io.*;
 
+import org.json.simple.parser.JSONParser; //for json parser
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.cmu.sv.webcrawler.models.Categories;
 import edu.cmu.sv.webcrawler.models.Keywords;
+import edu.cmu.sv.webcrawler.models.Symbols;
 import edu.cmu.sv.webcrawler.util.MongoHelper;
 
 @WebServlet("/dummy")
@@ -64,24 +67,34 @@ public class DummyServlet extends HttpServlet {
 	}
 	
 	private void insertSymbols(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			String filename = "stocksymbol";
-			InputStream is = getServletContext().getResourceAsStream(filename);
-			PrintWriter out = response.getWriter();
-			MongoHelper helper = new MongoHelper();
-			helper.removeAllCompanySymbol();
-			if (is != null) {
-				InputStreamReader isr = new InputStreamReader(is);
-				BufferedReader reader = new BufferedReader(isr);
-				String text = "";
-				while ((text = reader.readLine()) != null) {
-					out.println(text);
-					helper.insertCompanySymbol(text);
-					System.out.println(text);
+		boolean useJson = false;
+		MongoHelper helper = new MongoHelper();
+		helper.removeAllCompanySymbol();
+		if(useJson){
+			String filename = "stocksymbol.json";
+			Symbols s = new Symbols();
+			s.loadFromJSONFile(filename);
+			for(String str : s.getSymbols()){
+				helper.insertCompanySymbol(str);
+			}
+		}else{
+			try {
+				String filename = "stocksymbol";
+				InputStream is = getServletContext().getResourceAsStream(filename);
+				PrintWriter out = response.getWriter();			
+				if (is != null) {
+					InputStreamReader isr = new InputStreamReader(is);
+					BufferedReader reader = new BufferedReader(isr);
+					String text = "";
+					while ((text = reader.readLine()) != null) {
+						out.println(text);
+						helper.insertCompanySymbol(text);
+						System.out.println(text);
+					}
 				}
 			}
-		}
-		catch (IOException e) {
+			catch (IOException e) {
+			}
 		}
 	}
 

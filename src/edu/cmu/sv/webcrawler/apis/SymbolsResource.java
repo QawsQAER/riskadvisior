@@ -20,7 +20,6 @@ public class SymbolsResource {
 	@GET
     @Produces(MediaType.APPLICATION_JSON )
 	public Symbols getSymbols(){
-		
 		return new Symbols();
 	}
 }
