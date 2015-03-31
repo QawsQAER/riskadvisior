@@ -51,7 +51,8 @@
 			<fileset dir=".">
 				<include name="keywords.txt" />
 				<include name="category.json" />
-				<include name="stocksymbol" />
+				<include name="stocksymbol.txt" />
+				<include name="stocksymbol.json" />
 			</fileset>
 			<fileset dir="WebContent">
 				<include name="*" />
