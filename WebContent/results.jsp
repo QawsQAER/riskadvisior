@@ -58,45 +58,45 @@
 		var url = location.href;
 		var host = url.substring(0, url.lastIndexOf("/"));
 		$("#searchrecords").click(
-				function(event) {
-					event.preventDefault();
-					var symbol = $("#symbol").val();
-					var year = $("#year option:selected").text();
-					var crawlurl = host+"/api/results/" + symbol;
-					var categoryurl=host+"/api/category/" + symbol;
-					if (year != "all") {
-						crawlurl = crawlurl + "/?year=" + year;
-						categoryurl=categoryurl+"/?year=" + year;
-					}else{
-						crawlurl = crawlurl + "/?year=2014";
-						categoryurl=categoryurl+"/?year=2014";
+			function(event) {
+				event.preventDefault();
+				var symbol = $("#symbol").val();
+				var year = $("#year option:selected").text();
+				var crawlurl = host+"/api/results/" + symbol;
+				var categoryurl=host+"/api/category/" + symbol;
+				if (year != "all") {
+					crawlurl = crawlurl + "/?year=" + year;
+					categoryurl=categoryurl+"/?year=" + year;
+				}else{
+					crawlurl = crawlurl + "/?year=2014";
+					categoryurl=categoryurl+"/?year=2014";
+				}
+				
+				//get the result from api provided by current website
+				$.ajax({
+					url : crawlurl,
+					success : function(data) {
+						var body = $("#result-output").find("tbody");
+						$("#result-output").show();
+						body.find('tr').remove();
+						$.each(data.records, function(i, v) {
+							body.append($('<tr>').append(
+									$('<td>').text(v.symbol)).append(
+									$('<td>').text(v.year)).append(
+									$('<td>').text(v.riskFactor)));
+						});
 					}
-					$.ajax({
-						url : crawlurl,
-						success : function(data) {
-							var body = $("#result-output").find("tbody");
-							$("#result-output").show();
-							body.find('tr').remove();
-							$.each(data.records, function(i, v) {
-								body.append($('<tr>').append(
-										$('<td>').text(v.symbol)).append(
-										$('<td>').text(v.year)).append(
-										$('<td>').text(v.riskFactor)));
-							});
-							//var data= '{"keywords":{"stockholder":6,"harm":2,"loss":10,"threat":1,"regulations":10,"disruption":3,"difficult":4,"capital":1,"adverse":8,"affect":14,"compete":1,"acquisition":3,"stock":10,"personnel":5,"fail":8,"interest":3,"raw materials":2,"difficulties":1,"terrorist":1,"litigation":2,"license":2,"interest rate":2,"supplier":5,"ineffective":1,"challenges":2,"political":5,"intellectual property":4,"liquidity risk":1,"international":1,"revenue growth":1,"disrupt":3,"cost":6,"distributors":4,"economic":6,"depends on":1,"product":17,"fluctuations":2,"failure":7,"challenge":2,"tax matter":2,"reporting":2,"competitive":7,"economic conditions":1,"infrastructure":3,"decrease":1,"fluctuation":2,"credit risk":1}}';
-							//showData(data.records[0].keywords,"Risk Factors Keywords");
-						}
-					});
-					$.ajax({
-						url: categoryurl,
-						success : function(data){
-							showData(data,"Risk Categories");
-						}
-					});
 				});
+				
+				//get the category from api provided by current website
+				$.ajax({
+					url: categoryurl,
+					success : function(data){
+						showData(data,"Risk Categories");
+					}
+				});
+			});
 		function showData(data,text) {
-			//var obj = jQuery.parseJSON(data);
-			//var risks=data.records[0].keywords;
 			var risks=data;
 			//console.log(risks);
 
@@ -111,7 +111,6 @@
 				});
 			}
 			var chart1 = new CanvasJS.Chart("chartContainer1", {
-
 				title : {
 					text : text+" Histogram"
 				},

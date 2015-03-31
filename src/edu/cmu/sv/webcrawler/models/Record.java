@@ -27,7 +27,16 @@ public class Record {
 	
 	Map<String, Integer> keywords;
 	Map<String, Integer> categories;
-
+	
+	public Record(String document, String riskFactor, String symbol, String year,
+			Map<String, Integer> keywords) {
+		this.year = year;
+		this.riskFactor = riskFactor;
+		this.symbol = symbol;
+		this.keywords = keywords;
+		this.documentType = document;
+	}
+	
 	/**
 	 * @return the keywords
 	 */
@@ -43,14 +52,7 @@ public class Record {
 		this.keywords = keywords;
 	}
 
-	public Record(String document, String riskFactor, String symbol, String year,
-			Map<String, Integer> keywords) {
-		this.year = year;
-		this.riskFactor = riskFactor;
-		this.symbol = symbol;
-		this.keywords = keywords;
-		this.documentType = document;
-	}
+
 
 	/**
 	 * @return the companyName
@@ -186,12 +188,13 @@ public class Record {
 			DBObject tmp = new BasicDBObject();
 			tmp.put(s, map.get(s));
 			list.add(tmp);
-			System.out.println(s + "=>" + map.get(s));
 		}
 		doc.put("symbol", symbol);
 		doc.put("companyName", companyName);
 		doc.put("year", year);
-		doc.put("riskFactor", riskFactor);
+		System.out.printf("Saving from record\n");
+		doc.put("riskFactor", this.riskFactor);
+		System.out.printf("Saving done from record\n");
 		doc.put("keywords", list);
 		doc.put("url", url);
 		doc.put("document", documentType);
