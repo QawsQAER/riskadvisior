@@ -99,15 +99,16 @@
 				
 				<tr class="success">
 					<td>GET</td>
-					<td><%=host + "/api/category/addKeyword"%></td>
+					<td><%=host + "/api/category/addKeyword?category=[categoryName]&keyword=[keywordString]"%></td>
 					<td>Add keyword according to category</td>
 				</tr>
 				
 				<tr class="success">
 					<td>GET</td>
-					<td><%=host + "/api/category/deleteKeyword"%></td>
+					<td><%=host + "/api/category/deleteKeyword?category=[categoryName]&keyword=[keywordString]"%></td>
 					<td>delete keyword according to category</td>
 				</tr>
+				
 			</tbody>
 		</table>
 	</div>
