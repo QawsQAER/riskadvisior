@@ -37,7 +37,7 @@ public class DummyServlet extends HttpServlet {
 	
 	private void insertCategories(HttpServletRequest request,
 			HttpServletResponse response) {
-		Categories c=new Categories();
+		Categories c = new Categories();
 		InputStream is = getServletContext().getResourceAsStream("category.json");
 		c.load(is);
 	}
