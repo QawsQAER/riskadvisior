@@ -3,6 +3,7 @@ package edu.cmu.sv.webcrawler.apis;
 import java.util.Map;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -31,4 +32,21 @@ public class CategoriesResource {
 		Categories c = new Categories(map);
 		return c.getMap();
 	}
+	
+	@GET
+	@Path("/addKeyword")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String addSymbolByCategory(
+			@QueryParam("category") String category, @QueryParam("keyword") String keyword){
+		//access add Keyword API using GET
+		return "category is " + category + ", keyword is " + keyword;
+	}
+	
+	@GET
+	@Path("/deleteKeyword")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String deleteSymbolByCategory(
+			@QueryParam("category") String category, @QueryParam("keyword") String keyword){
+		return "category is " + category + ", keyword is " + keyword;
+ 	}
 }
