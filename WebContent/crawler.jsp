@@ -40,40 +40,35 @@
 	<script>
 	var url = location.href;
 	var host = url.substring(0, url.lastIndexOf("/"));
-		$("#begincrawl")
-				.click(
-						function(event) {
-							
-							event.preventDefault();
-							var symbol = $("#companyname").val();
-							var output = $("#crawl-info");
-							var crawlurl = host+"/api/crawl/" + symbol;
-							$
-									.ajax({
-										url : crawlurl,
-										success : function(data) {
-											output
-													.text("Crawled the risk factors of the company "
-															+ symbol);
-										}
-									});
-						});
+		$("#begincrawl").click(
+			function(event) {
+				event.preventDefault();
+				var symbol = $("#companyname").val();
+				var output = $("#crawl-info");
+				var crawlurl = host+"/api/crawl/" + symbol;
+				$.ajax({
+					url : crawlurl,
+					success : function(data) {
+					output.text(data);
+					}
+				});
+		});
 
 		$("#deleterecord").click(
-				function(event) {
-					event.preventDefault();
-					var symbol = $("#deletesymbol").val();
-					var output = $("#crawl-delete");
-					var deleteurl = host+"/api/results/" + symbol;
-					$.ajax({
-						type : "DELETE",
-						url : deleteurl,
-						success : function(data) {
-							output.text("Deleted the records of the company "
-									+ symbol);
-						}
-					});
+			function(event) {
+				event.preventDefault();
+				var symbol = $("#deletesymbol").val();
+				var output = $("#crawl-delete");
+				var deleteurl = host+"/api/results/" + symbol;
+				$.ajax({
+					type : "DELETE",
+					url : deleteurl,
+					success : function(data) {
+					output.text("Deleted the records of the company "
+							+ symbol);
+					}
 				});
+			});
 	</script>
 
 
