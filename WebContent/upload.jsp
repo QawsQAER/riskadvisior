@@ -12,7 +12,7 @@
 		<h4>Add Keyword Here</h4>
 		<form>
 			Category: <input type="text" id="add_category"><br>
-			Keyword: <input type="text" name="add_keyword"><br>
+			Keyword: <input type="text" id="add_keyword"><br>
 			<button value="add this!" onclick="addKeyword()"></button>
 		</form>
 	</div>
@@ -20,8 +20,8 @@
 	<div>
 		<h4>Delete Keyword Here</h4>
 		<form>
-			Category: <input type="text" name="del_category"><br>
-			Keyword: <input type="text" name="del_keyword"><br>
+			Category: <input type="text" id="del_category"><br>
+			Keyword: <input type="text" id="del_keyword"><br>
 			<button value="delete this!" onclick="deleteKeyword()"></button>
 		</form>
 	</div>
