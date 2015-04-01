@@ -36,7 +36,8 @@ public class ResultsResource {
 	@Path("/{param}")
 	public Response removeResult(@PathParam("param") String symbol,
 			@QueryParam("year") String year) {
-		Record.remove(symbol, year);
+		Record record = new Record("10-K", null, symbol, year, null);
+		record.remove(symbol, year);
 		return Response.status(200).entity("Remove a result with the symbol "+symbol).build();
 	}
 	
