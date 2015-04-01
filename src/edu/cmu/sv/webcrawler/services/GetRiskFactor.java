@@ -100,6 +100,10 @@ public class GetRiskFactor {
 		result.setDocType(documentType);
 		ArrayList<String> URLs = gURL.GetURLwithCIK(symbol, isCurrent,
 				documentType);
+		String companyName = gURL.GetCompanyNameFromsBuffer();
+		String SIC = gURL.GetSICFromsBuffer();
+		String SICName = gURL.GetSICNameFromsBuffer();
+		System.out.printf("companyName is %s, SIC is %S, SICName is %s\n",companyName,SIC,SICName);
 		Iterator<String> it = URLs.iterator();
 
 		while (it.hasNext()) {
@@ -128,9 +132,7 @@ public class GetRiskFactor {
 				url = str;
 			}
 			String ext = url.substring(index2);
-			String fileName = "./10K/" + CIK + "_" + year + ".txt";// + "_" +
-																	// index +
-																	// ext;
+
 			// DownLoad10K(url, fileName);
 
 			StringBuffer sb = GetContent(url);

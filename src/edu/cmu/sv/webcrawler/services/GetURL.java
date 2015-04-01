@@ -87,7 +87,7 @@ public class GetURL {
 	}
 	
 	/**
-	 * This function must be called after Get10kURLwithCIK()
+	 * This function must be called after GetURLwithCIK()
 	 * @return the companyName
 	 */
 	public String GetCompanyNameFromsBuffer(){
@@ -101,7 +101,7 @@ public class GetURL {
 	}
 	
 	/**
-	 * This function must be called after Get10kURLwithCIK()
+	 * This function must be called after GetURLwithCIK()
 	 * @return the SIC of the company
 	 */
 	public String GetSICFromsBuffer(){
