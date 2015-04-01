@@ -54,19 +54,6 @@ public class MongoHelper {
 		}
 	}
 
-	public void insertCompanySymbol(String symbol) {
-		DBCollection cs = db.getCollection("companysymbols");
-		BasicDBObject doc = new BasicDBObject();
-		doc.put("symbol", symbol);
-		cs.insert(doc);
-	}
-	
-	public void removeAllCompanySymbol() {
-		DBCollection cs = db.getCollection("companysymbols");
-		BasicDBObject doc = new BasicDBObject();
-		cs.remove(doc);
-	}
-
 	public ArrayList<String> getAllSymbols() {
 		ArrayList<String> list = new ArrayList<String>();
 		DBCollection cs = db.getCollection("companysymbols");

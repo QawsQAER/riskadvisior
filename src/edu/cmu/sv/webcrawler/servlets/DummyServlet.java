@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import edu.cmu.sv.webcrawler.models.Categories;
 import edu.cmu.sv.webcrawler.models.Keywords;
 import edu.cmu.sv.webcrawler.models.Symbols;
-import edu.cmu.sv.webcrawler.util.MongoHelper;
 
 @WebServlet("/dummy")
 public class DummyServlet extends HttpServlet {
@@ -37,7 +36,7 @@ public class DummyServlet extends HttpServlet {
 	
 	private void insertCategories(HttpServletRequest request,
 			HttpServletResponse response) {
-		Categories c=new Categories();
+		Categories c = new Categories();
 		InputStream is = getServletContext().getResourceAsStream("category.json");
 		c.load(is);
 	}
@@ -68,18 +67,17 @@ public class DummyServlet extends HttpServlet {
 	
 	private void insertSymbols(HttpServletRequest request, HttpServletResponse response) {
 		boolean useJson = false;
-		MongoHelper helper = new MongoHelper();
-		helper.removeAllCompanySymbol();
+		Symbols s = new Symbols();
+		s.removeAll();
 		if(useJson){
 			String filename = "stocksymbol.json";
-			Symbols s = new Symbols();
 			s.loadFromJSONFile(filename);
 			for(String str : s.getSymbols()){
-				helper.insertCompanySymbol(str);
+				s.insert(str);
 			}
 		}else{
 			try {
-				String filename = "stocksymbol";
+				String filename = "stocksymbol.txt";
 				InputStream is = getServletContext().getResourceAsStream(filename);
 				PrintWriter out = response.getWriter();			
 				if (is != null) {
@@ -88,8 +86,7 @@ public class DummyServlet extends HttpServlet {
 					String text = "";
 					while ((text = reader.readLine()) != null) {
 						out.println(text);
-						helper.insertCompanySymbol(text);
-						System.out.println(text);
+						s.insert(text);
 					}
 				}
 			}
