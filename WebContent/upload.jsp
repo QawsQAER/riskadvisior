@@ -8,25 +8,45 @@
 <%@  include file="./templates/includes.jsp"%></head>
 <body>
 	<%@  include file="./templates/header.jsp"%>
-	
 	<div>
 		<h4>Add Keyword Here</h4>
-		<form action="./api/category/addKeyword" method="GET">
-			Category: <input type="text" id="Add_input_category"><br>
-			Keyword: <input type="text" id="Add_input_keyword"><br>
-			<input type="submit" value="add this!">
+		<form>
+			Category: <input type="text" id="add_category"><br>
+			Keyword: <input type="text" name="add_keyword"><br>
+			<button value="add this!" onclick="addKeyword()"></button>
 		</form>
 	</div>
 	
 	<div>
 		<h4>Delete Keyword Here</h4>
-		<form action="./api/category/deleteKeyword" method="GET">
-			Category: <input type="text" id="Del_input_category"><br>
-			Keyword: <input type="text" id="Del_input_keyword"><br>
-			<input type="submit" value="delete this!">
+		<form>
+			Category: <input type="text" name="del_category"><br>
+			Keyword: <input type="text" name="del_keyword"><br>
+			<button value="delete this!" onclick="deleteKeyword()"></button>
 		</form>
 	</div>
 	
+	<script>
+		function addKeyword(){
+			var category = document.getElementById("add_category");
+			var keyword = document.getElementById("add_keyword");
+			$.ajax({
+				type="GET",
+				url="./api/category/addKeyword?category="+category+"&keyword="+keyword,
+				success: function(data){console.log(data);}
+			});
+		}
+		
+		function deleteKeyword(){
+			var category = document.getElementById("del_category");
+			var keyword = document.getElementById("del_keyword");
+			$.ajax({
+				type="GET",
+				url="./api/category/deleteKeyword?category="+category+"&keyword="+keyword,
+				success: function(data){console.log(data);}
+			});
+		}
+	</script>
 	<%@  include file="./templates/footer.jsp"%>
 </body>
 </html>
