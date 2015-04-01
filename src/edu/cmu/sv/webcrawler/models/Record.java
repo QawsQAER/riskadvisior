@@ -181,14 +181,23 @@ public class Record {
 	public boolean save() {
 		DBCollection db = MongoHelper.getCollection();
 		BasicDBObject doc = new BasicDBObject();
+		
 		KeywordsService ks = new KeywordExtractor(riskFactor);
+		
 		Map<String, Integer> map = ks.getKeywordsBySymbol();
+		int wordCount = ks.getWordTotalCount();
+		
 		BasicDBList list = new BasicDBList();
+		
 		for (String s : map.keySet()) {
 			DBObject tmp = new BasicDBObject();
 			tmp.put(s, map.get(s));
 			list.add(tmp);
 		}
+		
+		System.out.println("wordcount in record: " + wordCount);
+		
+		doc.put("wordCount", wordCount);
 		doc.put("symbol", symbol);
 		doc.put("companyName", companyName);
 		doc.put("year", year);

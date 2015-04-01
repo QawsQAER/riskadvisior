@@ -5,5 +5,6 @@ import java.util.HashMap;
 public interface KeywordsService {
 	
 	public HashMap<String,Integer>getKeywordsBySymbol();
-
+	public int getWordTotalCount();
+	
 }
