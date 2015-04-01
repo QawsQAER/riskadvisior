@@ -39,6 +39,9 @@ public class CategoriesResource {
 	public String addSymbolByCategory(
 			@QueryParam("category") String category, @QueryParam("keyword") String keyword){
 		//access add Keyword API using GET
+		Categories c = new Categories();
+		c.insert(category,keyword);
+		c.save();
 		return "category is " + category + ", keyword is " + keyword;
 	}
 	
@@ -47,6 +50,7 @@ public class CategoriesResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String deleteSymbolByCategory(
 			@QueryParam("category") String category, @QueryParam("keyword") String keyword){
+		Categories c = new Categories();
 		return "category is " + category + ", keyword is " + keyword;
  	}
 }

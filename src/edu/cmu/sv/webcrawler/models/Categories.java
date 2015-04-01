@@ -23,15 +23,8 @@ import edu.cmu.sv.webcrawler.util.MongoHelper;
 public class Categories {
 	Map<String, List<String>> categories;
 	Map<String, Integer> map;
-
-	/**
-	 * @return the initMap
-	 */
-	public Map<String, List<String>> getInitMap() {
-		return categories;
-	}
-
 	DBCollection cate;
+
 
 	public Categories() {
 		categories = new HashMap<String, List<String>>();
@@ -39,7 +32,7 @@ public class Categories {
 		this.cate = helper.getDb().getCollection("categories");
 		readFromDb();
 	}
-
+	
 	// generate categories map
 	/*
 	 * { finacial: 5 law: 7 }
@@ -60,6 +53,14 @@ public class Categories {
 				map.put(cateKey, map.get(cateKey) + keywordsMap.get(key));
 			}
 		}
+	}
+
+
+	/**
+	 * @return the initMap
+	 */
+	public Map<String, List<String>> getInitMap() {
+		return categories;
 	}
 
 	private String getCateKey(String key) {
