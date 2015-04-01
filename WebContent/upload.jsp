@@ -13,7 +13,7 @@
 		<form>
 			Category: <input type="text" id="add_category"><br>
 			Keyword: <input type="text" id="add_keyword"><br>
-			<button value="add this!" onclick="addKeyword()"></button>
+			<button onclick="addKeyword()">add this!</button>
 		</form>
 	</div>
 	
@@ -22,7 +22,7 @@
 		<form>
 			Category: <input type="text" id="del_category"><br>
 			Keyword: <input type="text" id="del_keyword"><br>
-			<button value="delete this!" onclick="deleteKeyword()"></button>
+			<button onclick="deleteKeyword()">delete this!</button>
 		</form>
 	</div>
 	
@@ -34,9 +34,9 @@
 			var keyword = document.getElementById("add_keyword");
 			console.log("add keyword based on " + category + ", " + keyword);
 			$.ajax({
-				type="GET",
-				url=host + "/api/category/addKeyword?category="+category+"&keyword="+keyword,
-				success: function(data){console.log(data);}
+				type:"GET",
+				url:host + "/api/category/addKeyword?category="+category+"&keyword="+keyword,
+				success:function(data){console.log(data);}
 			});
 		}
 		
@@ -47,9 +47,9 @@
 			var keyword = document.getElementById("del_keyword");
 			console.log("delete keyword based on " + category + ", " + keyword);
 			$.ajax({
-				type="GET",
-				url=host + "/api/category/deleteKeyword?category="+category+"&keyword="+keyword,
-				success: function(data){console.log(data);}
+				type:"GET",
+				url:host + "/api/category/deleteKeyword?category="+category+"&keyword="+keyword,
+				success:function(data){console.log(data);}
 			});
 		}
 	</script>

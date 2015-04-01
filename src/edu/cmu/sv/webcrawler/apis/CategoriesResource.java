@@ -38,7 +38,9 @@ public class CategoriesResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String addSymbolByCategory(
             @QueryParam("category") String category, @QueryParam("keyword") String keyword) {
-        //access add Keyword API using GET
+        if(category.length() == 0 || keyword.length() == 0)
+        	return "empty category or keyword received";
+    	//access add Keyword API using GET
         Categories c = new Categories();
         c.insert(category, keyword);
         return " category: " + category + ", added keyword:" + keyword;
@@ -49,7 +51,9 @@ public class CategoriesResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String deleteSymbolByCategory(
             @QueryParam("category") String category, @QueryParam("keyword") String keyword) {
-        Categories c = new Categories();
+    	if(category.length() == 0 || keyword.length() == 0)
+        	return "empty category or keyword received";
+    	Categories c = new Categories();
         c.remove(category, keyword);
         return "category: " + category + ", removed keyword is " + keyword;
     }
