@@ -28,21 +28,27 @@
 	
 	<script>
 		function addKeyword(){
+			var url = location.href;
+			var host = url.substring(0, url.lastIndexOf("/"));
 			var category = document.getElementById("add_category");
 			var keyword = document.getElementById("add_keyword");
+			console.log("add keyword based on " + category + ", " + keyword);
 			$.ajax({
 				type="GET",
-				url="./api/category/addKeyword?category="+category+"&keyword="+keyword,
+				url=host + "/api/category/addKeyword?category="+category+"&keyword="+keyword,
 				success: function(data){console.log(data);}
 			});
 		}
 		
 		function deleteKeyword(){
+			var url = location.href;
+			var host = url.substring(0, url.lastIndexOf("/"));
 			var category = document.getElementById("del_category");
 			var keyword = document.getElementById("del_keyword");
+			console.log("delete keyword based on " + category + ", " + keyword);
 			$.ajax({
 				type="GET",
-				url="./api/category/deleteKeyword?category="+category+"&keyword="+keyword,
+				url=host + "/api/category/deleteKeyword?category="+category+"&keyword="+keyword,
 				success: function(data){console.log(data);}
 			});
 		}
