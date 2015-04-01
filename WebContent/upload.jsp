@@ -8,22 +8,30 @@
 <%@  include file="./templates/includes.jsp"%></head>
 <body>
 	<%@  include file="./templates/header.jsp"%>
-	<div>
-		<h4>Add Keyword Here</h4>
-		<form>
-			Category: <input type="text" id="add_category"><br>
-			Keyword: <input type="text" id="add_keyword"><br>
-			<button value="add this!" onclick="addKeyword()"></button>
+	<div class="container">
+		<div class="col-sm-4">
+		<h4> Add Keyword Here</h4>
+		<form class="form-horizontal" >
+			<label for="category" class="control-label">Category:</label> 
+			<input type="text" id="add_category" class="form-control col-sm-4"><br>
+			<label for="keyword" class="control-label">Keyword:</label>
+			<input type="text" id="add_keyword" class="form-control col-sm-4"><br>		
+			<button value="add this!" onclick="addKeyword()" class="btn btn-default">Add</button>
 		</form>
+		</div>	
 	</div>
-	
-	<div>
-		<h4>Delete Keyword Here</h4>
-		<form>
-			Category: <input type="text" id="del_category"><br>
-			Keyword: <input type="text" id="del_keyword"><br>
-			<button value="delete this!" onclick="deleteKeyword()"></button>
+	<br>
+	<div class="container">
+		<div class="col-sm-4">
+		<h4> Delete Keyword Here</h4>
+		<form class="form-horizontal" >
+			<label for="category" class="control-label">Category:</label>
+			<input type="text" id="del_category" class="form-control col-sm-4"><br>
+			<label for="keyword" class="control-label">Keyword:</label> 
+			<input type="text" id="del_keyword" class="form-control col-sm-4"><br>
+			<button value="delete this!" onclick="deleteKeyword()" class="btn btn-default">Delete</button>
 		</form>
+		</div>
 	</div>
 	
 	<script>
