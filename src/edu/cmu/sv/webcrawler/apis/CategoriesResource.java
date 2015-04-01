@@ -40,8 +40,8 @@ public class CategoriesResource {
 			@QueryParam("category") String category, @QueryParam("keyword") String keyword){
 		//access add Keyword API using GET
 		Categories c = new Categories();
-		c.insert(category,keyword);
-		c.save();
+		//c.insert(category,keyword);
+		//c.save();
 		return "category is " + category + ", keyword is " + keyword;
 	}
 	
