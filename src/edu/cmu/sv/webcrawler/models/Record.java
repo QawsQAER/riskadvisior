@@ -52,8 +52,6 @@ public class Record {
 		this.keywords = keywords;
 	}
 
-
-
 	/**
 	 * @return the companyName
 	 */
@@ -263,7 +261,7 @@ public class Record {
 		return records;
 	}
 
-	public static void remove(String symbol, String year) {
+	public void remove(String symbol, String year) {
 		DBCollection db = MongoHelper.getCollection();
 		BasicDBObject doc = new BasicDBObject();
 		doc.put("symbol", symbol);

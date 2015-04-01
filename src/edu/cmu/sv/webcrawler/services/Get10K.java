@@ -128,6 +128,7 @@ public class Get10K {
 			return;
 		}
 		Record record = new Record("10-K", s_10K, symbol, year, null);
+		record.remove(symbol, year);
 		record.setCompanyName(companyName);
 		record.setSIC(SIC);
 		record.setSICName(SICName);
