@@ -37,6 +37,10 @@
         </element>
       </element>
       <element id="javaee-facet-resources" facet="WebCrawlerApp/web/Web" />
+      <element id="file-copy" path="$PROJECT_DIR$/category.json" />
+      <element id="file-copy" path="$PROJECT_DIR$/stocksymbol.json" />
+      <element id="file-copy" path="$PROJECT_DIR$/stocksymbol" />
+      <element id="file-copy" path="$PROJECT_DIR$/keywords.txt" />
     </root>
   </artifact>
 </component>

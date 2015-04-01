@@ -15,42 +15,42 @@ import edu.cmu.sv.webcrawler.models.Keywords;
 
 @Path("/category")
 public class CategoriesResource {
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Categories getCategory(@PathParam("param") String symbol){
-		Categories c = new Categories();
-		return c;
-	}
-	
-	@GET
-	@Path("/{param}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Map<String,Integer> getCategoryBySymbol(
-			@PathParam("param") String symbol, @QueryParam("year") String year) {
-		Keywords ks = new Keywords();
-		Map<String, Integer> map = ks.getKeywords(symbol, year);
-		Categories c = new Categories(map);
-		return c.getMap();
-	}
-	
-	@GET
-	@Path("/addKeyword")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String addSymbolByCategory(
-			@QueryParam("category") String category, @QueryParam("keyword") String keyword){
-		//access add Keyword API using GET
-		Categories c = new Categories();
-		c.insert(category,keyword);
-		c.save();
-		return "category is " + category + ", keyword is " + keyword;
-	}
-	
-	@GET
-	@Path("/deleteKeyword")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String deleteSymbolByCategory(
-			@QueryParam("category") String category, @QueryParam("keyword") String keyword){
-		Categories c = new Categories();
-		return "category is " + category + ", keyword is " + keyword;
- 	}
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Categories getCategory(@PathParam("param") String symbol) {
+        Categories c = new Categories();
+        return c;
+    }
+
+    @GET
+    @Path("/{param}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, Integer> getCategoryBySymbol(
+            @PathParam("param") String symbol, @QueryParam("year") String year) {
+        Keywords ks = new Keywords();
+        Map<String, Integer> map = ks.getKeywords(symbol, year);
+        Categories c = new Categories(map);
+        return c.getMap();
+    }
+
+    @GET
+    @Path("/addKeyword")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String addSymbolByCategory(
+            @QueryParam("category") String category, @QueryParam("keyword") String keyword) {
+        //access add Keyword API using GET
+        Categories c = new Categories();
+        c.insert(category, keyword);
+        return " category: " + category + ", added keyword:" + keyword;
+    }
+
+    @GET
+    @Path("/deleteKeyword")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteSymbolByCategory(
+            @QueryParam("category") String category, @QueryParam("keyword") String keyword) {
+        Categories c = new Categories();
+        c.remove(category, keyword);
+        return "category: " + category + ", removed keyword is " + keyword;
+    }
 }
