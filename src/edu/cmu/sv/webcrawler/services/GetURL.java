@@ -6,6 +6,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+
+/* This class retrives the urls of the annual reports in the website that belongs
+ * to the company that is to be searched
+ */
+
 public class GetURL {
 	private ArrayList<String> URLs;
 	private StringBuffer sBuffer;
@@ -17,7 +22,10 @@ public class GetURL {
 	
 	private void ParseURLs(boolean isCurrent) {
 		int startIndex = 0, endIndex = 0;
-		while(true) {			
+		
+		int theCounter = 0;
+		
+		while(true) {
 			startIndex = sBuffer.indexOf("/Archives/edgar/data", endIndex);
 			if(startIndex == -1) {
 				return;
@@ -30,7 +38,14 @@ public class GetURL {
 				year = str.substring(index+1, index+3);
 			}
 			str = "http://www.sec.gov" + str;
-			URLs.add("http://www.sec.gov" + this.ParseIntoURLs(str) + year);
+			URLs.add("http://www.sec.gov" + this.ParseIntoURLs(str)+year);
+			
+			
+			
+			theCounter++;
+			
+			if (theCounter == 3) break;
+			
 			if(Integer.parseInt(year) <= 11) {
 				break;
 			}
@@ -56,21 +71,18 @@ public class GetURL {
 		return str;
 	}
 	
-	public ArrayList<String> Get10kURLwithCIK(String CIK, boolean isCurrent) {
+	public ArrayList<String> GetURLwithCIK(String CIK, boolean isCurrent, String documentType) {
 		String queryURL;
 		if(isCurrent == false) {
-			queryURL = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&type=10-K&CIK=";
+			queryURL = "http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&type=" + documentType + "&CIK=";
 			this.sBuffer = Get10kSearchPage(queryURL + CIK);
 		}
 		else {
 			queryURL = "http://www.sec.gov/cgi-bin/current.pl?q1=1&q2=0";
 			this.sBuffer = Get10kSearchPage(queryURL);
-		}		
-		//print out sBuffer
-		//System.out.println(sBuffer);
-		
-		//this function will parse the content in sBuffer, and store all the URLs into URLs
+		}				
 		ParseURLs(isCurrent);
+		
 		return URLs;
 	}
 	
@@ -149,7 +161,7 @@ public class GetURL {
             	sb.append((char)chByte);
                 chByte = in.read();
             }
-            //System.out.println(len);
+            System.out.println();
         }
         catch (MalformedURLException e)
         {
