@@ -38,8 +38,8 @@ import org.xml.sax.InputSource;
 import com.firebase.client.Firebase;
 
 import net.htmlparser.jericho.Source;
-import model.BigInsights;
-import model.Record;
+
+import edu.cmu.sv.webcrawler.models.*;
 
 public class GetRiskFactor {
 
@@ -91,6 +91,7 @@ public class GetRiskFactor {
 	 * @param symbol
 	 * @param isCurrent
 	 *            true - download 10K for the day
+	 * @param documentType
 	 */
 	public RequiredInfo DownloadByCIKAndType(String symbol, boolean isCurrent,
 			String documentType) {
@@ -199,8 +200,9 @@ public class GetRiskFactor {
 		if (s_10K == null || s_10K.isEmpty()) {
 			return;
 		}
-		Record record = new Record(s_10K, symbol, year, null);
-		record.save();
+		//TODO: modify this so that it matches the latest Record format
+		//Record record = new Record(s_10K, symbol, year, null);
+		//record.save();
 	}
 
 	/**

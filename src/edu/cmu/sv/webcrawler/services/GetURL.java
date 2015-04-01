@@ -188,7 +188,7 @@ public class GetURL {
 	
 	public static void main(String Args[]){
 		GetURL tester = new GetURL();
-		tester.Get10kURLwithCIK("IBM",false);
+		tester.GetURLwithCIK("IBM",false,"10-K");
 		tester.GetCompanyNameFromsBuffer();
 		return ;
 	}

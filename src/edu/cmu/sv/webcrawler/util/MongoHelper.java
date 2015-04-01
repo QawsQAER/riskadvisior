@@ -31,14 +31,16 @@ public class MongoHelper {
 	//Now, the mongodb service is deployed on mongolab now which is accessible from local machine
 	//No need to maintain two mongo dbs.
 	private static void localConnect() {
-		//connect();
-        try {
+		connect();
+        /*
+		try {
 			Mongo mongo = new Mongo("localhost", 27017);
 			db = mongo.getDB("db");
 			collection = db.getCollection(MongoConstants.COLLECTIONS);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
+		*/
 	}
 
 	private static void connect() {

@@ -8,6 +8,11 @@
 	<property name="source" value="1.6" />
 	<path id="classpathDir">
 		<pathelement location="bin" />
+		<pathelement location="WebContent/WEB-INF/lib/commons-codec-1.10.jar" />
+		<pathelement location="WebContent/WEB-INF/lib/httpclient-4.3.4.jar" />
+		<pathelement location="WebContent/WEB-INF/lib/httpcore-4.3.2.jar" />
+		<pathelement location="WebContent/WEB-INF/lib/fluent-hc-4.3.4.jar" />
+		<pathelement location="WebContent/WEB-INF/lib/firebase-client-jvm-2.0.2.jar" />
 		<pathelement location="WebContent/WEB-INF/lib/jsr311-api-1.1.1.jar" />
 		<pathelement location="WebContent/WEB-INF/lib/wink-1.2.1-incubating.jar" />
 		<pathelement location="WebContent/WEB-INF/lib/javax.servlet_3.0.0.jar" />

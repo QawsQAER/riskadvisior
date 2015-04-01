@@ -1,9 +1,9 @@
 package edu.cmu.sv.webcrawler.services;
 
+import edu.cmu.sv.webcrawler.models.Record;
+
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,8 +13,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
 import net.htmlparser.jericho.Source;
-import edu.cmu.sv.webcrawler.models.Record;
 
 public class Get10K {
 
@@ -68,7 +68,7 @@ public class Get10K {
 	public int Download10KbyCIK(String symbol, boolean isCurrent) {
 		GetURL gURL = new GetURL();
 		
-		ArrayList<String> urls = gURL.Get10kURLwithCIK(symbol, isCurrent);
+		ArrayList<String> urls = gURL.GetURLwithCIK(symbol, isCurrent,"10-K");
 		if(urls.size() == 0)
 			return -1;
 		
@@ -120,6 +120,10 @@ public class Get10K {
 	 * @param s_10K
 	 * @param year
 	 * @param symbol
+	 * @param companyName
+	 * @param SIC
+	 * @param SICName
+	 * @param url
 	 */
 	private void output(String s_10K, String year, 
 			String symbol, String companyName, 
