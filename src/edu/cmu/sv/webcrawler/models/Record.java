@@ -24,6 +24,7 @@ public class Record {
 	String url;
 	String SIC;
 	String SICName;
+	String wordCount;
 	
 	Map<String, Integer> keywords;
 	Map<String, Integer> categories;
@@ -156,6 +157,21 @@ public class Record {
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
+	
+	/**
+	 * @return the wordCount
+	 */
+	public String getWordCount() {
+		return wordCount;
+	}
+
+	/**
+	 * @param wordCount
+	 *            the wordCount to set
+	 */
+	public void setWordCount(String wordCount) {
+		this.wordCount = wordCount;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -165,7 +181,7 @@ public class Record {
 	@Override
 	public String toString() {
 		return "Record [companyName" + companyName + ", year=" + year + ", riskFactor=" + riskFactor
-				+ ", symbol=" + symbol + ", url=" + url + ", SIC=" + SIC + ", SICName=" + SICName + "]";
+				+ ", symbol=" + symbol + ", url=" + url + ", SIC=" + SIC + ", SICName=" + SICName + ", wordCount=" + wordCount + "]";
 	}
 
 	/**
@@ -183,7 +199,7 @@ public class Record {
 		KeywordsService ks = new KeywordExtractor(riskFactor);
 		
 		Map<String, Integer> map = ks.getKeywordsBySymbol();
-		int wordCount = ks.getWordTotalCount();
+		this.wordCount = String.valueOf(ks.getWordTotalCount());
 		
 		BasicDBList list = new BasicDBList();
 		
@@ -193,9 +209,8 @@ public class Record {
 			list.add(tmp);
 		}
 		
-		System.out.println("wordcount in record: " + wordCount);
+		//System.out.println("wordcount in record: " + wordCount);
 		
-		doc.put("wordCount", wordCount);
 		doc.put("symbol", symbol);
 		doc.put("companyName", companyName);
 		doc.put("year", year);
@@ -207,6 +222,7 @@ public class Record {
 		doc.put("document", documentType);
 		doc.put("SIC", SIC);
 		doc.put("SICName", SICName);
+		doc.put("wordCount", wordCount);
 		db.insert(doc);
 		this.keywords = map;
 		return true;
@@ -227,6 +243,7 @@ public class Record {
 				String SIC = (String) obj.get("SIC");
 				String SICName = (String) obj.get("SICName");
 				String url = (String) obj.get("url");
+				String wordCount = (String) obj.get("wordCount");
 				BasicDBList keywords = (BasicDBList) obj.get("keywords");
 				Map<String, Integer> map = Keywords.getMap(keywords);
 				Record record = new Record("10-K", riskFactor, symbol, year, map);
@@ -234,6 +251,7 @@ public class Record {
 				record.setSIC(SIC);
 				record.setSICName(SICName);
 				record.setUrl(url);
+				record.setWordCount(wordCount);
 				records.add(record);
 			}
 		} catch (Exception e) {
@@ -256,6 +274,7 @@ public class Record {
 				String SIC = (String) obj.get("SIC");
 				String SICName = (String) obj.get("SICName");
 				String url = (String) obj.get("url");
+				String wordCount = (String) obj.get("wordCount");
 				BasicDBList keywords = (BasicDBList) obj.get("keywords");
 				Map<String, Integer> map = Keywords.getMap(keywords);
 				Record record = new Record("10-K", riskFactor, symbol, year, map);
@@ -263,6 +282,7 @@ public class Record {
 				record.setSIC(SIC);
 				record.setSICName(SICName);
 				record.setUrl(url);
+				record.setWordCount(wordCount);
 				records.add(record);
 			}
 		} catch (Exception e) {
