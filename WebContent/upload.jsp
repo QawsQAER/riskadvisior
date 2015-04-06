@@ -32,7 +32,61 @@
 		</div>
 	</div>
 	
+	<div class="container" class="col-sm-4">
+		<h4>Category</h4>
+		<table id="CategoryTable" class="table table-striped table-hover table-bordered table-striped">
+		</table>
+	</div>
 	<script>
+		getKeywords();
+		function getKeywords(){
+			var url = location.href;
+			var host = url.substring(0, url.lastIndexOf("/"));
+			console.log(host + "/api/category");
+			$.ajax({
+				type:"GET",
+				url:host + "/api/category",
+				success:function(data){renderKeywords(data);}
+			})
+		}
+		
+		function renderKeywords(data){
+			console.log(data);
+			var table = document.getElementById("CategoryTable");
+			table.innerHTML = "";
+			var tr = document.createElement("tr");
+			var td1 = document.createElement("td");
+			var td2 = document.createElement("td");
+			td1.innerHTML = "Category";
+			td2.innerHTML = "Keyword";
+			tr.appendChild(td1);
+			tr.appendChild(td2);
+			table.appendChild(tr);
+			var categories = data.initMap;
+			console.log(categories);
+			for(var category in categories){
+				console.log(category);
+				if(categories.hasOwnProperty(category)){
+					for(var idx in categories[category]){
+						addTableRow(table,category,categories[category][idx]);
+					}
+				}
+			}
+		}
+		
+		function addTableRow(table,categoryName,keyword){
+			console.log("addTableRow(" + table + ", " + categoryName + ", " + keyword);
+			var tr = document.createElement("tr");
+			var td1 = document.createElement("td");
+			td1.innerHTML = categoryName;
+			var td2 = document.createElement("td");
+			td2.innerHTML = keyword;
+			tr.appendChild(td1);
+			tr.appendChild(td2);
+			table.appendChild(tr);
+			return ;
+		}
+		
 		function addKeyword(){
 			var url = location.href;
 			var host = url.substring(0, url.lastIndexOf("/"));
@@ -43,7 +97,10 @@
 			$.ajax({
 				type:"GET",
 				url:host + "/api/category/addKeyword?category="+category+"&keyword="+keyword,
-				success:function(data){console.log(data);}
+				success:function(data){
+					console.log(data);
+					getKeywords();
+				}
 			});
 			
 		}
@@ -58,7 +115,10 @@
 			$.ajax({
 				type:"GET",
 				url:host + "/api/category/deleteKeyword?category="+category+"&keyword="+keyword,
-				success:function(data){console.log(data);}
+				success:function(data){
+					console.log(data);
+					getKeywords();
+				}
 			});
 			
 		}
