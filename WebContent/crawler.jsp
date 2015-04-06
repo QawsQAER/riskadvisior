@@ -13,9 +13,13 @@
 		<form id="crawlerform" class="form-horizontal" role="form"
 			action="/crawl" method="post">
 			<div class="form-group">
-				<label for="companyname">Crawl records of a company</label> <input
-					type="text" id="companyname" class="form-control col-sm-4"
+				<label for="companyname">Crawl records of a company</label>
+				<input type="text" id="companyname" class="form-control col-sm-4"
 					placeholder="Empty = crawl all companies"></input>
+				<select id="docType">
+					<option value="10-K" selected="selected">10-K</option>
+					<option value="20-F">20-F</option>
+				</select>
 			</div>
 			<div class="form-group">
 				<button id="begincrawl" type="submit" class="btn btn-default">Crawl
@@ -44,8 +48,9 @@
 			function(event) {
 				event.preventDefault();
 				var symbol = $("#companyname").val();
+				var docType = $("#docType").val();
 				var output = $("#crawl-info");
-				var crawlurl = host+"/api/crawl/" + symbol;
+				var crawlurl = host+"/api/crawl/" + symbol + "?docType=" + docType;
 				$.ajax({
 					url : crawlurl,
 					success : function(data) {
