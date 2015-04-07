@@ -78,6 +78,7 @@
 		function addTableRow(table,categoryName,keyword){
 			console.log("addTableRow(" + table + ", " + categoryName + ", " + keyword);
 			var tr = document.createElement("tr");
+			tr.className = "success";
 			var td1 = document.createElement("td");
 			td1.innerHTML = categoryName;
 			var td2 = document.createElement("td");
@@ -100,7 +101,8 @@
 				url:host + "/api/category/addKeyword?category="+category+"&keyword="+keyword,
 				success:function(data){
 					console.log(data);
-					getKeywords();
+					//wait 1 second before getting latest data from mongoDB 
+					setTimeout("getKeywords()",1000);
 				}
 			});
 			
@@ -118,7 +120,8 @@
 				url:host + "/api/category/deleteKeyword?category="+category+"&keyword="+keyword,
 				success:function(data){
 					console.log(data);
-					getKeywords();
+					//wait 1 second before getting latest data from mongoDB
+					setTimeout("getKeywords()",1000);
 				}
 			});
 			
