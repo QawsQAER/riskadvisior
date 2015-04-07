@@ -1,6 +1,9 @@
 package edu.cmu.sv.webcrawler.models;
 
 import edu.cmu.sv.webcrawler.services.Get10K;
+import edu.cmu.sv.webcrawler.services.GetRiskFactor;
+import edu.cmu.sv.webcrawler.services.RequiredInfo;
+import java.util.List;
 
 public class Crawler {
 	
@@ -27,6 +30,10 @@ public class Crawler {
 	 * 			-1 when Download10KbyCIK fail
 	 */
 	public int crawl(String symbol, String docType){
+		GetRiskFactor g = new GetRiskFactor();
+		List<RequiredInfo> l = g.DownloadByCIKAndType(symbol, false, docType);
+		for(RequiredInfo info : l)
+			g.save(info);
 		return 1;
 	}
 }

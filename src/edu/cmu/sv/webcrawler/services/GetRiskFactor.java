@@ -154,7 +154,7 @@ public class GetRiskFactor {
 					s = exall.extractAllText8K(sb.toString());
 			}
 			if(s != null)
-				System.out.println("FInish one Crawl for:"+documentType);
+				System.out.println("Finish one Crawl for:"+documentType);
 			String[] sp = s.split(" ");
 			int count = sp.length;
 			result.setRiskFactor(s);
@@ -268,8 +268,10 @@ public class GetRiskFactor {
 		System.out.println("Start crawling from www.sec.gov...");
 		String CIK = "CX"; // "ABIO"
 		GetRiskFactor getRisk = new GetRiskFactor();
-		RequiredInfo rinfo = new RequiredInfo();
-		
+		List<RequiredInfo> l = getRisk.DownloadByCIKAndType(CIK,false,"20-F");
+		for(RequiredInfo info : l){
+			getRisk.save(info);
+		}
 		// g10K.Download10KbyCIKList("stocksymbol");
 		System.out.println("Finished crawling.");
 	}
