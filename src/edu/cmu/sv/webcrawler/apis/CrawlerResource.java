@@ -26,7 +26,7 @@ public class CrawlerResource {
 		String fail_output = "Fail to crawl the risk factor for company with symbol " 
 							+ symbol + ",docType " + docType;
 		Crawler c = new Crawler();
-		if(c.crawl(symbol,docType) < 0)
+		if(c.crawl(symbol, docType) < 0)
 			return Response.status(200).entity(fail_output).build();
 	
 		return Response.status(200).entity(output).build();

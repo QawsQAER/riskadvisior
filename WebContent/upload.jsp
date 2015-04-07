@@ -31,12 +31,21 @@
 		<button value="delete this!" onclick="deleteKeyword()" class="btn btn-default">Delete</button>
 		</div>
 	</div>
-	
-	<div class="container" class="col-sm-4">
+	<br>
+	<div class="container">
 		<h4>Category</h4>
-		<table id="CategoryTable" class="table table-striped table-hover table-bordered table-striped">
+		<table class="table table-striped table-hover table-bordered table-striped" >
+			<thead>
+			<tr>
+				<th>Category</th>
+				<th>Keyword</th>
+			</tr>
+			</thead>
+			<tbody id="CategoryTable">
+			</tbody>
 		</table>
 	</div>
+	
 	<script>
 		getKeywords();
 		function getKeywords(){
@@ -54,14 +63,6 @@
 			console.log(data);
 			var table = document.getElementById("CategoryTable");
 			table.innerHTML = "";
-			var tr = document.createElement("tr");
-			var td1 = document.createElement("td");
-			var td2 = document.createElement("td");
-			td1.innerHTML = "Category";
-			td2.innerHTML = "Keyword";
-			tr.appendChild(td1);
-			tr.appendChild(td2);
-			table.appendChild(tr);
 			var categories = data.initMap;
 			console.log(categories);
 			for(var category in categories){
