@@ -247,9 +247,10 @@ public class Record {
 				String SICName = (String) obj.get("SICName");
 				String url = (String) obj.get("url");
 				String wordCount = (String) obj.get("wordCount");
+				String docType = (String) obj.get("document");
 				BasicDBList keywords = (BasicDBList) obj.get("keywords");
 				Map<String, Integer> map = Keywords.getMap(keywords);
-				Record record = new Record("10-K", riskFactor, symbol, year, map);
+				Record record = new Record(docType, riskFactor, symbol, year, map);
 				record.setCompanyName(companyName);
 				record.setSIC(SIC);
 				record.setSICName(SICName);
@@ -278,9 +279,10 @@ public class Record {
 				String SICName = (String) obj.get("SICName");
 				String url = (String) obj.get("url");
 				String wordCount = (String) obj.get("wordCount");
+				String docType = (String) obj.get("document");
 				BasicDBList keywords = (BasicDBList) obj.get("keywords");
 				Map<String, Integer> map = Keywords.getMap(keywords);
-				Record record = new Record("10-K", riskFactor, symbol, year, map);
+				Record record = new Record(docType, riskFactor, symbol, year, map);
 				record.setCompanyName(companyName);
 				record.setSIC(SIC);
 				record.setSICName(SICName);
