@@ -160,7 +160,6 @@ public class GetRiskFactor {
 			result.setRiskFactor(s);
 			result.setSIC(SIC);
 			result.setSICName(SICName);
-			//result.setSymbo(symbo);
 			result.setYear(year);
 			KeywordMatcher mat = new KeywordMatcher();
 			result.setKeywords(mat.getKeywordMatch(s));
@@ -168,40 +167,6 @@ public class GetRiskFactor {
 			result.setUrl(url);
 			resultList.add(result);
 			save(result);
-
-			// BigInsights bigInsights = new BigInsights();
-			//
-			// String json = null;
-			// try {
-			// json = bigInsights.runApp(s_10K);
-			// } catch (Exception e) {
-			// e.printStackTrace();
-			// }
-			//
-			// StringBuffer sb_10K_2 = new StringBuffer();
-			// sb_10K_2.append(". ");
-			//
-			// String lines[] = json.split("}");
-			//
-			// for (String line : lines) {
-			// String tokens[] = line.split(":|,");
-			//
-			// int count = Integer.parseInt(tokens[1].trim());
-			// String word = tokens[3].split("}")[0].split("\"")[1];
-			//
-			// for (int i = 0; i < count; ++i) {
-			// sb_10K_2.append(word);
-			// sb_10K_2.append(". ");
-			// }
-			// }
-			//
-			// String s_10K_2 = sb_10K_2.toString();
-			//
-			// output(s_10K_2, year, symbol);
-
-			// output(s_10K, year, symbol);
-
-			// System.out.println(fileName);
 		}
 		return resultList;
 	}
