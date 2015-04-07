@@ -38,7 +38,6 @@ import org.xml.sax.InputSource;
 import com.firebase.client.Firebase;
 
 import net.htmlparser.jericho.Source;
-
 import edu.cmu.sv.webcrawler.models.*;
 
 public class GetRiskFactor {
@@ -168,6 +167,7 @@ public class GetRiskFactor {
 			result.setWordCount(count);
 			result.setUrl(url);
 			resultList.add(result);
+			save(result);
 
 			// BigInsights bigInsights = new BigInsights();
 			//
@@ -206,6 +206,23 @@ public class GetRiskFactor {
 		return resultList;
 	}
 
+	public void save(RequiredInfo result){
+		
+		String documentType = result.getDocumentType();
+		String riskFactor = result.getRiskFactor();
+		String symbol = result.getSymbo();
+		String year = result.getYear();
+		Record record = new Record(documentType, riskFactor, symbol, year, null);
+		record.remove(symbol, year);
+		
+		record.setCompanyName(result.getCompanyName());
+		record.setSIC(result.getSIC());
+		record.setSICName(result.getSICName());
+		record.setUrl(result.getUrl());
+		record.setKeywords(result.getKeywords());
+		record.setWordCount(result.getWordCount()+"");
+		record.save();
+	}
 	/**
 	 * 
 	 * Output all the s_10k into MongoDB
