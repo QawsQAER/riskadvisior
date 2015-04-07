@@ -93,7 +93,7 @@ public class Keywords {
 	}
 	
 	public static Map<String, Integer> getFrequencyMap(BasicDBList keywords, String wordCount) {
-		Map<String,Integer> map = new HashMap<String,Integer>();
+		Map<String, Integer> map = new HashMap<String, Integer>();
 		int wc = Integer.parseInt(wordCount);
 		for (Iterator<Object> it = keywords.iterator(); it.hasNext();) {
 			BasicDBObject dbo = (BasicDBObject) it.next();

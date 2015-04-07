@@ -1,5 +1,6 @@
 package edu.cmu.sv.webcrawler.apis;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.ws.rs.GET;
@@ -36,12 +37,18 @@ public class CategoriesResource {
     @GET
     @Path("/frequency/{param}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Map<String, Integer> getCategoryBySymbolWithFrequency(
+    public Map<String, Double> getCategoryBySymbolWithFrequency(
             @PathParam("param") String symbol, @QueryParam("year") String year) {
         Keywords ks = new Keywords();
         Map<String, Integer> map = ks.getKeywordsFrequency(symbol, year);
         Categories c = new Categories(map);
-        return c.getMap();
+        Map<String, Integer> imap = c.getMap();
+        Map<String, Double> dmap = new HashMap<String, Double>();
+        for (String key : imap.keySet()) {
+        	Double d = imap.get(key)/100.0;
+        	dmap.put(key, d);
+        }
+        return dmap;
     }
 
     @GET
