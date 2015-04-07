@@ -69,7 +69,7 @@
 					crawlurl = crawlurl + "/?year=" + year;
 					categoryurl = categoryurl+"/?year=" + year;
 				}
-				else{
+				else {
 					crawlurl = crawlurl + "/?year=2014";
 					categoryurl = categoryurl+"/?year=2014";
 				}
