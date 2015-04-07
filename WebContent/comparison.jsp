@@ -59,6 +59,15 @@
 			var finished = 0;
 			var dataA = null;
 			var dataB = null;
+			//for frequency
+			var FA = $('#companyA').val();
+			var FB = $('#companyB').val();
+			var categoryFrequencyurl = host+"/api/category/frequency/";
+			var categoryFrequencyA = categoryFrequencyurl + FA + "?year="+year;
+			var categoryFrequencyB = categoryFrequencyurl + FB + "?year="+year;
+			var dataFrequencyA = null;
+			var dataFrequencyB = null;
+			
 			$.ajax({
 				url : categoryA,
 				success : function(dataA) {
@@ -66,27 +75,23 @@
 						url: categoryB,
 						success:function(dataB){
 							showComparison(dataA, dataB, A, B);
+							$.ajax({
+								url : categoryFrequencyA,
+								success : function(dataFrequencyA) {
+									$.ajax({
+										url: categoryFrequencyB,
+										success:function(dataFrequencyB){
+											showFrequencyComparison(dataFrequencyA, dataFrequencyB, FA, FB); 
+											/* showComparison(dataFrequencyA, dataFrequencyB, A, B); */
+										}
+									});
+								}
+							});
 						}
 					});
 				}
 			});
-			//for frequency
-			var categoryurl = host+"/api/category/frequency/";
-			var categoryFrequencyA = categoryurl + A + "?year="+year;
-			var categoryFrequencyB = categoryurl + B + "?year="+year;
-			var dataFrequencyA = null;
-			var dataFrequencyB = null;
-			$.ajax({
-				url : categoryFrequencyA,
-				success : function(dataFrequencyA) {
-					$.ajax({
-						url: categoryFrequencyB,
-						success:function(dataFrequencyB){
-							showFrequencyComparison(dadataFrequencyAtaA, dataFrequencyB, A, B);
-						}
-					});
-				}
-			});
+			
 		});
 		function showComparison(dataA, dataB, A, B) {
 			var keys = [];
@@ -112,12 +117,13 @@
 			});
 			chart.render();
 		}
+		
 		function showFrequencyComparison(dataA, dataB, A, B){
-			var keys = [];
-			keys = gatherKeys(dataA,keys);
-			keys = gatherKeys(dataB,keys);
-			var dpA = convert(dataA,keys);
-			var dpB = convert(dataB,keys);
+			var keysF = [];
+			keysF = gatherKeys(dataA,keysF);
+			keysF = gatherKeys(dataB,keysF);
+			var dpFA = convert(dataA,keysF);
+			var dpFB = convert(dataB,keysF);
 			
 			var chart_frequency = new CanvasJS.Chart("chartContainer2", {
 				title : {
@@ -127,17 +133,17 @@
 					legendText : A,
 					type : "stackedBar",
 					showInLegend: "true",
-					dataPoints : dpA
+					dataPoints : dpFA
 				}, {
 					legendText : B,
 					type : "stackedBar",
 					showInLegend: "true",
-					dataPoints : dpB
+					dataPoints : dpFB
 				} ]
 			});
 
 			chart_frequency.render();
-		}
+		} 
 		
 		function gatherKeys(data,keys) {
 			// append unique keys from the data set
