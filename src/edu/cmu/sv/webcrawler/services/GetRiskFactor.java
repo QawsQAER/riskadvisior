@@ -156,6 +156,8 @@ public class GetRiskFactor {
 			}
 			if(s != null)
 				System.out.println("FInish one Crawl for:"+documentType);
+			String[] sp = s.split(" ");
+			int count = sp.length;
 			result.setRiskFactor(s);
 			result.setSIC(SIC);
 			result.setSICName(SICName);
@@ -163,6 +165,7 @@ public class GetRiskFactor {
 			result.setYear(year);
 			KeywordMatcher mat = new KeywordMatcher();
 			result.setKeywords(mat.getKeywordMatch(s));
+			result.setWordCount(count);
 			result.setUrl(url);
 			resultList.add(result);
 

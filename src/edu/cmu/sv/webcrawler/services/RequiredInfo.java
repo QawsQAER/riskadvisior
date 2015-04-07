@@ -14,7 +14,7 @@ public class RequiredInfo {
 	String symbo = "";
 	String SIC = "";
 	String SICName = "";
-	String wordCount = "";
+	int wordCount = 0;
 	HashMap<String, Integer> keywords = new HashMap<String, Integer>();
 	
 	public HashMap<String, Integer> getKeywords() {
@@ -71,10 +71,10 @@ public class RequiredInfo {
 	public void setSICName(String sICName) {
 		SICName = sICName;
 	}
-	public String getWordCount() {
+	public int getWordCount() {
 		return wordCount;
 	}
-	public void setWordCount(String wordCount) {
+	public void setWordCount(int wordCount) {
 		this.wordCount = wordCount;
 	}
 	
