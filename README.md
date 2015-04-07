@@ -281,4 +281,3 @@ This is the main collection and the place where all raw data is stored.
         }
     ]
 }
-```
