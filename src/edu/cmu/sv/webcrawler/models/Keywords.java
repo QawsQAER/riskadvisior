@@ -58,14 +58,31 @@ public class Keywords {
 		while (cursor.hasNext()) {
 			DBObject obj = cursor.next();
 			BasicDBList keywords = (BasicDBList) obj.get("keywords");
-			map =getMap(keywords);
+			map = getMap(keywords);
+			break;
+		}
+		return map;
+	}
+	
+	public Map<String, Integer> getKeywordsFrequency(String symbol,String year) {
+		BasicDBObject doc = new BasicDBObject();
+		doc.put("symbol", symbol);
+		doc.put("year", year);
+		DBCursor cursor = MongoHelper.getCollection().find(doc);
+		Map<String, Integer> map = null;
+		String wordCount;
+		while (cursor.hasNext()) {
+			DBObject obj = cursor.next();
+			BasicDBList keywords = (BasicDBList) obj.get("keywords");
+			wordCount = (String) obj.get("wordCount");
+			map = getFrequencyMap(keywords, wordCount);
 			break;
 		}
 		return map;
 	}
 
 	public static Map<String, Integer> getMap(BasicDBList keywords) {
-		Map<String,Integer>map = new HashMap<String,Integer>();
+		Map<String,Integer> map = new HashMap<String,Integer>();
 		for (Iterator<Object> it = keywords.iterator(); it.hasNext();) {
 			BasicDBObject dbo = (BasicDBObject) it.next();
 			for (String s : dbo.keySet()) {
@@ -73,6 +90,17 @@ public class Keywords {
 			}
 		}
 		return map;
-
+	}
+	
+	public static Map<String, Integer> getFrequencyMap(BasicDBList keywords, String wordCount) {
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		int wc = Integer.parseInt(wordCount);
+		for (Iterator<Object> it = keywords.iterator(); it.hasNext();) {
+			BasicDBObject dbo = (BasicDBObject) it.next();
+			for (String s : dbo.keySet()) {
+				map.put(s, (dbo.getInt(s)*100000 / wc));
+			}
+		}
+		return map;
 	}
 }

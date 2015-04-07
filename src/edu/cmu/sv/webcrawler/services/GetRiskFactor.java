@@ -93,11 +93,12 @@ public class GetRiskFactor {
 	 *            true - download 10K for the day
 	 * @param documentType
 	 */
-	public RequiredInfo DownloadByCIKAndType(String symbol, boolean isCurrent,
+	public List<RequiredInfo> DownloadByCIKAndType(String symbol, boolean isCurrent,
 			String documentType) {
 		GetURL gURL = new GetURL();
-		RequiredInfo result = new RequiredInfo();
-		result.setDocType(documentType);
+		List<RequiredInfo> resultList = new ArrayList<RequiredInfo>();
+		
+		
 		ArrayList<String> URLs = gURL.GetURLwithCIK(symbol, isCurrent,
 				documentType);
 		String companyName = gURL.GetCompanyNameFromsBuffer();
@@ -107,6 +108,8 @@ public class GetRiskFactor {
 		Iterator<String> it = URLs.iterator();
 
 		while (it.hasNext()) {
+			RequiredInfo result = new RequiredInfo();
+			result.setDocumentType(documentType);
 			String str = it.next();
 			int index0 = str.indexOf("data");
 			int index1 = str.indexOf("/", index0 + 5);
@@ -148,10 +151,23 @@ public class GetRiskFactor {
 					s = exall.extractAllText10Q(sb.toString());
 				else if (documentType.equals("20-F"))
 					s = exall.extractAllText20F(sb.toString());
+				else if (documentType.equals("8-K"))
+					s = exall.extractAllText8K(sb.toString());
 			}
 			if(s != null)
 				System.out.println("FInish one Crawl for:"+documentType);
-			result.addRiskFactor(url, s);
+			String[] sp = s.split(" ");
+			int count = sp.length;
+			result.setRiskFactor(s);
+			result.setSIC(SIC);
+			result.setSICName(SICName);
+			//result.setSymbo(symbo);
+			result.setYear(year);
+			KeywordMatcher mat = new KeywordMatcher();
+			result.setKeywords(mat.getKeywordMatch(s));
+			result.setWordCount(count);
+			result.setUrl(url);
+			resultList.add(result);
 
 			// BigInsights bigInsights = new BigInsights();
 			//
@@ -187,7 +203,7 @@ public class GetRiskFactor {
 
 			// System.out.println(fileName);
 		}
-		return result;
+		return resultList;
 	}
 
 	/**
@@ -236,9 +252,7 @@ public class GetRiskFactor {
 		String CIK = "CX"; // "ABIO"
 		GetRiskFactor getRisk = new GetRiskFactor();
 		RequiredInfo rinfo = new RequiredInfo();
-		rinfo = getRisk.DownloadByCIKAndType(CIK, false, "20-F");
-		HashMap<String,String> risk = new HashMap<String,String>();
-		risk = rinfo.getRiskFactor();
+		
 		// g10K.Download10KbyCIKList("stocksymbol");
 		System.out.println("Finished crawling.");
 	}
