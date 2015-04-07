@@ -28,6 +28,9 @@ public class Record {
 	
 	Map<String, Integer> keywords;
 	Map<String, Integer> categories;
+	public Record() {
+		
+	}
 	
 	public Record(String document, String riskFactor, String symbol, String year,
 			Map<String, Integer> keywords) {
