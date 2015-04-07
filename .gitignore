@@ -1,0 +1,10 @@
+.DS_store
+*.war
+bin/*
+.classpath
+.project
+.settings/
+*.class
+*.war
+webStarterApp.war
+/bin
