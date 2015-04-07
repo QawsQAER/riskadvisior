@@ -45,6 +45,7 @@
 				<tr>
 					<td>Symbol</td>
 					<td>Year</td>
+					<td>Word Count</td>
 					<td>Risk Factors</td>
 				</tr>
 			</thead>
@@ -66,10 +67,11 @@
 				var categoryurl=host+"/api/category/" + symbol;
 				if (year != "all") {
 					crawlurl = crawlurl + "/?year=" + year;
-					categoryurl=categoryurl+"/?year=" + year;
-				}else{
+					categoryurl = categoryurl+"/?year=" + year;
+				}
+				else{
 					crawlurl = crawlurl + "/?year=2014";
-					categoryurl=categoryurl+"/?year=2014";
+					categoryurl = categoryurl+"/?year=2014";
 				}
 				
 				//get the result from api provided by current website
@@ -83,6 +85,7 @@
 							body.append($('<tr>').append(
 									$('<td>').text(v.symbol)).append(
 									$('<td>').text(v.year)).append(
+									$('<td>').text(v.wordCount)).append(
 									$('<td>').text(v.riskFactor)));
 						});
 					}
