@@ -42,6 +42,7 @@
 	</div>
 
 	<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+	<div id="chartContainer2" style="height: 300px; width: 100%;"></div>
 	<%@  include file="./templates/footer.jsp"%>
 	<script>
 	var url = location.href;
@@ -69,6 +70,23 @@
 					});
 				}
 			});
+			//for frequency
+			var categoryurl = host+"/api/category/frequency/";
+			var categoryFrequencyA = categoryurl + A + "?year="+year;
+			var categoryFrequencyB = categoryurl + B + "?year="+year;
+			var dataFrequencyA = null;
+			var dataFrequencyB = null;
+			$.ajax({
+				url : categoryFrequencyA,
+				success : function(dataFrequencyA) {
+					$.ajax({
+						url: categoryFrequencyB,
+						success:function(dataFrequencyB){
+							showFrequencyComparison(dadataFrequencyAtaA, dataFrequencyB, A, B);
+						}
+					});
+				}
+			});
 		});
 		function showComparison(dataA, dataB, A, B) {
 			var keys = [];
@@ -92,9 +110,35 @@
 					dataPoints : dpB
 				} ]
 			});
-
 			chart.render();
 		}
+		function showFrequencyComparison(dataA, dataB, A, B){
+			var keys = [];
+			keys = gatherKeys(dataA,keys);
+			keys = gatherKeys(dataB,keys);
+			var dpA = convert(dataA,keys);
+			var dpB = convert(dataB,keys);
+			
+			var chart_frequency = new CanvasJS.Chart("chartContainer2", {
+				title : {
+					text : "Financial Risk Frequency Comparison"
+				},
+				data : [ {
+					legendText : A,
+					type : "stackedBar",
+					showInLegend: "true",
+					dataPoints : dpA
+				}, {
+					legendText : B,
+					type : "stackedBar",
+					showInLegend: "true",
+					dataPoints : dpB
+				} ]
+			});
+
+			chart_frequency.render();
+		}
+		
 		function gatherKeys(data,keys) {
 			// append unique keys from the data set
 			for (key in data) {
