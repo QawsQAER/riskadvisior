@@ -8,6 +8,7 @@
 	<property name="source" value="1.6" />
 	<path id="classpathDir">
 		<pathelement location="bin" />
+		<pathelement location="WebContent/WEB-INF/lib/gson-2.3.1.jar"/>
 		<pathelement location="WebContent/WEB-INF/lib/commons-codec-1.10.jar" />
 		<pathelement location="WebContent/WEB-INF/lib/httpclient-4.3.4.jar" />
 		<pathelement location="WebContent/WEB-INF/lib/httpcore-4.3.2.jar" />
