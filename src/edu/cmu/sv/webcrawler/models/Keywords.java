@@ -59,7 +59,7 @@ public class Keywords {
 			DBObject obj = cursor.next();
 			BasicDBList keywords = (BasicDBList) obj.get("keywords");
 			map = getMap(keywords);
-			break;
+			/*break;*/
 		}
 		return map;
 	}
