@@ -18,16 +18,18 @@ The current url is [riskanalysis.mybluemix.net](http://riskanalysis.mybluemix.ne
         {
             "category": "Funding risks",
             "factors": [
-            "capital",
-            "raise capital",
-            "funding risk"
+                "capital",
+                "raise capital",
+                "funding risk"
             ]
         },
         {
-            "Competition risks":[  
-            "competition",
-            "highly competitive",
-            "less competitive",
+            "category": "Funding risks",
+            "factors": [  
+                "competition",
+                "highly competitive",
+                "less competitive"
+            ]
         }
     ]
 }
