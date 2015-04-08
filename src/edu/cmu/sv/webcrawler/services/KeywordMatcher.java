@@ -1,34 +1,38 @@
 package edu.cmu.sv.webcrawler.services;
 
+import edu.cmu.sv.webcrawler.models.Keywords;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 public class KeywordMatcher {
-	private HashSet<String> keywords;
+	private Set<String> keywords;
 	public KeywordMatcher(){
-		keywords = new HashSet<String>();
+		/*keywords = new HashSet<String>();
 		BufferedReader buff;
 		try {
 			buff = new BufferedReader(new FileReader("keywords.txt"));
 			boolean eof = false;
 			String line = buff.readLine();
 			while (!eof) {
-				line = buff.readLine(); 
+				line = buff.readLine();
 				if (line == null)
-					eof = true; 
+					eof = true;
 				else{
 					//System.out.println(line);//for test only
 					keywords.add(line);
 				}
-			}		
-			buff.close();
-		} catch (IOException e) {
+			}
+			buff.close();*/
+		keywords=new Keywords().getKeywords();
+		/*} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	public HashMap<String, Integer> getKeywordMatch(String riskfactor){

@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import com.google.gson.Gson;
 import edu.cmu.sv.webcrawler.models.Categories;
 import edu.cmu.sv.webcrawler.models.Keywords;
+import edu.cmu.sv.webcrawler.services.FeatureWeighting;
 
 @Path("/category")
 public class CategoriesResource {
@@ -34,7 +35,7 @@ public class CategoriesResource {
         Categories c = new Categories(map);
         return c.getMap();
     }
-    
+
     @GET
     @Path("/frequency/{param}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -46,8 +47,8 @@ public class CategoriesResource {
         Map<String, Integer> imap = c.getMap();
         Map<String, Double> dmap = new HashMap<String, Double>();
         for (String key : imap.keySet()) {
-        	Double d = imap.get(key)/100.0;
-        	dmap.put(key, d);
+            Double d = imap.get(key) / 100.0;
+            dmap.put(key, d);
         }
         return dmap;
     }
@@ -57,16 +58,16 @@ public class CategoriesResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String addSymbolByCategory(
             @QueryParam("category") String category, @QueryParam("keyword") String keyword) {
-        if(category.length() == 0 || keyword.length() == 0)
-        	return "empty category or keyword received";
-    	//access add Keyword API using GET
+        if (category.length() == 0 || keyword.length() == 0)
+            return "empty category or keyword received";
+        //access add Keyword API using GET
         Categories c = new Categories();
         c.insert(category, keyword);
         //managing return json
-        Map<String,String> m = new HashMap<String,String>();
+        Map<String, String> m = new HashMap<String, String>();
         m.put("status", "success");
-        m.put("category",category);
-        m.put("keyword",keyword);
+        m.put("category", category);
+        m.put("keyword", keyword);
         Gson gson = new Gson();
         return gson.toJson(m);
     }
@@ -76,15 +77,15 @@ public class CategoriesResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String deleteSymbolByCategory(
             @QueryParam("category") String category, @QueryParam("keyword") String keyword) {
-    	if(category.length() == 0 || keyword.length() == 0)
-        	return "empty category or keyword received";
-    	Categories c = new Categories();
+        if (category.length() == 0 || keyword.length() == 0)
+            return "empty category or keyword received";
+        Categories c = new Categories();
         c.remove(category, keyword);
         //managing return json
-        Map<String,String> m = new HashMap<String,String>();
+        Map<String, String> m = new HashMap<String, String>();
         m.put("status", "success");
-        m.put("category",category);
-        m.put("keyword",keyword);
+        m.put("category", category);
+        m.put("keyword", keyword);
         Gson gson = new Gson();
         return gson.toJson(m);
     }

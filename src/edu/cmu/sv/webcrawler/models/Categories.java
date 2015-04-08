@@ -24,7 +24,6 @@ public class Categories {
     Map<String, List<String>> categories;
     Map<String, Integer> map;
     DBCollection collection;
-    String _id;
 
     public Categories() {
         categories = new HashMap<String, List<String>>();
@@ -81,7 +80,6 @@ public class Categories {
                 DBObject obj = cursor.next();
                 for (String key : obj.keySet()) {
                     if (key.equals("_id")) {
-                        this._id = doc.getString(key);
                         continue;
                     }
                     BasicDBList category = (BasicDBList) obj.get(key);
@@ -125,7 +123,6 @@ public class Categories {
 
     private void save() {
         BasicDBObject doc = new BasicDBObject();
-        doc.put("_id", this._id);
         for (String key : this.categories.keySet()) {
             BasicDBList list = new BasicDBList();
             for (String value : this.categories.get(key)) {
