@@ -32,6 +32,11 @@ public class CategoriesResource {
             @PathParam("param") String symbol, @QueryParam("year") String year) {
         Keywords ks = new Keywords();
         Map<String, Integer> map = ks.getKeywords(symbol, year);
+        if(map == null){
+            map = new HashMap<String,Integer>();
+            map.put("Error",0);
+            return map;
+        }
         Categories c = new Categories(map);
         return c.getMap();
     }
