@@ -1,5 +1,6 @@
 package edu.cmu.sv.webcrawler.services;
 
+import edu.cmu.sv.webcrawler.models.Keywords;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,25 +12,29 @@ public class KeywordMatcher {
 	private HashSet<String> keywords;
 	public KeywordMatcher(){
 		keywords = new HashSet<String>();
+
+		Keywords key = new Keywords();
+		keywords = (HashSet<String>)key.getKeywords();
+
 		//TODO: get keyword from mongoDB, instead of reading local file
-		BufferedReader buff;
-		try {
-			buff = new BufferedReader(new FileReader("keywords.txt"));
-			boolean eof = false;
-			String line = buff.readLine();
-			while (!eof) {
-				line = buff.readLine(); 
-				if (line == null)
-					eof = true; 
-				else{
-					//System.out.println(line);//for test only
-					keywords.add(line);
-				}
-			}		
-			buff.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		BufferedReader buff;
+//		try {
+//			buff = new BufferedReader(new FileReader("keywords.txt"));
+//			boolean eof = false;
+//			String line = buff.readLine();
+//			while (!eof) {
+//				line = buff.readLine();
+//				if (line == null)
+//					eof = true;
+//				else{
+//					//System.out.println(line);//for test only
+//					keywords.add(line);
+//				}
+//			}
+//			buff.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	public HashMap<String, Integer> getKeywordMatch(String riskfactor){
@@ -37,7 +42,7 @@ public class KeywordMatcher {
 		
 		for (String str : keywords) {
 			int count = 0;
-			int index = 0;
+			int index = -1;
 			while (true) {
 				index = riskfactor.indexOf(str, index + 1);
 			    if (index > 0) {
