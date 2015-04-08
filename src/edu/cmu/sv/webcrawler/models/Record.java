@@ -20,7 +20,7 @@ public class Record {
 	String year;
 	String riskFactor;
 	String symbol;
-	String documentType;
+	String document;
 	String url;
 	String SIC;
 	String SICName;
@@ -28,6 +28,7 @@ public class Record {
 	
 	Map<String, Integer> keywords;
 	Map<String, Integer> categories;
+	
 	public Record() {
 		
 	}
@@ -38,7 +39,7 @@ public class Record {
 		this.riskFactor = riskFactor;
 		this.symbol = symbol;
 		this.keywords = keywords;
-		this.documentType = document;
+		this.document = document;
 	}
 	
 	/**
@@ -175,6 +176,13 @@ public class Record {
 	public void setWordCount(String wordCount) {
 		this.wordCount = wordCount;
 	}
+	
+	/**
+	 * @return the document
+	 */
+	public String getDocument() {
+		return document;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -222,7 +230,7 @@ public class Record {
 		System.out.printf("Saving done from record\n");
 		doc.put("keywords", list);
 		doc.put("url", url);
-		doc.put("document", documentType);
+		doc.put("document", document);
 		doc.put("SIC", SIC);
 		doc.put("SICName", SICName);
 		doc.put("wordCount", wordCount);

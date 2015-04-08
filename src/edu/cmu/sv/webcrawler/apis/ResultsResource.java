@@ -1,5 +1,6 @@
 package edu.cmu.sv.webcrawler.apis;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.DELETE;
@@ -65,7 +66,7 @@ class Records {
 	 *            the records to set
 	 */
 	public void setRecords(List<Record> records) {
-		this.records = records;
+		this.records = new ArrayList<Record>(records);
 	}
 
 }
