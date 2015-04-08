@@ -48,7 +48,7 @@ public class Categories {
         }
         for (String key : keywordsMap.keySet()) {
             String cateKey = getCateKey(key);
-            System.out.println(cateKey);
+            //System.out.println(cateKey);
             if (cateKey != null) {
                 map.put(cateKey, map.get(cateKey) + keywordsMap.get(key));
             }
@@ -66,7 +66,7 @@ public class Categories {
         for (String cateKey : this.categories.keySet()) {
             List<String> list = categories.get(cateKey);
             if (list.contains(key)) {
-                System.out.println(cateKey);
+               /* System.out.println(cateKey);*/
                 return cateKey;
             }
         }
@@ -114,7 +114,7 @@ public class Categories {
                     }
                     categories.put(key, list);
                 }
-                System.out.println(categories);
+               /* System.out.println(categories);*/
             }
         } catch (Exception e) {
             e.printStackTrace();
