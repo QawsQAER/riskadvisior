@@ -11,6 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.google.gson.Gson;
 import edu.cmu.sv.webcrawler.models.Categories;
 import edu.cmu.sv.webcrawler.models.Keywords;
 
@@ -61,7 +62,13 @@ public class CategoriesResource {
     	//access add Keyword API using GET
         Categories c = new Categories();
         c.insert(category, keyword);
-        return " category: " + category + ", added keyword:" + keyword;
+        //managing return json
+        Map<String,String> m = new HashMap<String,String>();
+        m.put("status", "success");
+        m.put("category",category);
+        m.put("keyword",keyword);
+        Gson gson = new Gson();
+        return gson.toJson(m);
     }
 
     @GET
@@ -73,6 +80,12 @@ public class CategoriesResource {
         	return "empty category or keyword received";
     	Categories c = new Categories();
         c.remove(category, keyword);
-        return "category: " + category + ", removed keyword is " + keyword;
+        //managing return json
+        Map<String,String> m = new HashMap<String,String>();
+        m.put("status", "success");
+        m.put("category",category);
+        m.put("keyword",keyword);
+        Gson gson = new Gson();
+        return gson.toJson(m);
     }
 }

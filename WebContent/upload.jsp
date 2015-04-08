@@ -20,17 +20,6 @@
 		<button value="add this!" onclick="addKeyword()" class="btn btn-default">Add</button>
 		</div>	
 	</div>
-
-	<div class="container">
-		<div class="col-sm-4">
-		<h4> Delete Keyword Here</h4>
-		<label for="category" class="control-label">Category:</label>
-		<input type="text" id="del_category" class="form-control col-sm-4"><br>
-		<label for="keyword" class="control-label">Keyword:</label> 
-		<input type="text" id="del_keyword" class="form-control col-sm-4"><br>
-		<button value="delete this!" onclick="deleteKeyword()" class="btn btn-default">Delete</button>
-		</div>
-	</div>
 	<br>
 	<div class="container">
 		<h4>Category</h4>
@@ -39,6 +28,7 @@
 			<tr>
 				<th>Category</th>
 				<th>Keyword</th>
+				<th>Action</th>
 			</tr>
 			</thead>
 			<tbody id="CategoryTable">
@@ -83,8 +73,15 @@
 			td1.innerHTML = categoryName;
 			var td2 = document.createElement("td");
 			td2.innerHTML = keyword;
+			var td3 = document.createElement("td");
+			var button = document.createElement("button");
+			button.className = "btn btn-danger";
+			button.innerHTML = "Delete";
+			$(button).click({category:categoryName,keyword:keyword},deleteKeywordByParam);
+			td3.appendChild(button);
 			tr.appendChild(td1);
 			tr.appendChild(td2);
+			tr.appendChild(td3);
 			table.appendChild(tr);
 			return ;
 		}
@@ -94,37 +91,51 @@
 			var host = url.substring(0, url.lastIndexOf("/"));
 			var category = document.getElementById("add_category").value;
 			var keyword = document.getElementById("add_keyword").value;
-			console.log("add keyword based on " + category + ", " + keyword);
-			
+
 			$.ajax({
-				type:"GET",
-				url:host + "/api/category/addKeyword?category="+category+"&keyword="+keyword,
-				success:function(data){
-					console.log(data);
-					//wait 1 second before getting latest data from mongoDB 
-					setTimeout("getKeywords()",1000);
+				type: "GET",
+				url: host + "/api/category/addKeyword?category=" + category + "&keyword=" + keyword,
+				success: function (data) {
+					console.log("Success in addKeyword Ajax");
+				},
+				error: function(xhr, status, error){
+					console.log("Error in addKeyword Ajax");
+					console.log(xhr);
+					console.log(status);
+					console.log(error);
 				}
+			}).done(function(){
+				getKeywords();
 			});
 			
 		}
 		
 		function deleteKeyword(){
-			var url = location.href;
-			var host = url.substring(0, url.lastIndexOf("/"));
 			var category = document.getElementById("del_category").value;
 			var keyword = document.getElementById("del_keyword").value;
-			console.log("delete keyword based on " + category + ", " + keyword);
-			
+			deleteKeywordByParam(category,keyword);
+		}
+
+		function deleteKeywordByParam(event){
+			var url = location.href;
+			var host = url.substring(0, url.lastIndexOf("/"));
+			var category = event.data.category;
+			var keyword = event.data.keyword;
 			$.ajax({
 				type:"GET",
 				url:host + "/api/category/deleteKeyword?category="+category+"&keyword="+keyword,
 				success:function(data){
-					console.log(data);
-					//wait 1 second before getting latest data from mongoDB
-					setTimeout("getKeywords()",1000);
+					console.log("Success in deleteKeyword Ajax");
+				},
+				error:function(xhr,status,error){
+					console.log("Error in deleteKeyword Ajax");
+					console.log(xhr);
+					console.log(status);
+					console.log(error);
 				}
+			}).done(function(){
+				getKeywords();
 			});
-			
 		}
 	</script>
 	<%@  include file="./templates/footer.jsp"%>
