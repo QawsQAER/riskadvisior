@@ -55,7 +55,6 @@ public class Categories {
         }
     }
 
-
     /**
      * @return the initMap
      */

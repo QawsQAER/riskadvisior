@@ -127,7 +127,7 @@
 			
 			var chart_frequency = new CanvasJS.Chart("chartContainer2", {
 				title : {
-					text : "Financial Risk Frequency Comparison"
+					text : "Financial Risk Frequency Comparison (appear in every thousand words)"
 				},
 				data : [ {
 					legendText : A,
