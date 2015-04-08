@@ -4,6 +4,41 @@ Risk Advisor use Public Big Data to retrieve and analyze the "Risk Factors" for 
 
 The current url is [riskanalysis.mybluemix.net](http://riskanalysis.mybluemix.net/).
 
+##Sample json input
+```json
+{
+    "companies": [
+        "IBM",
+        "GOOG",
+        "TWTR",
+        "AMZN",
+        "APPL"
+    ],
+    "keywords":[
+        {
+            "category": "Funding risks",
+            "factors": [
+            "capital",
+            "raise capital",
+            "funding risk"
+            ]
+        },
+        {
+            "Competition risks":[  
+            "competition",
+            "highly competitive",
+            "less competitive",
+        }
+    ]
+}
+```
+##Sample json output
+```
+The same as Chang's transformed json
+```
+
+##Sa
+
 ## Prequisite
 
 Be sure the followings are installed successfully on your machine.
