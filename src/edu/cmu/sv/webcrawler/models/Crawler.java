@@ -26,14 +26,14 @@ public class Crawler {
 	 * 				the CIK symbol for certian company
 	 * @param docType,
 	 * 				the documentType being crawled
-	 * @return 1 when Download10KbyCIK success, 
-	 * 			-1 when Download10KbyCIK fail
+	 * @return 1 when List returned by DownloadByCIKAndType return a list with size than zero,
+	 * 			-1 when List returned by DownloadByCIKAndType return a list with size equal zero,
 	 */
 	public int crawl(String symbol, String docType){
 		GetRiskFactor g = new GetRiskFactor();
 		List<RequiredInfo> l = g.DownloadByCIKAndType(symbol, false, docType);
-		for(RequiredInfo info : l)
-			g.save(info);
+		if(l.size() == 0)
+			return -1;
 		return 1;
 	}
 }

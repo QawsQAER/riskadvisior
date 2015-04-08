@@ -11,6 +11,7 @@ public class KeywordMatcher {
 	private HashSet<String> keywords;
 	public KeywordMatcher(){
 		keywords = new HashSet<String>();
+		//TODO: get keyword from mongoDB, instead of reading local file
 		BufferedReader buff;
 		try {
 			buff = new BufferedReader(new FileReader("keywords.txt"));

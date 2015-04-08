@@ -310,4 +310,13 @@ public class Record {
 		BasicDBObject doc = new BasicDBObject();
 		db.remove(doc);
 	}
+
+	public static void main(String argv[]){
+		Record test = new Record();
+		List<Record> results;
+		results = test.search("CX","2014");
+		for(Record record : results){
+			System.out.printf("%s\n",record.toString());
+		}
+	}
 }
