@@ -261,7 +261,6 @@
 			<h2>Selected Companies</h2>
 			<div class="well">
 				<ul id="comList">
-					<li>IBM</li>
 				</ul>
 			</div>
 			<input type="text" class="form-control" id="inputCompany" placeholder="Company Name">
@@ -283,8 +282,10 @@
 		        }
 		        ]
 		    }'>
+		    <br>
 			<button type="submit" id="appendComp" class="btn btn-success">Add</button>
 			<button type="submit" id="getUserPre" class="btn btn-primary">Analyze</button>
+			<br>
 		</div>
 	</div>
 	<script>
@@ -363,7 +364,7 @@
 			var json1 = JSON.parse($('#companys').val());
 			var json2 = JSON.parse($('#preferences').val());
 			var json = {"companys" : json1.companys, "keywords" : json2.keywords};
-			$.post("http://54.191.103.199:8080/tradeoffParser/webapi/parser/select", json,
+			$.post("http://localhost:8080/tradeoffParser/webapi/parser/select", json,
 				function(data) {
 					alert(JSON.stringify(data));
 				},
