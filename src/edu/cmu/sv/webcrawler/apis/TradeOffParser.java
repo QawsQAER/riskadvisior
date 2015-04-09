@@ -1,4 +1,4 @@
-package edu.cmu.sv.webcrawler.apis;
+package cmuibm;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -49,11 +49,12 @@ public class TradeOffParser {
         JSONObject object = new JSONObject(crunchifyBuilder.toString());
         JSONArray companies = object.getJSONArray("companies");
         JSONArray keywords = object.getJSONArray("keywords");
+        String year = object.getString("year");
 
         String subject = "Risk";
 
         for(int i = 0; i < companies.length(); i++){
-            JSONObject jo = crawl_generate(companies.getString(i));
+            JSONObject jo = crawl_generate(companies.getString(i), year);
             comp_data.put(jo);
         }
 
@@ -86,28 +87,31 @@ public class TradeOffParser {
         return resd.toString()+"\n";
     }
 
-    public JSONObject crawl_generate(String company_name) throws JSONException{
+    public JSONObject crawl_generate(String company_name, String year) throws JSONException{
         JSONObject json = new JSONObject();
         try {
-            json = new JSONObject(IOUtils.toString(new URL("http://riskadvisor.mybluemix.net/api/results/"+company_name+"?year=2014"), Charset.forName("UTF-8")));
+            json = new JSONObject(IOUtils.toString(new URL("http://riskadvisor.mybluemix.net/api/results/"+company_name+"?year="+year), Charset.forName("UTF-8")));
         } catch (Exception ex) {
             System.err.println(ex);
         }
         JSONArray ja = (JSONArray) json.get("records");
         if(ja.length()!=0){
             JSONObject rmDup = ja.getJSONObject(0);
+            String comp = rmDup.getString("companyName");
+            JSONObject ret = new JSONObject();
             rmDup.remove("riskFactor");
-            json.put("companyName", company_name);
-            json.put("records", rmDup);
-            return json;
+            ret.put("records", rmDup);
+            ret.put("companyName", comp);
+            return ret;
         }
         else{
-            try {
-                URL tmp = new URL("riskadvisor.mybluemix.net/api/crawl/"+company_name);
-                JSONObject tmpJson = new JSONObject(IOUtils.toString(new URL("http://riskadvisor.mybluemix.net/api/results/"+company_name+"?year=2014"), Charset.forName("UTF-8")));
+            try{
+                json = new JSONObject();
+                URL tmp = new URL("http://riskadvisor.mybluemix.net/api/crawl/"+company_name);
+                JSONObject tmpJson = new JSONObject(IOUtils.toString(new URL("http://riskadvisor.mybluemix.net/api/results/"+company_name+"?year="+year), Charset.forName("UTF-8")));
                 JSONObject rmDup = tmpJson.getJSONArray("records").getJSONObject(0);
                 rmDup.remove("riskFactor");
-                json.put("companyName", company_name);
+                json.put("companyName", rmDup.getString("companyName"));
                 json.put("records", rmDup);
             } catch (Exception ex) {
                 System.err.println(ex);
@@ -137,7 +141,6 @@ public class TradeOffParser {
         for(int i = 0; i < d.length(); i++){
             JSONObject data = d.getJSONObject(i);
             JSONObject entry = data.getJSONObject("records");
-            System.out.println(entry.toString());
             JSONObject valuesJSON = entry.getJSONObject("keywords");
             HashMap<String, Integer> values = new HashMap<String, Integer>();
             Iterator keys = valuesJSON.keys();
@@ -148,10 +151,7 @@ public class TradeOffParser {
             values = filter_keyswords(values, nk);
             JSONObject ele = new JSONObject();
             ele.put("key", String.valueOf(index));
-            StringBuilder tmp = new StringBuilder();
-            tmp.append(data.get("companyName"));
-            tmp.append(entry.get("year"));
-            ele.put("name",tmp.toString());
+            ele.put("name",data.get("companyName"));
             ele.put("values", values);
             ele.put("description_html", "Risk Advisor feat. TradeOff Analysis");
             options.put(ele);

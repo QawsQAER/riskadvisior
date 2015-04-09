@@ -1,7 +1,7 @@
 {
     "companies": [
         "AMZN",
-        "TWTR"
+		"IBM"
     ],
     "keywords":[
         {
@@ -18,5 +18,6 @@
                 "compete against"
             ]
         }
-    ]
+    ],
+	"year": "2014"
 }

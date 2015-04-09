@@ -13,44 +13,44 @@ see the a.json file in the root directory
 ```
 ##Sample json output
 ```json
-{  
-    "columns":[  
-        {  
-            "full_name":"Funding risks",
-            "goal":"MIN",
-            "is_objective":"TRUE",
-            "type":"numeric",
-            "key":"Funding risks"
+{
+    "columns": [
+        {
+            "full_name": "Funding risks",
+            "goal": "MIN",
+            "is_objective": "TRUE",
+            "key": "Funding risks",
+            "type": "numeric"
         },
-        {  
-            "full_name":"Competition risks",
-            "goal":"MIN",
-            "is_objective":"TRUE",
-            "type":"numeric",
-            "key":"Competition risks"
+        {
+            "full_name": "Competition risks",
+            "goal": "MIN",
+            "is_objective": "TRUE",
+            "key": "Competition risks",
+            "type": "numeric"
         }
     ],
-    "subject":"Risk",
-    "options":[  
-        {  
-            "values":{  
-                "Funding risks":3,
-                "Competition risks":0
-            },
-            "name":"AMZN2014",
-            "description_html":"Risk Advisor feat. TradeOff Analysis",
-            "key":"0"
+    "options": [
+        {
+            "description_html": "Risk Advisor feat. TradeOff Analysis",
+            "key": "0",
+            "name": "AMAZON COM INC",
+            "values": {
+                "Competition risks": 0,
+                "Funding risks": 3
+            }
         },
-        {  
-            "values":{  
-                "Funding risks":7,
-                "Competition risks":5
-            },
-            "name":"TWTR2014",
-            "description_html":"Risk Advisor feat. TradeOff Analysis",
-            "key":"1"
+        {
+            "description_html": "Risk Advisor feat. TradeOff Analysis",
+            "key": "1",
+            "name": "INTERNATIONAL BUSINESS MACHINES CORP",
+            "values": {
+                "Competition risks": 0,
+                "Funding risks": 1
+            }
         }
-    ]
+    ],
+    "subject": "Risk"
 }
 ```
 
