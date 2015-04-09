@@ -13,7 +13,7 @@ see the a.json file in the root directory
 ```
 ##Sample json output
 ```
-The same as Chang's transformed json (wrapped as a Jsonp string for cross-domain call)
+{"columns":[{"full_name":"Funding risks","goal":"MIN","is_objective":"TRUE","type":"numeric","key":"Funding risks"},{"full_name":"Competition risks","goal":"MIN","is_objective":"TRUE","type":"numeric","key":"Competition risks"}],"subject":"Risk","options":[{"values":{"Funding risks":3,"Competition risks":0},"name":"AMZN2014","description_html":"Risk Advisor feat. TradeOff Analysis","key":"0"},{"values":{"Funding risks":7,"Competition risks":5},"name":"TWTR2014","description_html":"Risk Advisor feat. TradeOff Analysis","key":"1"}]})
 ```
 
 ##How to test (on Mac only)
