@@ -83,7 +83,7 @@ public class TradeOffParser {
         JSONArray pd;
         pd = parser(comp_data, nk);
         resd.put("options", pd);
-        return "callback("+resd.toString()+")\n";
+        return resd.toString()+"\n";
     }
 
     public JSONObject crawl_generate(String company_name) throws JSONException{
