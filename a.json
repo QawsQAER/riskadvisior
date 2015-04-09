@@ -1,0 +1,22 @@
+{
+    "companies": [
+        "AMZN",
+        "TWTR"
+    ],
+    "keywords":[
+        {
+            "category": "Funding risks",
+            "factors": [
+                "economic instability",
+				"exchange rate"
+            ]
+        },
+        {
+            "category": "Competition risks",
+            "factors": [  
+                "significant competition",
+                "compete against"
+            ]
+        }
+    ]
+}
