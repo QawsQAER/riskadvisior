@@ -12,91 +12,91 @@ import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 
 public class MongoHelper {
-	private static DBCollection collection;
-	private static DB db;
-	private static boolean auth;
+    private static DBCollection collection;
+    private static DB db;
+    private static boolean auth;
 
-	public MongoHelper() {
-		// check whether this app is on BlueMix
-		Map<String, String> env = System.getenv();
-		if (env.containsKey("VCAP_SERVICES")) {
-			connect();
-		} else {
-			localConnect();
-		}
-		auth = false;
+    public MongoHelper() {
+        // check whether this app is on BlueMix
+        Map<String, String> env = System.getenv();
+        if (env.containsKey("VCAP_SERVICES")) {
+            connect();
+        } else {
+            localConnect();
+        }
+        auth = false;
 
-	}
+    }
 
-	//Now, the mongodb service is deployed on mongolab now which is accessible from local machine
-	//No need to maintain two mongo dbs.
-	private static void localConnect() {
-		connect();
-/*		try {
-			System.out.println("connect local db");
-			Mongo mongo = new Mongo("localhost", 27017);
-			db = mongo.getDB("db");
-			collection = db.getCollection(MongoConstants.COLLECTIONS);
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-			connect();
-			System.out.println("local db failure, change to internet db");
-		}*/
+    //Now, the mongodb service is deployed on mongolab now which is accessible from local machine
+    //No need to maintain two mongo dbs.
+    private static void localConnect() {
+        //connect();
+        try {
+            System.out.println("connect local db");
+            Mongo mongo = new Mongo("localhost", 27017);
+            db = mongo.getDB("db");
+            collection = db.getCollection(MongoConstants.COLLECTIONS);
+            collection.count();
+        } catch (Exception e) {
+            System.out.println("local db failure, change to internet db");
+            connect();
 
-	}
+        }
+    }
 
-	private static void connect() {
-		try {
-			Mongo mongo = new Mongo(MongoConstants.HOST, MongoConstants.PORT);
-			db = mongo.getDB(MongoConstants.DATABASE);
-			if (MongoConstants.USEAUTH) // set authentication credentials
-				auth = db.authenticate(MongoConstants.USERNAME,
-					MongoConstants.PASSWORD.toCharArray());
-			collection = db.getCollection(MongoConstants.COLLECTIONS);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    private static void connect() {
+        try {
+            Mongo mongo = new Mongo(MongoConstants.HOST, MongoConstants.PORT);
+            db = mongo.getDB(MongoConstants.DATABASE);
+            if (MongoConstants.USEAUTH) // set authentication credentials
+                auth = db.authenticate(MongoConstants.USERNAME,
+                        MongoConstants.PASSWORD.toCharArray());
+            collection = db.getCollection(MongoConstants.COLLECTIONS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	public ArrayList<String> getAllSymbols() {
-		ArrayList<String> list = new ArrayList<String>();
-		DBCollection cs = db.getCollection("companysymbols");
-		DBCursor cursor = cs.find();
-		try {
-			while (cursor.hasNext()) {
-				DBObject obj = cursor.next();
-				String tmp = (String) obj.get("symbol");
-				list.add(tmp);
-			}
-		} catch (Exception e) {
-			list.add("" + auth);
-			// list.add(MongoConstants.URL);
-			list.add(e.getMessage());
-		}
-		return list;
-	}
+    public ArrayList<String> getAllSymbols() {
+        ArrayList<String> list = new ArrayList<String>();
+        DBCollection cs = db.getCollection("companysymbols");
+        DBCursor cursor = cs.find();
+        try {
+            while (cursor.hasNext()) {
+                DBObject obj = cursor.next();
+                String tmp = (String) obj.get("symbol");
+                list.add(tmp);
+            }
+        } catch (Exception e) {
+            list.add("" + auth);
+            // list.add(MongoConstants.URL);
+            list.add(e.getMessage());
+        }
+        return list;
+    }
 
-	public static DBCollection getCollection() {
-		if (collection == null) {
-			Map<String, String> env = System.getenv();
-			if (env.containsKey("VCAP_SERVICES")) {
-				connect();
-			} else {
-				localConnect();
-			}
-		}
-		return collection;
-	}
+    public static DBCollection getCollection() {
+        if (collection == null) {
+            Map<String, String> env = System.getenv();
+            if (env.containsKey("VCAP_SERVICES")) {
+                connect();
+            } else {
+                localConnect();
+            }
+        }
+        return collection;
+    }
 
-	public DB getDb(){
-		return db;
-	}
-	
-	public static void main(String Args[]){
-		MongoHelper tester = new MongoHelper();
-		ArrayList<String> symbols = tester.getAllSymbols();
-		for(String s : symbols){
-			System.out.printf("Symbol %s\n",s);
-		}
-	}
+    public DB getDb() {
+        return db;
+    }
+
+    public static void main(String Args[]) {
+        MongoHelper tester = new MongoHelper();
+        ArrayList<String> symbols = tester.getAllSymbols();
+        for (String s : symbols) {
+            System.out.printf("Symbol %s\n", s);
+        }
+    }
 }

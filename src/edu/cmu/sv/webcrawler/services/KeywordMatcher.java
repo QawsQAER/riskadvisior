@@ -33,6 +33,29 @@ public class KeywordMatcher {
 		/*} catch (IOException e) {
 			e.printStackTrace();
 		}*/
+		keywords = new HashSet<String>();
+
+		Keywords key = new Keywords();
+		keywords = (HashSet<String>)key.getKeywords();
+//		BufferedReader buff;
+//		try {
+//			buff = new BufferedReader(new FileReader("keywords.txt"));
+//			boolean eof = false;
+//			String line = buff.readLine();
+//			while (!eof) {
+//				line = buff.readLine();
+//				if (line == null)
+//					eof = true;
+//				else{
+//					//System.out.println(line);//for test only
+//					keywords.add(line);
+//				}
+//			}
+//			buff.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+
 	}
 	
 	public HashMap<String, Integer> getKeywordMatch(String riskfactor){
@@ -40,7 +63,7 @@ public class KeywordMatcher {
 		
 		for (String str : keywords) {
 			int count = 0;
-			int index = 0;
+			int index = -1;
 			while (true) {
 				index = riskfactor.indexOf(str, index + 1);
 			    if (index > 0) {
