@@ -103,7 +103,7 @@ public class TradeOffParser {
         }
         else{
             try {
-                URL tmp = new URL("riskanalysis.mybluemix.net/api/crawl/"+company_name);
+                URL tmp = new URL("riskadvisor.mybluemix.net/api/crawl/"+company_name);
                 JSONObject tmpJson = new JSONObject(IOUtils.toString(new URL("http://riskadvisor.mybluemix.net/api/results/"+company_name+"?year=2014"), Charset.forName("UTF-8")));
                 JSONObject rmDup = tmpJson.getJSONArray("records").getJSONObject(0);
                 rmDup.remove("riskFactor");
