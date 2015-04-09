@@ -26,35 +26,4 @@
 		<servlet-name>api-serlvet</servlet-name>
 		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>Crawler Servlet</servlet-name>
-		<servlet-class>edu.cmu.sv.webcrawler.servlets.CrawlerServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>Crawler Servlet</servlet-name>
-		<url-pattern>/crawl</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>Dummy Servlet</servlet-name>
-		<servlet-class>edu.cmu.sv.webcrawler.servlets.DummyServlet</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>Dummy Servlet</servlet-name>
-		<url-pattern>/dummy</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>Envs Servlet</servlet-name>
-		<servlet-class>edu.cmu.sv.webcrawler.servlets.EnvsServlet</servlet-class>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>Envs Servlet</servlet-name>
-		<url-pattern>/Envs</url-pattern>
-	</servlet-mapping>
-
 </web-app>
