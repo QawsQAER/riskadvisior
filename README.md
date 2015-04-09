@@ -4,42 +4,24 @@ Risk Advisor use Public Big Data to retrieve and analyze the "Risk Factors" for 
 
 The current url is [riskanalysis.mybluemix.net](http://riskanalysis.mybluemix.net/).
 
+##End-point for backend
+http://54.191.103.199:8080/tradeoffParser/webapi/parser/select
+
 ##Sample json input
-```json
-{
-    "companies": [
-        "IBM",
-        "GOOG",
-        "TWTR",
-        "AMZN",
-        "APPL"
-    ],
-    "keywords":[
-        {
-            "category": "Funding risks",
-            "factors": [
-                "capital",
-                "raise capital",
-                "funding risk"
-            ]
-        },
-        {
-            "category": "Funding risks",
-            "factors": [  
-                "competition",
-                "highly competitive",
-                "less competitive"
-            ]
-        }
-    ]
-}
+```
+see the a.json file in the root directory
 ```
 ##Sample json output
 ```
-The same as Chang's transformed json
+The same as Chang's transformed json (wrapped as a Jsonp string for cross-domain call)
 ```
 
-##Sa
+##How to test (on Mac only)
+```sh
+brew install httpie
+cd IBM-RiskAdvisor-Tradeoff
+http POST http://54.191.103.199:8080/tradeoffParser/webapi/parser/select @a.json
+```
 
 ## Prequisite
 
