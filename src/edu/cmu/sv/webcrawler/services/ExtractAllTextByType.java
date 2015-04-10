@@ -72,6 +72,12 @@ public class ExtractAllTextByType {
 		return page;
 	}
 	
+	public String extractAllText6K(String htmlText) {
+		Source source = new Source(htmlText);
+		String page = source.getTextExtractor().toString().toLowerCase();
+		return page;
+	}
+	
 	public String extractAllText10Q(String htmlText) {
 		Source source = new Source(htmlText);
 		String page = source.getTextExtractor().toString().toLowerCase();
