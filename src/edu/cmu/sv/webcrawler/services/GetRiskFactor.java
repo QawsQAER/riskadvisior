@@ -100,6 +100,8 @@ public class GetRiskFactor {
 		
 		ArrayList<String> URLs = gURL.GetURLwithCIK(symbol, isCurrent,
 				documentType);
+		//number of document crawled
+		int numOfDocCrawled = gURL.getNumOfDoc();
 		String companyName = gURL.GetCompanyNameFromsBuffer();
 		String SIC = gURL.GetSICFromsBuffer();
 		String SICName = gURL.GetSICNameFromsBuffer();
@@ -229,6 +231,24 @@ public class GetRiskFactor {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Crawl all documents from 20-F, 10-K, 10-Q, 8-K.
+	 * @param CIK CIK
+	 * @return	a list of List<RequiredInfo>
+	 */
+	public List<List<RequiredInfo>> crawlAll(String CIK){
+		List<List<RequiredInfo>> list = new ArrayList<List<RequiredInfo>>();
+		List<RequiredInfo> twentyFList = this.DownloadByCIKAndType(CIK,false, "20-F");
+		List<RequiredInfo> tenKList = this.DownloadByCIKAndType(CIK,false, "10-K");
+		List<RequiredInfo> tenQFList = this.DownloadByCIKAndType(CIK,false, "10-Q");
+		List<RequiredInfo> eightKFList = this.DownloadByCIKAndType(CIK,false, "8-K");
+		list.add(twentyFList);
+		list.add(tenKList);
+		list.add(tenQFList);
+		list.add(eightKFList);
+		return list;		
+	}
 
 	// Main
 	public static void main(String[] args) {
@@ -241,5 +261,15 @@ public class GetRiskFactor {
 		}
 		// g10K.Download10KbyCIKList("stocksymbol");
 		System.out.println("Finished crawling.");
+		
+		// Test crawlAll
+		List<List<RequiredInfo>> lists = getRisk.crawlAll(CIK);
+		System.out.println("****lists size:"+lists.size());
+		for(List<RequiredInfo> list : lists){
+			System.out.println("****Each List Size:"+list.size());
+			for(RequiredInfo info:list ){				
+				System.out.println("****"+info.toString());
+			}
+		}
 	}
 }

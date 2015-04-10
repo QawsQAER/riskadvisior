@@ -14,22 +14,23 @@ import java.util.ArrayList;
 public class GetURL {
 	private ArrayList<String> URLs;
 	private StringBuffer sBuffer;
+	private int numOfDoc;
 	
 	public GetURL() {
 		sBuffer = new StringBuffer();
 		URLs = new ArrayList<String>();
 	}
 	
-	private void ParseURLs(boolean isCurrent) {
-		int startIndex = 0, endIndex = 0;
-		
+	private int ParseURLs(boolean isCurrent) {
+		int startIndex = 0, endIndex = 0;		
 		int theCounter = 0;
 		
 		while(true) {
 			startIndex = sBuffer.indexOf("/Archives/edgar/data", endIndex);
 			if(startIndex == -1) {
-				return;
+				return theCounter;
 			}
+			
 			endIndex = sBuffer.indexOf("\"", startIndex);
 			String str = sBuffer.substring(startIndex, endIndex);
 			String year = "";
@@ -38,18 +39,17 @@ public class GetURL {
 				year = str.substring(index+1, index+3);
 			}
 			str = "http://www.sec.gov" + str;
-			URLs.add("http://www.sec.gov" + this.ParseIntoURLs(str)+year);
-			
-			
+			URLs.add("http://www.sec.gov" + this.ParseIntoURLs(str)+year);			
 			
 			theCounter++;
-			
-			if (theCounter == 3) break;
+//			
+//			if (theCounter == 3) break;
 			
 			if(Integer.parseInt(year) <= 11) {
 				break;
 			}
 		}
+		return theCounter;
 	}
 	
 	private String ParseIntoURLs(String urlStr) {
@@ -81,9 +81,14 @@ public class GetURL {
 			queryURL = "http://www.sec.gov/cgi-bin/current.pl?q1=1&q2=0";
 			this.sBuffer = Get10kSearchPage(queryURL);
 		}				
-		ParseURLs(isCurrent);
+		numOfDoc = ParseURLs(isCurrent);
 		
 		return URLs;
+	}
+	
+	
+	public int getNumOfDoc(){
+		return numOfDoc;
 	}
 	
 	/**
