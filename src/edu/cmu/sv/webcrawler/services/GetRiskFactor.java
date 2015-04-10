@@ -92,20 +92,20 @@ public class GetRiskFactor {
 	 *            true - download 10K for the day
 	 * @param documentType
 	 */
-	public List<RequiredInfo> DownloadByCIKAndType(String symbol, boolean isCurrent,
-			String documentType) {
+	public List<RequiredInfo> DownloadByCIKAndType(String symbol,
+			boolean isCurrent, String documentType) {
 		GetURL gURL = new GetURL();
 		List<RequiredInfo> resultList = new ArrayList<RequiredInfo>();
-		
-		
+
 		ArrayList<String> URLs = gURL.GetURLwithCIK(symbol, isCurrent,
 				documentType);
-		//number of document crawled
+		// number of document crawled
 		int numOfDocCrawled = gURL.getNumOfDoc();
 		String companyName = gURL.GetCompanyNameFromsBuffer();
 		String SIC = gURL.GetSICFromsBuffer();
 		String SICName = gURL.GetSICNameFromsBuffer();
-		System.out.printf("companyName is %s, SIC is %S, SICName is %s\n",companyName,SIC,SICName);
+		System.out.printf("companyName is %s, SIC is %S, SICName is %s\n",
+				companyName, SIC, SICName);
 		Iterator<String> it = URLs.iterator();
 
 		while (it.hasNext()) {
@@ -155,8 +155,8 @@ public class GetRiskFactor {
 				else if (documentType.equals("8-K"))
 					s = exall.extractAllText8K(sb.toString());
 			}
-			if(s != null)
-				System.out.println("Finish one Crawl for:"+documentType);
+			if (s != null)
+				System.out.println("Finish one Crawl for:" + documentType);
 			String[] sp = s.split(" ");
 			int count = sp.length;
 			result.setRiskFactor(s);
@@ -173,23 +173,24 @@ public class GetRiskFactor {
 		return resultList;
 	}
 
-	public void save(RequiredInfo result){
-		
+	public void save(RequiredInfo result) {
+
 		String documentType = result.getDocumentType();
 		String riskFactor = result.getRiskFactor();
 		String symbol = result.getSymbo();
 		String year = result.getYear();
 		Record record = new Record(documentType, riskFactor, symbol, year, null);
 		record.remove(symbol, year);
-		
+
 		record.setCompanyName(result.getCompanyName());
 		record.setSIC(result.getSIC());
 		record.setSICName(result.getSICName());
 		record.setUrl(result.getUrl());
 		record.setKeywords(result.getKeywords());
-		record.setWordCount(result.getWordCount()+"");
+		record.setWordCount(result.getWordCount() + "");
 		record.save();
 	}
+
 	/**
 	 * 
 	 * Output all the s_10k into MongoDB
@@ -202,9 +203,9 @@ public class GetRiskFactor {
 		if (s_10K == null || s_10K.isEmpty()) {
 			return;
 		}
-		//TODO: modify this so that it matches the latest Record format
-		//Record record = new Record(s_10K, symbol, year, null);
-		//record.save();
+		// TODO: modify this so that it matches the latest Record format
+		// Record record = new Record(s_10K, symbol, year, null);
+		// record.save();
 	}
 
 	/**
@@ -229,23 +230,30 @@ public class GetRiskFactor {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Crawl all documents from 20-F, 10-K, 10-Q, 8-K.
-	 * @param CIK CIK
-	 * @return	a list of List<RequiredInfo>
+	 * 
+	 * @param CIK
+	 *            CIK
+	 * @return a list of List<RequiredInfo>
 	 */
-	public List<List<RequiredInfo>> crawlAll(String CIK){
-		List<List<RequiredInfo>> list = new ArrayList<List<RequiredInfo>>();
-		List<RequiredInfo> twentyFList = this.DownloadByCIKAndType(CIK,false, "20-F");
-		List<RequiredInfo> tenKList = this.DownloadByCIKAndType(CIK,false, "10-K");
-		List<RequiredInfo> tenQFList = this.DownloadByCIKAndType(CIK,false, "10-Q");
-		List<RequiredInfo> eightKFList = this.DownloadByCIKAndType(CIK,false, "8-K");
-		list.add(twentyFList);
-		list.add(tenKList);
-		list.add(tenQFList);
-		list.add(eightKFList);
-		return list;		
+	public List<RequiredInfo> crawlAll(String CIK) {
+		List<RequiredInfo> list = new ArrayList<RequiredInfo>();
+		List<RequiredInfo> twentyFList = this.DownloadByCIKAndType(CIK, false,
+				"20-F");
+		List<RequiredInfo> tenKList = this.DownloadByCIKAndType(CIK, false,
+				"10-K");
+		List<RequiredInfo> tenQFList = this.DownloadByCIKAndType(CIK, false,
+				"10-Q");
+		List<RequiredInfo> eightKFList = this.DownloadByCIKAndType(CIK, false,
+				"8-K");
+		
+		list.addAll(twentyFList);
+		list.addAll(tenKList);
+		list.addAll(tenQFList);
+		list.addAll(eightKFList);
+		return list;
 	}
 
 	// Main
@@ -253,21 +261,20 @@ public class GetRiskFactor {
 		System.out.println("Start crawling from www.sec.gov...");
 		String CIK = "CX"; // "ABIO"
 		GetRiskFactor getRisk = new GetRiskFactor();
-		List<RequiredInfo> l = getRisk.DownloadByCIKAndType(CIK,false,"20-F");
-		for(RequiredInfo info : l){
+		List<RequiredInfo> l = getRisk.DownloadByCIKAndType(CIK, false, "20-F");
+		for (RequiredInfo info : l) {
 			getRisk.save(info);
 		}
 		// g10K.Download10KbyCIKList("stocksymbol");
 		System.out.println("Finished crawling.");
-		
+
 		// Test crawlAll
-		List<List<RequiredInfo>> lists = getRisk.crawlAll(CIK);
-		System.out.println("****lists size:"+lists.size());
-		for(List<RequiredInfo> list : lists){
-			System.out.println("****Each List Size:"+list.size());
-			for(RequiredInfo info:list ){				
-				System.out.println("****"+info.toString());
-			}
+		List<RequiredInfo> list = getRisk.crawlAll(CIK);
+		System.out.println("****lists size:" + list.size());
+
+		for (RequiredInfo info : list) {
+			System.out.println("****" + info.toString());
 		}
+
 	}
 }
