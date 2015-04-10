@@ -152,6 +152,8 @@ public class GetRiskFactor {
 					s = exall.extractAllText20F(sb.toString());
 				else if (documentType.equals("8-K"))
 					s = exall.extractAllText8K(sb.toString());
+				else if (documentType.equals("6-K"))
+					s = exall.extractAllText6K(sb.toString());
 			}
 			if(s != null)
 				System.out.println("Finish one Crawl for:"+documentType);
