@@ -100,6 +100,8 @@ public class GetRiskFactor {
 		
 		ArrayList<String> URLs = gURL.GetURLwithCIK(symbol, isCurrent,
 				documentType);
+		//number of document crawled
+		int numOfDocCrawled = gURL.getNumOfDoc();
 		String companyName = gURL.GetCompanyNameFromsBuffer();
 		String SIC = gURL.GetSICFromsBuffer();
 		String SICName = gURL.GetSICNameFromsBuffer();
