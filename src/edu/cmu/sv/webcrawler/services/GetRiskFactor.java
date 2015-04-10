@@ -250,11 +250,14 @@ public class GetRiskFactor {
 				"10-Q");
 		List<RequiredInfo> eightKFList = this.DownloadByCIKAndType(CIK, false,
 				"8-K");
+		List<RequiredInfo> sixKFList = this.DownloadByCIKAndType(CIK, false,
+				"6-K");
 		
 		list.addAll(twentyFList);
 		list.addAll(tenKList);
 		list.addAll(tenQFList);
 		list.addAll(eightKFList);
+		list.addAll(sixKFList);
 		return list;
 	}
 
