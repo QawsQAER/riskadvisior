@@ -1,13 +1,18 @@
 package edu.cmu.sv.webcrawler.apis;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.google.gson.Gson;
+import edu.cmu.sv.webcrawler.models.Record;
 import edu.cmu.sv.webcrawler.models.Symbols;
 import edu.cmu.sv.webcrawler.models.Crawler;
+import edu.cmu.sv.webcrawler.services.RequiredInfo;
 
 @Path("/crawl")
 public class CrawlerResource {
@@ -19,16 +24,28 @@ public class CrawlerResource {
      */
     @GET
     @Path("/{param}")
-    public Response crawlBySymbol(@PathParam("param") String symbol, @QueryParam("docType") String docType) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public String crawlBySymbol(@PathParam("param") String symbol, @QueryParam("docType") String docType) {
         String output = "Crawl the risk factors of the company with the symbol "
                 + symbol + ",docType " + docType;
         String fail_output = "Fail to crawl the risk factor for company with symbol "
                 + symbol + ",docType " + docType;
         Crawler c = new Crawler();
-        if (c.crawl(symbol, docType) < 0)
-            return Response.status(200).entity(fail_output).build();
-
-        return Response.status(200).entity(output).build();
+        List<RequiredInfo> result = c.crawl(symbol, docType);
+        //create a mapping from "docType" to "numOfDocument"
+        Map<String,Integer> m = new HashMap<String,Integer>();
+        //add a status field
+        m.put("error",0);
+        for(RequiredInfo info : m){
+            String key = info.getDocumentType();
+            if(m.containsKey(key)){
+                m.put(key,m.get(key)+1);
+            }else{
+                m.put(key,1);
+            }
+        }
+        Gson gson = new Gson();
+        return gson.toJson(m);
     }
 
 

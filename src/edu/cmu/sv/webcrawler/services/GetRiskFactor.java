@@ -101,6 +101,9 @@ public class GetRiskFactor {
 				documentType);
 		// number of document crawled
 		int numOfDocCrawled = gURL.getNumOfDoc();
+		if(URLs.size() == 0)
+			return resultList;
+		//if no URL are crawled, do not proceed to crawl companyName, SIC, and SIC Name
 		String companyName = gURL.GetCompanyNameFromsBuffer();
 		String SIC = gURL.GetSICFromsBuffer();
 		String SICName = gURL.GetSICNameFromsBuffer();

@@ -29,11 +29,9 @@ public class Crawler {
 	 * @return 1 when List returned by DownloadByCIKAndType return a list with size than zero,
 	 * 			-1 when List returned by DownloadByCIKAndType return a list with size equal zero,
 	 */
-	public int crawl(String symbol, String docType){
+	public List<RequiredInfo> crawl(String symbol, String docType){
 		GetRiskFactor g = new GetRiskFactor();
-		List<RequiredInfo> l = g.DownloadByCIKAndType(symbol, false, docType);
-		if(l.size() == 0)
-			return -1;
-		return 1;
+		return g.DownloadByCIKAndType(symbol, false, docType);
+
 	}
 }
