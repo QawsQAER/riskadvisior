@@ -162,6 +162,8 @@ public class GetRiskFactor {
 			}
 			if (s != null)
 				System.out.println("Finish one Crawl for:" + documentType);
+			else
+				continue;
 			String[] sp = s.split(" ");
 			int count = sp.length;
 			result.setRiskFactor(s);
@@ -244,6 +246,7 @@ public class GetRiskFactor {
 	 * @return a list of List<RequiredInfo>
 	 */
 	public List<RequiredInfo> crawlAll(String CIK) {
+		System.out.printf("Executing Crawl All\n");
 		List<RequiredInfo> list = new ArrayList<RequiredInfo>();
 		List<RequiredInfo> twentyFList = this.DownloadByCIKAndType(CIK, false,
 				"20-F");
@@ -255,7 +258,11 @@ public class GetRiskFactor {
 				"8-K");
 		List<RequiredInfo> sixKFList = this.DownloadByCIKAndType(CIK, false,
 				"6-K");
-		
+		System.out.printf("20-F list length %d\n",twentyFList.size());
+		System.out.printf("10-F list length %d\n",tenKList.size());
+		System.out.printf("10-Q list length %d\n",tenQFList.size());
+		System.out.printf("8-K list length %d\n",eightKFList.size());
+		System.out.printf("6-K list length %d\n",sixKFList.size());
 		list.addAll(twentyFList);
 		list.addAll(tenKList);
 		list.addAll(tenQFList);

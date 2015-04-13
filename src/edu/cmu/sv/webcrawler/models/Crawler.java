@@ -31,6 +31,9 @@ public class Crawler {
 	 */
 	public List<RequiredInfo> crawl(String symbol, String docType){
 		GetRiskFactor g = new GetRiskFactor();
+		System.out.printf("Request received\ndocType is %s\n",docType);
+		if(docType.equals("all"))
+			return g.crawlAll(symbol);
 		return g.DownloadByCIKAndType(symbol, false, docType);
 
 	}

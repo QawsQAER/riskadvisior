@@ -35,8 +35,8 @@ public class CrawlerResource {
         //create a mapping from "docType" to "numOfDocument"
         Map<String,Integer> m = new HashMap<String,Integer>();
         //add a status field
-        m.put("error",0);
-        for(RequiredInfo info : m){
+        m.put("size",result.size());
+        for(RequiredInfo info : result){
             String key = info.getDocumentType();
             if(m.containsKey(key)){
                 m.put(key,m.get(key)+1);

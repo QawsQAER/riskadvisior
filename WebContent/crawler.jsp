@@ -17,7 +17,8 @@
 				<input type="text" id="companyname" class="form-control col-sm-4"
 					placeholder="Empty = crawl all companies"></input>
 				<select id="docType">
-					<option value="10-K" selected="selected">10-K</option>
+					<option value="all" selected="selected">all</option>
+					<option value="10-K">10-K</option>
 					<option value="20-F">20-F</option>
 					<option value="8-K">8-K</option>
 					<option	value="10-Q">10-Q</option>
@@ -54,10 +55,28 @@
 				var docType = $("#docType").val();
 				var output = $("#crawl-info");
 				var crawlurl = host+"/api/crawl/" + symbol + "?docType=" + docType;
+				output.text("Trying to Crawl " + symbol);
 				$.ajax({
 					url : crawlurl,
 					success : function(data) {
-					output.text(data);
+						if(data["size"] == 0){
+							var msg = "No Document are crawlled";
+							output.text(msg);
+						}else{
+							var msg = "Some documents are crawled: ";
+							console.log(data);
+							if("10-K" in data)
+								msg += data["10-K"] + " 10-K documents, ";
+							if("20-F" in data)
+								msg += data["20-F"] + " 10-K documents, ";
+							if("8-K" in data)
+								msg += data["8-K"] + " 10-K documents, ";
+							if("10-Q" in data)
+								msg += data["10-Q"] + " 10-Q documents, ";
+							if("6-F" in data)
+								msg += data["6-F"] + " 6-K documents, ";
+							output.text(msg);
+						}
 					}
 				});
 		});

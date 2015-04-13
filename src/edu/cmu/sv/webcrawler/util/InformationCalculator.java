@@ -16,7 +16,7 @@ public class InformationCalculator {
     //儲存所有詞彙
     HashSet<String> vocabulary = new HashSet<String>();
     //儲存所有類別名稱與相應的詞彙集合
-    protected HashMap<String, HashSet<String>> c_t_map = new HashMap<String, HashSet<String>>();
+    protected HashMap<String, HashSet<Object>> c_t_map = new HashMap<>();
     //以類別名稱還有詞彙名稱作為key值 將該詞彙在該類別出現的次數儲存在內
     protected HashMap<String, Float> t_c_matrix = new HashMap<String, Float>();
     //以詞彙名稱作為key值 將該詞彙在所有類別出現的次數儲存在內
