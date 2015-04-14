@@ -4,8 +4,8 @@
 	<property environment="env" />
 	<property name="srcDir" value="." />
 	<property name="debuglevel" value="source,lines,vars" />
-	<property name="target" value="1.6" />
-	<property name="source" value="1.6" />
+	<property name="target" value="1.7" />
+	<property name="source" value="1.7" />
 	<path id="classpathDir">
 		<pathelement location="bin" />
 		<pathelement location="WebContent/WEB-INF/lib/gson-2.3.1.jar"/>
