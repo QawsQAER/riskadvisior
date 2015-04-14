@@ -42,9 +42,8 @@ import edu.cmu.sv.webcrawler.models.*;
 
 public class GetRiskFactor {
 
-	private StringBuffer GetContent(String urlStr) {
+	public String GetContent(String urlStr) {
 		System.out.printf("Downloading Content from %s\n",urlStr);
-		int chByte = 0;
 
 		URL url = null;
 
@@ -52,7 +51,7 @@ public class GetRiskFactor {
 
 		InputStream in = null;
 
-		StringBuffer sb = new StringBuffer("");
+		StringBuilder sb = new StringBuilder("");
 
 		try {
 			// int len = 0;
@@ -62,14 +61,12 @@ public class GetRiskFactor {
 			httpConn.setRequestMethod("GET");
 
 			in = httpConn.getInputStream();
-
-			chByte = in.read();
-			while (chByte != -1) {
-				// len++;
-				sb.append((char) chByte);
-				chByte = in.read();
+			BufferedReader br = new BufferedReader (new InputStreamReader(in));
+			String line;
+			while ((line=br.readLine())!=null) {
+				System.out.println(line);
+				sb.append(line);
 			}
-			// System.out.println(len);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -83,7 +80,7 @@ public class GetRiskFactor {
 			}
 		}
 		System.out.printf("Content Downloaded\n");
-		return sb;
+		return sb.toString();
 	}
 
 	/**
@@ -145,7 +142,7 @@ public class GetRiskFactor {
 			String ext = url.substring(index2);
 			// DownLoad10K(url, fileName);
 
-			StringBuffer sb = GetContent(url);
+			String sb = GetContent(url);
 
 			String s = null;
 			ExtractAllTextByType exall = new ExtractAllTextByType();

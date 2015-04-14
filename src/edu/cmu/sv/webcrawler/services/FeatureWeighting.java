@@ -38,6 +38,6 @@ public class FeatureWeighting {
     }
 
     public static void main(String[] args) {
-        new FeatureWeighting().getWeight("risk");
+        System.out.println(new FeatureWeighting().getWeight("risk"));
     }
 }
