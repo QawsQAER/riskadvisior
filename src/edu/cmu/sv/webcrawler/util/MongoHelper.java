@@ -31,7 +31,8 @@ public class MongoHelper {
     //Now, the mongodb service is deployed on mongolab now which is accessible from local machine
     //No need to maintain two mongo dbs.
     private static void localConnect() {
-        //connect();
+        connect();
+        /*
         try {
             System.out.println("connect local db");
             Mongo mongo = new Mongo("localhost", 27017);
@@ -43,6 +44,7 @@ public class MongoHelper {
             connect();
 
         }
+        */
     }
 
     private static void connect() {

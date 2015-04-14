@@ -67,18 +67,21 @@ public class ExtractAllTextByType {
 	}
 
 	public String extractAllText8K(String htmlText) {
+		System.out.printf("executing extractAllText8K\n");
 		Source source = new Source(htmlText);
 		String page = source.getTextExtractor().toString().toLowerCase();
 		return page;
 	}
 	
 	public String extractAllText6K(String htmlText) {
+		System.out.printf("executing extractAllText6K\n");
 		Source source = new Source(htmlText);
 		String page = source.getTextExtractor().toString().toLowerCase();
 		return page;
 	}
 	
 	public String extractAllText10Q(String htmlText) {
+		System.out.printf("executing extractAllText10Q\n");
 		Source source = new Source(htmlText);
 		String page = source.getTextExtractor().toString().toLowerCase();
 
@@ -109,6 +112,7 @@ public class ExtractAllTextByType {
 	}
 
 	public String extractAllText10K(String htmlText) {
+		System.out.printf("executing extractAllText10K\n");
 		Source source = new Source(htmlText);
 		String page = source.getTextExtractor().toString().toLowerCase();
 

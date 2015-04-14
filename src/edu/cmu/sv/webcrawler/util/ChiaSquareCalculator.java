@@ -8,15 +8,16 @@ import java.util.List;
 /**
  * Created by bluebyte60 on 4/7/15.
  */
-public class InformationCalculator {
+public class ChiaSquareCalculator {
     MongoHelper mongoHelper;
     DBCollection categoriesCollection = null;
     DBCollection webcrawlerCollection = null;
     DBCollection featureCollection=null;
     //儲存所有詞彙
     HashSet<String> vocabulary = new HashSet<String>();
+    //儲存每個類別的詞彙集合
     //儲存所有類別名稱與相應的詞彙集合
-    protected HashMap<String, HashSet<Object>> c_t_map = new HashMap<>();
+    protected HashMap<String, HashSet<String>> c_t_map = new HashMap<>();
     //以類別名稱還有詞彙名稱作為key值 將該詞彙在該類別出現的次數儲存在內
     protected HashMap<String, Float> t_c_matrix = new HashMap<String, Float>();
     //以詞彙名稱作為key值 將該詞彙在所有類別出現的次數儲存在內
@@ -29,7 +30,7 @@ public class InformationCalculator {
     /**
      * This class is very complicated, do not touch if you like solving problem, especially mess problem....
      */
-    public InformationCalculator() {
+    public ChiaSquareCalculator() {
         //Get db collection
         mongoHelper = new MongoHelper();
         categoriesCollection = mongoHelper.getDb().getCollection("categories");
@@ -40,11 +41,12 @@ public class InformationCalculator {
         //Calculation 2
         calculation();
         //Feature selection weight calculation
-        FeatureSelection featureSelection=new FeatureSelection(vocabulary,c_t_map.keySet(),t_c_matrix,  t_matrix,c_matrix, N);
+        FeatureSelection featureSelection=new FeatureSelection(vocabulary,c_t_map.keySet(),t_c_matrix,  t_matrix,c_matrix, c_t_map,N);
         featureSelection.initialize();
         List<Term> termList=featureSelection.getFeatures("CHI");
+        for(Term term:termList) System.out.println(term);
         //Save to DB
-       // store(termList);
+        store(termList);
         //store into DB
     }
 
@@ -56,7 +58,7 @@ public class InformationCalculator {
                 DBObject obj = cursor.next();
                 for (String key : obj.keySet()) {
                     if (key.equals("_id")) continue;//ignore _id;
-                    c_t_map.put(key, new HashSet<>());
+                    c_t_map.put(key, new HashSet<String>());
                     c_matrix.put(key, 0f);
                     BasicDBList terms = (BasicDBList) obj.get(key);
                     for (Object s : terms) {
@@ -115,6 +117,7 @@ public class InformationCalculator {
             BasicDBObject obj = new BasicDBObject();
             obj.put("key",term.key);
             obj.put("weight",term.weight);
+            obj.put("category",term.category);
             featureCollection.insert(obj);
         }
     }
@@ -137,6 +140,6 @@ public class InformationCalculator {
     }
 
     public static void main(String[] args) {
-        new InformationCalculator();
+        new ChiaSquareCalculator();
     }
 }

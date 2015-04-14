@@ -68,9 +68,9 @@
 							if("10-K" in data)
 								msg += data["10-K"] + " 10-K documents, ";
 							if("20-F" in data)
-								msg += data["20-F"] + " 10-K documents, ";
+								msg += data["20-F"] + " 20-F documents, ";
 							if("8-K" in data)
-								msg += data["8-K"] + " 10-K documents, ";
+								msg += data["8-K"] + " 8-K documents, ";
 							if("10-Q" in data)
 								msg += data["10-Q"] + " 10-Q documents, ";
 							if("6-F" in data)
