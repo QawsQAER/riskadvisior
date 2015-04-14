@@ -58,7 +58,7 @@ public class ChiaSquareCalculator {
                 DBObject obj = cursor.next();
                 for (String key : obj.keySet()) {
                     if (key.equals("_id")) continue;//ignore _id;
-                    c_t_map.put(key, new HashSet<>());
+                    c_t_map.put(key, new HashSet<String>());
                     c_matrix.put(key, 0f);
                     BasicDBList terms = (BasicDBList) obj.get(key);
                     for (Object s : terms) {
@@ -117,7 +117,7 @@ public class ChiaSquareCalculator {
             BasicDBObject obj = new BasicDBObject();
             obj.put("key",term.key);
             obj.put("weight",term.weight);
-            obj.putIfAbsent("category",term.category);
+            obj.put("category",term.category);
             featureCollection.insert(obj);
         }
     }
