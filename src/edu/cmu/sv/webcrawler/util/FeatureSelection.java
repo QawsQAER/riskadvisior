@@ -10,6 +10,7 @@ public class FeatureSelection {
     Set<String> vocabulary = new HashSet<String>();
     //儲存所有類別名稱
     Set<String> categories = new HashSet<String>();
+    protected HashMap<String, HashSet<String>> c_t_map = new HashMap<>();
     //以類別名稱還有詞彙名稱作為key值 將該詞彙在該類別出現的次數儲存在內
     protected Map<String, Float> t_c_matrix = new HashMap<String, Float>();
     //以詞彙名稱作為key值 將該詞彙在所有類別出現的次數儲存在內
@@ -25,7 +26,8 @@ public class FeatureSelection {
 
     }
 
-    public FeatureSelection(Set<String> vocabulary, Set<String> categories, Map<String, Float> t_c_matrix, Map<String, Float> t_matrix, Map<String, Float> c_matrix, float N) {
+    public FeatureSelection(Set<String> vocabulary, Set<String> categories, Map<String, Float> t_c_matrix, Map<String, Float> t_matrix, Map<String, Float> c_matrix, HashMap<String, HashSet<String>> c_t_map, float N) {
+        this.c_t_map = c_t_map;
         this.vocabulary = vocabulary;
         this.categories = categories;
         this.c_matrix = c_matrix;
@@ -50,25 +52,23 @@ public class FeatureSelection {
 
     public ArrayList<Term> getFeatures(String type) {
         ArrayList<Term> data = new ArrayList<Term>();
-        for (String term : vocabulary) {
-            float total_weight = 0;
-            for (String cat : categories) {
+        for (String cat : categories) {
+            for (String term : c_t_map.get(cat)) {
                 float weight = 0;
                 if (t_c_matrix.get(cat + term) != null && t_c_matrix.get(cat + term) > 0) {
                     if (type.equals("CHI"))
                         weight = calculateCHI(term, cat);
-/*                    if (type.equals("IG"))
-                        weight = calculateIG(term, cat);*/
                     if (Double.isNaN(weight))
                         weight = 0;
                     if (Double.isInfinite(weight))
                         weight = 0;
-                    total_weight += weight;
                 }
+                Term t=new Term(term);
+                t.weight=weight;
+                t.category=cat;
+                data.add(t);
             }
-            Term t = new Term(term);
-            t.weight = total_weight;
-            data.add(t);
+
         }
         Collections.sort(data, new TermComparator());
         return data;

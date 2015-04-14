@@ -43,6 +43,7 @@ import edu.cmu.sv.webcrawler.models.*;
 public class GetRiskFactor {
 
 	private StringBuffer GetContent(String urlStr) {
+		System.out.printf("Downloading Content from %s\n",urlStr);
 		int chByte = 0;
 
 		URL url = null;
@@ -81,6 +82,7 @@ public class GetRiskFactor {
 				ex.printStackTrace();
 			}
 		}
+		System.out.printf("Content Downloaded\n");
 		return sb;
 	}
 
@@ -103,6 +105,8 @@ public class GetRiskFactor {
 		int numOfDocCrawled = gURL.getNumOfDoc();
 		if(URLs.size() == 0)
 			return resultList;
+		else
+			System.out.printf("%d URLs detected\n",URLs.size());
 		//if no URL are crawled, do not proceed to crawl companyName, SIC, and SIC Name
 		String companyName = gURL.GetCompanyNameFromsBuffer();
 		String SIC = gURL.GetSICFromsBuffer();
@@ -139,7 +143,6 @@ public class GetRiskFactor {
 				url = str;
 			}
 			String ext = url.substring(index2);
-
 			// DownLoad10K(url, fileName);
 
 			StringBuffer sb = GetContent(url);
@@ -183,7 +186,7 @@ public class GetRiskFactor {
 	}
 
 	public void save(RequiredInfo result) {
-
+		System.out.printf("Saving Required Info into MongoDB\n");
 		String documentType = result.getDocumentType();
 		String riskFactor = result.getRiskFactor();
 		String symbol = result.getSymbo();
@@ -276,9 +279,9 @@ public class GetRiskFactor {
 	// Main
 	public static void main(String[] args) {
 		System.out.println("Start crawling from www.sec.gov...");
-		String CIK = "CX"; // "ABIO"
+		String CIK = "GOOGL"; // "ABIO"
 		GetRiskFactor getRisk = new GetRiskFactor();
-		List<RequiredInfo> l = getRisk.DownloadByCIKAndType(CIK, false, "20-F");
+		List<RequiredInfo> l = getRisk.DownloadByCIKAndType(CIK, false, "10-K");
 		for (RequiredInfo info : l) {
 			getRisk.save(info);
 		}
@@ -286,12 +289,12 @@ public class GetRiskFactor {
 		System.out.println("Finished crawling.");
 
 		// Test crawlAll
-		List<RequiredInfo> list = getRisk.crawlAll(CIK);
-		System.out.println("****lists size:" + list.size());
+		//List<RequiredInfo> list = getRisk.crawlAll(CIK);
+		//System.out.println("****lists size:" + list.size());
 
-		for (RequiredInfo info : list) {
-			System.out.println("****" + info.toString());
-		}
+		//for (RequiredInfo info : list) {
+		//	System.out.println("****" + info.toString());
+		//}
 
 	}
 }
