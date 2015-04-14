@@ -16,7 +16,7 @@ public class Crawler {
 	 */
 	public int crawl(String symbol){
 		//should try to call different crawling function here
-		Get10K g=new Get10K();
+		Get10K g = new Get10K();
 		return g.Download10KbyCIK(symbol, false);
 	}
 	

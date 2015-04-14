@@ -302,6 +302,38 @@ public class Record {
 		}
 		return records;
 	}
+	
+	public static List<Record> search(String symbol, String year, String docType) {
+		List<Record> records = new ArrayList<Record>();
+		DBCollection db = MongoHelper.getCollection();
+		BasicDBObject doc = new BasicDBObject();
+		doc.put("symbol", symbol);
+		doc.put("year", year);
+		doc.put("document", docType);
+		DBCursor cursor = db.find(doc);
+		try {
+			while (cursor.hasNext()) {
+				DBObject obj = cursor.next();
+				String riskFactor = (String) obj.get("riskFactor");
+				String companyName = (String) obj.get("companyName");
+				String SIC = (String) obj.get("SIC");
+				String SICName = (String) obj.get("SICName");
+				String url = (String) obj.get("url");
+				String wordCount = (String) obj.get("wordCount");
+				BasicDBList keywords = (BasicDBList) obj.get("keywords");
+				Map<String, Integer> map = Keywords.getMap(keywords);
+				Record record = new Record(docType, riskFactor, symbol, year, map);
+				record.setCompanyName(companyName);
+				record.setSIC(SIC);
+				record.setSICName(SICName);
+				record.setUrl(url);
+				record.setWordCount(wordCount);
+				records.add(record);
+			}
+		} catch (Exception e) {
+		}
+		return records;
+	}
 
 	public void remove(String symbol, String year) {
 		DBCollection db = MongoHelper.getCollection();
@@ -309,6 +341,19 @@ public class Record {
 		doc.put("symbol", symbol);
 		if (year != null && !year.isEmpty()) {
 			doc.put("year", year);
+		}
+		db.remove(doc);
+	}
+	
+	public void remove(String symbol, String year, String docType) {
+		DBCollection db = MongoHelper.getCollection();
+		BasicDBObject doc = new BasicDBObject();
+		doc.put("symbol", symbol);
+		if (year != null && !year.isEmpty()) {
+			doc.put("year", year);
+		}
+		if (docType != null && !docType.isEmpty()) {
+			doc.put("document", year);
 		}
 		db.remove(doc);
 	}
