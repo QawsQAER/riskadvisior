@@ -64,6 +64,22 @@ public class Keywords {
 		return map;
 	}
 	
+	public Map<String, Integer> getKeywords(String symbol, String year, String docType) {
+		BasicDBObject doc = new BasicDBObject();
+		doc.put("symbol", symbol);
+		doc.put("year", year);
+		doc.put("document", docType);
+		DBCursor cursor = MongoHelper.getCollection().find(doc);
+		Map<String, Integer> map = null;
+		while (cursor.hasNext()) {
+			DBObject obj = cursor.next();
+			BasicDBList keywords = (BasicDBList) obj.get("keywords");
+			map = getMap(keywords);
+			/*break;*/
+		}
+		return map;
+	}
+	
 	public Map<String, Integer> getKeywordsFrequency(String symbol,String year) {
 		BasicDBObject doc = new BasicDBObject();
 		doc.put("symbol", symbol);

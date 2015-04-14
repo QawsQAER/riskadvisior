@@ -12,6 +12,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
+
 import edu.cmu.sv.webcrawler.models.Categories;
 import edu.cmu.sv.webcrawler.models.Keywords;
 import edu.cmu.sv.webcrawler.services.FeatureWeighting;
@@ -29,14 +30,20 @@ public class CategoriesResource {
     @Path("/{param}")
     @Produces(MediaType.APPLICATION_JSON)
     public Map<String, Integer> getCategoryBySymbol(
-            @PathParam("param") String symbol, @QueryParam("year") String year) {
+            @PathParam("param") String symbol, @QueryParam("year") String year, @QueryParam("docType") String docType) {
         Keywords ks = new Keywords();
-        Map<String, Integer> map = ks.getKeywords(symbol, year);
-        if(map == null){
-            map = new HashMap<String,Integer>();
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        if (docType == null || docType.isEmpty()){
+        	map = ks.getKeywords(symbol, year);
+        }
+        else {
+        	map = ks.getKeywords(symbol, year, docType);
+        }
+        if (map == null){
             map.put("Error",0);
             return map;
         }
+        	
         Categories c = new Categories(map);
         return c.getMap();
     }
