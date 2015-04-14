@@ -165,8 +165,10 @@ public class GetRiskFactor {
 			}
 			if (s != null)
 				System.out.println("Finish one Crawl for:" + documentType);
-			else
+			else {
+				System.out.printf("docType %s of %s is not a well-formmatted doc\n",documentType,symbol);
 				continue;
+			}
 			String[] sp = s.split(" ");
 			int count = sp.length;
 			result.setSymbo(symbol);
@@ -279,11 +281,13 @@ public class GetRiskFactor {
 	// Main
 	public static void main(String[] args) {
 		System.out.println("Start crawling from www.sec.gov...");
-		String CIK = "GOOGL"; // "ABIO"
+		String CIK = "SAP"; // "ABIO"
 		GetRiskFactor getRisk = new GetRiskFactor();
-		List<RequiredInfo> l = getRisk.DownloadByCIKAndType(CIK, false, "10-K");
+		List<RequiredInfo> l = getRisk.DownloadByCIKAndType(CIK, false, "20-F");
+		System.out.printf("Size of RequiredInfo %d\n",l.size());
 		for (RequiredInfo info : l) {
-			getRisk.save(info);
+			//getRisk.save(info);
+			System.out.printf("%s\n",info);
 		}
 		// g10K.Download10KbyCIKList("stocksymbol");
 		System.out.println("Finished crawling.");

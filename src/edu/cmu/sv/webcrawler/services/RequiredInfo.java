@@ -78,5 +78,11 @@ public class RequiredInfo {
 		this.wordCount = wordCount;
 	}
 	
-	
+	public String toString(){
+		StringBuilder s = new StringBuilder();
+		s.append("CompanyName:" + getCompanyName());
+		s.append("\tdocType:" + getDocumentType());
+		s.append("\triskFactor:" + getRiskFactor());
+		return s.toString();
+	}
 }
