@@ -353,7 +353,7 @@ public class Record {
 			doc.put("year", year);
 		}
 		if (docType != null && !docType.isEmpty()) {
-			doc.put("document", year);
+			doc.put("document", docType);
 		}
 		db.remove(doc);
 	}
