@@ -1,16 +1,6 @@
 package edu.cmu.sv.webcrawler.services;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.StringReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -56,6 +46,7 @@ public class GetRiskFactor {
 		try {
 			// int len = 0;
 			url = new URL(urlStr);
+			System.out.println(urlStr);
 			httpConn = (HttpURLConnection) url.openConnection();
 			HttpURLConnection.setFollowRedirects(true);
 			httpConn.setRequestMethod("GET");
@@ -64,7 +55,6 @@ public class GetRiskFactor {
 			BufferedReader br = new BufferedReader (new InputStreamReader(in));
 			String line;
 			while ((line=br.readLine())!=null) {
-				System.out.println(line);
 				sb.append(line);
 			}
 		} catch (MalformedURLException e) {
