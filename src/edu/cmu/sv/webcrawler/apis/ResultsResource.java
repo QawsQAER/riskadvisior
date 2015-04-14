@@ -21,13 +21,17 @@ public class ResultsResource {
 	@Path("/{param}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Records getResult(@PathParam("param") String symbol,
-			@QueryParam("year") String year) {
+			@QueryParam("year") String year, @QueryParam("docType") String docType) {
 		Records records = new Records();
 		List<Record> list = null;
 		if (year == null || year.isEmpty()) {
 			list = Record.search(symbol);
-		} else {
+		} 
+		else if (docType == null || docType.isEmpty()) {
 			list = Record.search(symbol, year);
+		}
+		else {
+			list = Record.search(symbol, year, docType);
 		}
 		records.setRecords(list);
 		return records;
