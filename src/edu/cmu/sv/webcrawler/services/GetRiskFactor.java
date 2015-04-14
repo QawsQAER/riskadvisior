@@ -166,6 +166,8 @@ public class GetRiskFactor {
 				continue;
 			String[] sp = s.split(" ");
 			int count = sp.length;
+			result.setSymbo(symbol);
+			result.setCompanyName(companyName);
 			result.setRiskFactor(s);
 			result.setSIC(SIC);
 			result.setSICName(SICName);
@@ -187,7 +189,7 @@ public class GetRiskFactor {
 		String symbol = result.getSymbo();
 		String year = result.getYear();
 		Record record = new Record(documentType, riskFactor, symbol, year, null);
-		record.remove(symbol, year);
+		record.remove(symbol, year, documentType);
 
 		record.setCompanyName(result.getCompanyName());
 		record.setSIC(result.getSIC());
