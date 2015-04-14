@@ -1,4 +1,4 @@
-package edu.cmu.sv.webcrawler.util;
+package src.edu.cmu.sv.webcrawler.util;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
