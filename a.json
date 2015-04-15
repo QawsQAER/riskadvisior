@@ -1,23 +1,28 @@
 {
-    "companies": [
-        "AMZN",
-		"IBM"
-    ],
-    "keywords":[
-        {
-            "category": "Funding risks",
-            "factors": [
-                "economic instability",
-		"exchange rate"
-            ]
-        },
-        {
-            "category": "Competition risks",
-            "factors": [  
-                "significant competition",
-                "compete against"
-            ]
-        }
-    ],
-	"year": "2014"
+  "companies": [
+    "IBM"
+  ],
+  "keywords": [
+    {
+      "category": "Funding risks",
+      "factors": [
+        "raise capital",
+        "capital resource"
+      ]
+    },
+    {
+      "category": "Concentration on few large customers",
+      "factors": [
+        "large customer"
+      ]
+    },
+    {
+      "category": "Competition risks",
+      "factors": [
+        "highly competitive",
+        "less competitive"
+      ]
+    }
+  ],
+  "year": "2014"
 }
