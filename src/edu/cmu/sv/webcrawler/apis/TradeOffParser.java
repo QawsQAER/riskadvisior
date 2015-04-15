@@ -32,27 +32,17 @@ public class TradeOffParser {
     @Path("/select")
     @Produces("application/json")
     @Consumes("application/json")
-    public String get_seleKey(InputStream incomingData)
+    public String get_seleKey(String incomingData)
             throws JSONException {
-        StringBuilder crunchifyBuilder = new StringBuilder();
-        try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(incomingData));
-            String line = null;
-            while ((line = in.readLine()) != null) {
-                crunchifyBuilder.append(line);
-            }
-        } catch (Exception e) {
-            System.out.println("Error Parsing: - ");
-        }
 
-        JSONArray comp_data = new JSONArray();
-        JSONObject object = new JSONObject(crunchifyBuilder.toString());
+        JSONObject object = new JSONObject(incomingData);
         JSONArray companies = object.getJSONArray("companies");
         JSONArray keywords = object.getJSONArray("keywords");
         String year = object.getString("year");
 
         String subject = "Risk";
 
+        JSONArray comp_data = new JSONArray();
         for(int i = 0; i < companies.length(); i++){
             JSONObject jo = crawl_generate(companies.getString(i), year);
             comp_data.put(jo);
@@ -160,5 +150,3 @@ public class TradeOffParser {
         return options;
     }
 }
-
-
