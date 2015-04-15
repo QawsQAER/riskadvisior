@@ -11,7 +11,26 @@
 	<!-- Main part -->
 	<div class="container">
 		<div>
-			<div class="well">
+
+			<div class="row">
+				<div >
+				<div>
+					<label>Company</label>
+					<select id='fundingRisks' multiple='multiple'>
+						<option value=capital>capital</option>
+						<option value=raise capital>raise capital</option>
+						<option value=funding risk>funding risk</option>
+						<option value=capital resource>capital resource</option>
+						<option value=the amount of capital>the amount of capital</option>
+						<option value=capital expenditure>capital expenditure</option>
+						<option value=additional capital>additional capital</option>
+						<option value=sufficient capital>sufficient capital</option>
+						<option value=credit rat>credit rat</option>
+						<option value=borrowing cost>borrowing cost</option>
+						<option value=interest expense>interest expense</option>
+					</select>
+				</div>
+
 				<div>
 					<label>Funding Risks</label>
 					<select id='fundingRisks' multiple='multiple'>
@@ -144,19 +163,22 @@
 						<option value=research and development cost>research and development cost</option>
 					</select>
 				</div>
+				</div>
+
+				<div>
 				<div>
 					<label>Industry is cyclical</label>
 					<select id='industryIsCyclical' multiple='multiple'>
 						<option value=cyclical>cyclical</option>
 						<option value=market .. cyclical>market .. cyclical</option>
-						<option value=cyclical ï¿½ï¿½ industry>cyclical ï¿½ï¿½ industry</option>
+						<option value=cyclical �� industry>cyclical �� industry</option>
 					</select>
 				</div>
 				<div>
 					<label>Suppliers risks</label>
 					<select id='suppliersRisks' multiple='multiple'>
 						<option value=supplier>supplier</option>
-						<option value=depend on ï¿½ï¿½ supplier>depend on ï¿½ï¿½ supplier</option>
+						<option value=depend on �� supplier>depend on �� supplier</option>
 						<option value=a limited number of suppliers>a limited number of suppliers</option>
 						<option value=sole supplier>sole supplier</option>
 						<option value=single supplier>single supplier</option>
@@ -193,8 +215,8 @@
 						<option value=volatile>volatile</option>
 						<option value=unpredictable>unpredictable</option>
 						<option value=demand>demand</option>
-						<option value=consumer demandï¿½ï¿½differ>consumer demandï¿½ï¿½differ</option>
-						<option value=consumer demandï¿½ï¿½fluctuate>consumer demandï¿½ï¿½fluctuate</option>
+						<option value=consumer demand��differ>consumer demand��differ</option>
+						<option value=consumer demand��fluctuate>consumer demand��fluctuate</option>
 						<option value=fluctuation  ...  demand>fluctuation  ...  demand</option>
 						<option value=spending pattern>spending pattern</option>
 						<option value=demand ... decrease>demand ... decrease</option>
@@ -205,15 +227,15 @@
 					<label>Volatile stock price risks</label>
 					<select id='volatileRisks' multiple='multiple'>
 						<option value=stock>stock</option>
-						<option value=price of our common stock ï¿½ï¿½ fluctuate>price of our common stock ï¿½ï¿½ fluctuate</option>
-						<option value=price of our common stock ï¿½ï¿½ volatile>price of our common stock ï¿½ï¿½ volatile</option>
-						<option value=stock price ï¿½ï¿½  volatile>stock price ï¿½ï¿½  volatile</option>
-						<option value=stock price ï¿½ï¿½  fluctuate>stock price ï¿½ï¿½  fluctuate</option>
-						<option value=impact ï¿½ï¿½  stock price>impact ï¿½ï¿½  stock price</option>
+						<option value=price of our common stock �� fluctuate>price of our common stock �� fluctuate</option>
+						<option value=price of our common stock �� volatile>price of our common stock �� volatile</option>
+						<option value=stock price ��  volatile>stock price ��  volatile</option>
+						<option value=stock price ��  fluctuate>stock price ��  fluctuate</option>
+						<option value=impact ��  stock price>impact ��  stock price</option>
 						<option value=affect ... price of our common stock>affect ... price of our common stock</option>
 						<option value=affect our stock price>affect our stock price</option>
-						<option value=price ï¿½ï¿½ stock ï¿½ï¿½ decline>price ï¿½ï¿½ stock ï¿½ï¿½ decline</option>
-						<option value=price ï¿½ï¿½ stock ï¿½ï¿½ fall>price ï¿½ï¿½ stock ï¿½ï¿½ fall</option>
+						<option value=price �� stock �� decline>price �� stock �� decline</option>
+						<option value=price �� stock �� fall>price �� stock �� fall</option>
 					</select>
 				</div>
 				<div>
@@ -236,6 +258,9 @@
 						<option value=business acquisition>business acquisition</option>
 					</select>
 				</div>
+				</div>
+
+				<div>
 				<div>
 					<label>Restructure Risks</label>
 					<select id='restructureRisks' multiple='multiple'>
@@ -328,6 +353,7 @@
 						<option value=foreign economies>foreign economies</option>
 						<option value=international financial>international financial</option>
 					</select>
+				</div>
 				</div>
 			</div>
 			<h2>Selected Companies</h2>

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/IBM-RiskAdvisor-Tradeoff.iml" filepath="$PROJECT_DIR$/.idea/IBM-RiskAdvisor-Tradeoff.iml" />
+      <module fileurl="file://$PROJECT_DIR$/IBM-RiskAdvisor-Tradeoff.iml" filepath="$PROJECT_DIR$/IBM-RiskAdvisor-Tradeoff.iml" />
     </modules>
   </component>
 </project>
