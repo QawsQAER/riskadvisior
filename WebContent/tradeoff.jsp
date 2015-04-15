@@ -363,7 +363,12 @@
 		$(document).ready(function() {
 	        $('#fundingRisks').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		options.each(function(data) {
+	        			alert(data);
+	        		});
+	        	}
 	        });
 	        $('#conLargeCustomers').multiselect({
 	        	includeSelectAllOption: true,
@@ -451,10 +456,6 @@
 	        });
 	    });
 		
-		$('#internationalRisks').change(function () {
-			alert($(this).val());
-		});
-		
 		$('.check').change(function () {
 			if($(this).is(":checked")==true) {
 				var json = JSON.parse($('#preferences').val());
@@ -534,13 +535,13 @@
 			$.ajax({
 				type: "POST",
 				beforeSend: function (request) {
-					request.setRequestHeader("Content-Type", "application/json");
+					request.setRequestHeader("Content-Type", "text/plain");
 				},
 				url:"http://localhost:8080/webStarterApp/api/parser/select", 
-				data: json,
+				data: JSON.stringify(json),
 				dataType: "json", 
 				success: function(data) {
-					alert(JSON.stringify(data));
+					alert(JSON.parse(data));
 				}
 			});
 		});

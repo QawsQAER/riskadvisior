@@ -31,7 +31,7 @@ public class TradeOffParser {
     @POST
     @Path("/select")
     @Produces("application/json")
-    @Consumes("application/json")
+    @Consumes("text/plain")
     public String get_seleKey(String incomingData)
             throws JSONException {
 
