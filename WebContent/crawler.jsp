@@ -22,7 +22,7 @@
 					<option value="20-F">20-F</option>
 					<option value="8-K">8-K</option>
 					<option	value="10-Q">10-Q</option>
-					<option value="6-F">6-F</option>
+					<option value="6-K">6-K</option>
 				</select>
 			</div>
 			<div class="form-group">
@@ -74,7 +74,7 @@
 							if("10-Q" in data)
 								msg += data["10-Q"] + " 10-Q documents, ";
 							if("6-F" in data)
-								msg += data["6-F"] + " 6-K documents, ";
+								msg += data["6-K"] + " 6-K documents, ";
 							output.text(msg);
 						}
 					}
