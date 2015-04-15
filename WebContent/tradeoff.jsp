@@ -12,9 +12,10 @@
 	<div class="container">
 		<div>
 			<div>
-				<label>Company</label>
+				<label>Please select companies to be analyzed</label>
 				<br>
 				<select id='company' multiple='multiple'>
+					<option value='IBM'>IBM</option>
 					<option value='NWSA'>NWSA</option>
 					<option value='FUBC'>FUBC</option>
 					<option value='VNET'>VNET</option>
@@ -28,10 +29,13 @@
 					<option value='AVHI'>AVHI</option>
 				</select>
 			</div>
+			<br>
+			<label>Please choose risk factors to be considered</label>
 			<div class="row">
 				<div class="col-md-4">
 					<div>
 						<label>Funding Risks</label>
+						<br>
 						<select id='fundingRisks' multiple='multiple'>
 							<option value='capital'>capital</option>
 							<option value='raise capital'>raise capital</option>
@@ -48,6 +52,7 @@
 					</div>
 					<div>
 						<label>Concentration on few large customers</label>
+						<br>
 						<select id='conLargeCustomers' multiple='multiple'>
 							<option value='customer'>customer</option>
 							<option value='key customer'>key customer</option>
@@ -56,6 +61,7 @@
 					</div>
 					<div>
 						<label>Competition risks</label>
+						<br>
 						<select id='competitionRisk' multiple='multiple'>
 							<option value='competition'>competition</option>
 							<option value='highly competitive'>highly competitive</option>
@@ -79,6 +85,7 @@
 					</div>
 					<div>
 						<label>Downstream risks</label>
+						<br>
 						<select id='downStreamRisk' multiple='multiple'>
 							<option value='distributor'>distributor</option>
 							<option value='retailers'>retailers</option>
@@ -103,6 +110,7 @@
 					</div>
 					<div>
 						<label>Catastrophes</label>
+						<br>
 						<select id='catastrophes' multiple='multiple'>
 							<option value='catastrophe'>catastrophe</option>
 							<option value='terrorist'>terrorist</option>
@@ -120,6 +128,7 @@
 					</div>
 					<div>
 						<label>Macroeconomic risks</label>
+						<br>
 						<select id='macroeconomicRisks' multiple='multiple'>
 							<option value='economic'>economic</option>
 							<option value='macroeconomic'>macroeconomic</option>
@@ -137,6 +146,7 @@
 					</div>
 					<div>
 						<label>Input prices risks</label>
+						<br>
 						<select id='inputPricesRisks' multiple='multiple'>
 							<option value='cost'>cost</option>
 							<option value='expense'>expense</option>
@@ -164,6 +174,7 @@
 					</div>
 					<div>
 						<label>Industry is cyclical</label>
+						<br>
 						<select id='industryIsCyclical' multiple='multiple'>
 							<option value='cyclical'>cyclical</option>
 							<option value='market .. cyclical'>market .. cyclical</option>
@@ -174,6 +185,7 @@
 				<div class = "col-md-4">
 					<div>
 						<label>Suppliers risks</label>
+						<br>
 						<select id='suppliersRisks' multiple='multiple'>
 							<option value='supplier'>supplier</option>
 							<option value='depend on ï¿½ï¿½ supplier'>depend on ï¿½ï¿½ supplier</option>
@@ -187,6 +199,7 @@
 					</div>
 					<div>
 						<label>Human resource risks</label>
+						<br>
 						<select id='humanResourceRisks' multiple='multiple'>
 							<option value='personnel'>personnel</option>
 							<option value='human resource'>human resource</option>
@@ -196,6 +209,7 @@
 					</div>
 					<div>
 						<label>Potential/Ongoing Lawsuits</label>
+						<br>
 						<select id='potentialLawsuits' multiple='multiple'>
 							<option value='litigation'>litigation</option>
 							<option value='claims'>claims</option>
@@ -209,6 +223,7 @@
 					</div>
 					<div>
 						<label>Volatile demand and financial results</label>
+						<br>
 						<select id='volatileDemandFinancialResults' multiple='multiple'>
 							<option value='volatile'>volatile</option>
 							<option value='unpredictable'>unpredictable</option>
@@ -223,6 +238,7 @@
 					</div>
 					<div>
 						<label>Volatile stock price risks</label>
+						<br>
 						<select id='volatileRisks' multiple='multiple'>
 							<option value='stock'>stock</option>
 							<option value='price of our common stock ï¿½ï¿½ fluctuate'>price of our common stock ï¿½ï¿½ fluctuate</option>
@@ -238,6 +254,7 @@
 					</div>
 					<div>
 						<label>Poor financial condition risks</label>
+						<br>
 						<select id='poorConditionRisks' multiple='multiple'>
 							<option value='loss'>loss</option>
 							<option value='net loss'>net loss</option>
@@ -247,6 +264,7 @@
 					</div>
 					<div>
 						<label>Merger and Acquisition risks</label>
+						<br>
 						<select id='mergerRisks' multiple='multiple'>
 							<option value='acquisition'>acquisition</option>
 							<option value='merger'>merger</option>
@@ -258,6 +276,7 @@
 					</div>
 					<div>
 						<label>Restructure Risks</label>
+						<br>
 						<select id='restructureRisks' multiple='multiple'>
 							<option value='restructure'>restructure</option>
 							<option value='restructuring charge'>restructuring charge</option>
@@ -269,6 +288,7 @@
 				<div class = "col-md-4">
 					<div>
 						<label>Infrastructure risks</label>
+						<br>
 						<select id='infrastructureRisks' multiple='multiple'>
 							<option value='infrastructure'>infrastructure</option>
 							<option value='information technology system'>information technology system</option>
@@ -278,6 +298,7 @@
 					</div>
 					<div>
 						<label>New product introduction risks</label>
+						<br>
 						<select id='newProductRisks' multiple='multiple'>
 							<option value='product'>product</option>
 							<option value='new product'>new product</option>
@@ -289,6 +310,7 @@
 					</div>
 					<div>
 						<label>Potential defects in products</label>
+						<br>
 						<select id='potentialProducts' multiple='multiple'>
 							<option value='warranty'>warranty</option>
 							<option value='product liabilit'>product liabilit</option>
@@ -298,6 +320,7 @@
 					</div>
 					<div>
 						<label>Regulation changes</label>
+						<br>
 						<select id='regulationChanges' multiple='multiple'>
 							<option value='regulation'>regulation</option>
 							<option value='environmental regulation'>environmental regulation</option>
@@ -329,6 +352,7 @@
 					</div>
 					<div>
 						<label>Intellectual Property Risks</label>
+						<br>
 						<select id='intellectualRisks' multiple='multiple'>
 							<option value='intellectual property'>intellectual property</option>
 							<option value='registered trademark'>registered trademark</option>
@@ -339,6 +363,7 @@
 					</div>
 					<div>
 						<label>International risks</label>
+						<br>
 						<select id='internationalRisks' multiple='multiple'>
 							<option value='international'>international</option>
 							<option value='international operations'>international operations</option>
@@ -359,24 +384,8 @@
 				</ul>
 			</div>
 			<input type="text" class="form-control" id="inputCompany" placeholder="Company Name">
-			<input type="hidden" id="companys" value='{"companys":[]}'>
-			<input type="hidden" id="preferences" value='{"keywords":[{
-		            "category": "Funding risks",
-		            "factors": [
-		            ]
-	        	},
-		        {
-		            "category": "Concentration on few large customers",
-		            "factors": [
-		            ]
-		        },
-		        {
-		            "category": "Competition risks",
-		            "factors": [
-		            ]
-		        }
-		        ]
-		    }'>
+			<input type="hidden" id="companies" value='{}'>
+			<input type="hidden" id="preferences" value='{"keywords":[]}'>
 		    <br>
 			<button type="submit" id="appendComp" class="btn btn-success">Add</button>
 			<button type="submit" id="getUserPre" class="btn btn-primary">Analyze</button>
@@ -386,7 +395,18 @@
 		$(document).ready(function() {
 			$('#company').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#company option:selected');
+	        		
+	        		var newCompanies = {"companies" : []};
+	        		selectedOptions.each(function() {
+	        			newCompanies.companies.push($(this).val());
+	        			$('#comList').append("<li>" + $(this).val() + "</li>")
+	        		});
+	        		
+	        		$('#companies').val(JSON.stringify(newCompanies));
+	        	}
 	        });
 			
 	        $('#fundingRisks').multiselect({
@@ -397,7 +417,6 @@
 	        		
 	        		var newKeyword = {"category" : "Funding risks", "factors" : []};
 	        		selectedOptions.each(function () {
-	        			console.log($(this).val());
 	        			newKeyword.factors.push($(this).val());
 	        		});
 	        		
@@ -408,171 +427,522 @@
 							break;
 						}
 					}
-					json.keywords.push(newKeyword);
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
 					$('#preferences').val(JSON.stringify(json));
 	        	}
 	        });
 	        $('#conLargeCustomers').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#conLargeCustomers option:selected');
+	        		
+	        		var newKeyword = {"category" : "Concentration on few large customers", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Concentration on few large customers') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#competitionRisk').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#competitionRisk option:selected');
+	        		
+	        		var newKeyword = {"category" : "Competition risks", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Competition risks') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#downStreamRisk').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#downStreamRisk option:selected');
+	        		
+	        		var newKeyword = {"category" : "Downstream risks", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Downstream risks') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#catastrophes').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#catastrophes option:selected');
+	        		
+	        		var newKeyword = {"category" : "Catastrophes", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Catastrophes') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#macroeconomicRisks').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#macroeconomicRisks option:selected');
+	        		
+	        		var newKeyword = {"category" : "Macroeconomic risks", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Macroeconomic risks') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#inputPricesRisks').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#inputPricesRisks option:selected');
+	        		
+	        		var newKeyword = {"category" : "Input prices risks", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Input prices risks') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#industryIsCyclical').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#industryIsCyclical option:selected');
+	        		
+	        		var newKeyword = {"category" : "Industry is cyclical", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Industry is cyclical') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#suppliersRisks').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#suppliersRisks option:selected');
+	        		
+	        		var newKeyword = {"category" : "Suppliers risks", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Suppliers risks') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#humanResourceRisks').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#humanResourceRisks option:selected');
+	        		
+	        		var newKeyword = {"category" : "Human resource risks", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Human resource risks') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#potentialLawsuits').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#potentialLawsuits option:selected');
+	        		
+	        		var newKeyword = {"category" : "Potential/Ongoing Lawsuits", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Potential/Ongoing Lawsuits') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#volatileDemandFinancialResults').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#volatileDemandFinancialResults option:selected');
+	        		
+	        		var newKeyword = {"category" : "Volatile demand and financial results", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Volatile demand and financial results') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#volatileRisks').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#volatileRisks option:selected');
+	        		
+	        		var newKeyword = {"category" : "Volatile stock price risks", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Volatile stock price risks') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#poorConditionRisks').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#poorConditionRisks option:selected');
+	        		
+	        		var newKeyword = {"category" : "Poor financial condition risks", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Poor financial condition risks') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#mergerRisks').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#mergerRisks option:selected');
+	        		
+	        		var newKeyword = {"category" : "Merger and Acquisition risks", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Merger and Acquisition risks') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#restructureRisks').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#restructureRisks option:selected');
+	        		
+	        		var newKeyword = {"category" : "Restructure Risks", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Restructure Risks') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#infrastructureRisks').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#infrastructureRisks option:selected');
+	        		
+	        		var newKeyword = {"category" : "Infrastructure risks", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Infrastructure risks') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#newProductRisks').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#newProductRisks option:selected');
+	        		
+	        		var newKeyword = {"category" : "New product introduction risks", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'New product introduction risks') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#potentialProducts').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#potentialProducts option:selected');
+	        		
+	        		var newKeyword = {"category" : "Potential defects in products", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Potential defects in products') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#regulationChanges').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#regulationChanges option:selected');
+	        		
+	        		var newKeyword = {"category" : "Regulation changes", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Regulation changes') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#intellectualRisks').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#intellectualRisks option:selected');
+	        		
+	        		var newKeyword = {"category" : "Intellectual Property Risks", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'Intellectual Property Risks') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	        $('#internationalRisks').multiselect({
 	        	includeSelectAllOption: true,
-	        	enableFiltering: true
+	        	enableFiltering: true,
+	        	onDropdownHide: function (options, select) {
+	        		var selectedOptions = $('#internationalRisks option:selected');
+	        		
+	        		var newKeyword = {"category" : "FInternational risks", "factors" : []};
+	        		selectedOptions.each(function () {
+	        			newKeyword.factors.push($(this).val());
+	        		});
+	        		
+	        		var json = JSON.parse($('#preferences').val());
+					for(cgory in json.keywords) {
+						if(json.keywords[cgory].category == 'International risks') {
+							json.keywords.splice(cgory, 1);
+							break;
+						}
+					}
+					if(selectedOptions.length != 0) {
+						json.keywords.push(newKeyword);
+					}
+					$('#preferences').val(JSON.stringify(json));
+	        	}
 	        });
 	    });
-		
-		$('.check').change(function () {
-			if($(this).is(":checked")==true) {
-				var json = JSON.parse($('#preferences').val());
-				for(cgory in json.keywords) {
-					if(json.keywords[cgory].category == 'Funding risks') {
-						json.keywords[cgory].factors.push($(this).val());
-					}
-				}
-				$('#preferences').val(JSON.stringify(json));
-			} else {
-				var json = JSON.parse($('#preferences').val());
-				for(cgory in json.keywords) {
-					if(json.keywords[cgory].category == 'Funding risks') {
-						for(ckeys in json.keywords[cgory].factors)
-							if(json.keywords[cgory].factors[ckeys] == $(this).val())
-							json.keywords[cgory].factors.splice(ckeys,1);
-					}
-				}
-				$('#preferences').val(JSON.stringify(json));
-			}
-		});
-		$('.check1').change(function () {
-			if($(this).is(":checked")==true) {
-				var json = JSON.parse($('#preferences').val());
-				for(cgory in json.keywords) {
-					if(json.keywords[cgory].category == 'Concentration on few large customers') {
-						json.keywords[cgory].factors.push($(this).val());
-					}
-				}
-				$('#preferences').val(JSON.stringify(json));
-			} else {
-				var json = JSON.parse($('#preferences').val());
-				for(cgory in json.keywords) {
-					if(json.keywords[cgory].category == 'Concentration on few large customers') {
-						for(ckeys in json.keywords[cgory].factors)
-							if(json.keywords[cgory].factors[ckeys] == $(this).val())
-							json.keywords[cgory].factors.splice(ckeys,1);
-					}
-				}
-				$('#preferences').val(JSON.stringify(json));
-			}
-		});
-		$('.check2').change(function () {
-			if($(this).is(":checked")==true) {
-				var json = JSON.parse($('#preferences').val());
-				for(cgory in json.keywords) {
-					if(json.keywords[cgory].category == 'Competition risks') {
-						json.keywords[cgory].factors.push($(this).val());
-					}
-				}
-				$('#preferences').val(JSON.stringify(json));
-			} else {
-				var json = JSON.parse($('#preferences').val());
-				for(cgory in json.keywords) {
-					if(json.keywords[cgory].category == 'Competition risks') {
-						for(ckeys in json.keywords[cgory].factors)
-							if(json.keywords[cgory].factors[ckeys] == $(this).val())
-							json.keywords[cgory].factors.splice(ckeys,1);
-					}
-				}
-				$('#preferences').val(JSON.stringify(json));
-			}
-		});
-		
-		$('#appendComp').click(function () {
-			var json = JSON.parse($('#companys').val());
-			json.companys.push($('#inputCompany').val());
-			$('#companys').val(JSON.stringify(json));
-			$('#comList').append("<li>" + $('#inputCompany').val() + "</li>")
-		});
-	
+
 		$('#getUserPre').click(function () {
-			var json1 = JSON.parse($('#companys').val());
+			var json1 = JSON.parse($('#companies').val());
 			var json2 = JSON.parse($('#preferences').val());
-			var json = {"companies" : json1.companys, "keywords" : json2.keywords, "year" : "2014"};
+			var json = {"companies" : json1.companies, "keywords" : json2.keywords, "year" : "2014"};
 			alert(JSON.stringify(json));
 			$.ajax({
 				type: "POST",
