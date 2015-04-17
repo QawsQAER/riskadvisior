@@ -330,6 +330,7 @@ public class GetRiskFactor {
 		
 		RequiredInfo rst = new RequiredInfo();
 		rst.setRiskFactor(riskFactor.toString());
+		rst.setKeywords(keywordMap);
 		
 		return rst;
 	}
