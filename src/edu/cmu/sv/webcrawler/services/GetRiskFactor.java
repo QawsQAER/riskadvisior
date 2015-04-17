@@ -278,6 +278,41 @@ public class GetRiskFactor {
 		return list;
 	}
 
+	public RequiredInfo crawlAll2(String CIK) {
+		System.out.printf("Executing Crawl All\n");
+		List<RequiredInfo> list = new ArrayList<RequiredInfo>();
+		List<RequiredInfo> twentyFList = this.DownloadByCIKAndType(CIK, false,
+				"20-F");
+		List<RequiredInfo> tenKList = this.DownloadByCIKAndType(CIK, false,
+				"10-K");
+		List<RequiredInfo> tenQFList = this.DownloadByCIKAndType(CIK, false,
+				"10-Q");
+		List<RequiredInfo> eightKFList = this.DownloadByCIKAndType(CIK, false,
+				"8-K");
+		List<RequiredInfo> sixKFList = this.DownloadByCIKAndType(CIK, false,
+				"6-K");
+		System.out.printf("20-F list length %d\n",twentyFList.size());
+		System.out.printf("10-F list length %d\n",tenKList.size());
+		System.out.printf("10-Q list length %d\n",tenQFList.size());
+		System.out.printf("8-K list length %d\n",eightKFList.size());
+		System.out.printf("6-K list length %d\n",sixKFList.size());
+		list.addAll(twentyFList);
+		list.addAll(tenKList);
+		list.addAll(tenQFList);
+		list.addAll(eightKFList);
+		list.addAll(sixKFList);
+		
+		
+		
+		for(RequiredInfo requiredInfor: list){
+			
+		}
+		
+		RequiredInfo rst = new RequiredInfo();
+		
+		return rst;
+	}
+	
 	// Main
 	public static void main(String[] args) {
 		System.out.println("Start crawling from www.sec.gov...");
