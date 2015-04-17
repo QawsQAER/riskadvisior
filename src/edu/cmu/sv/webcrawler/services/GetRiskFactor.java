@@ -316,6 +316,17 @@ public class GetRiskFactor {
 		HashMap<String, Integer> words8K = agre.aggregate(eightKFList);
 		HashMap<String, Integer> words6K = agre.aggregate(sixKFList);
 		
+		HashMap<String, Integer> keywordMap = new HashMap<String, Integer>();
+		for (Map.Entry<String, Integer> entry : words20F.entrySet()) {
+			String keyword = entry.getKey();
+			int count20f = words20F.get(keyword);
+			int count10k = words10K.get(keyword);
+			int count10q = words10Q.get(keyword);
+			int count8k = words8K.get(keyword);
+			int count6k = words6K.get(keyword);
+			int count = (int)(count20f * 0.1 + count10k * 0.3 + count10q * 0.3 + count8k * 0.1 + count6k * 0.1);
+			keywordMap.put(keyword, count);
+		}
 		
 		RequiredInfo rst = new RequiredInfo();
 		rst.setRiskFactor(riskFactor.toString());
