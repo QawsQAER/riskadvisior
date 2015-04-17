@@ -43,11 +43,7 @@ import edu.cmu.sv.webcrawler.models.*;
 
 public class GetRiskFactor {
 	
-	private String riskFactor = "";
-
-	public String getRiskFactor() {
-		return riskFactor;
-	}
+	
 
 	private StringBuffer GetContent(String urlStr) {
 		System.out.printf("Downloading Content from %s\n",urlStr);
@@ -181,7 +177,6 @@ public class GetRiskFactor {
 			result.setSymbo(symbol);
 			result.setCompanyName(companyName);
 			result.setRiskFactor(s);
-			riskFactor = riskFactor + result.getRiskFactor();
 			result.setSIC(SIC);
 			result.setSICName(SICName);
 			result.setYear(year);
@@ -299,12 +294,21 @@ public class GetRiskFactor {
 				"8-K");
 		List<RequiredInfo> sixKFList = this.DownloadByCIKAndType(CIK, false,
 				"6-K");
+		List<RequiredInfo> list = new ArrayList<RequiredInfo>();
+		list.addAll(twentyFList);
+		list.addAll(tenKList);
+		list.addAll(tenQFList);
+		list.addAll(eightKFList);
+		list.addAll(sixKFList);
 		System.out.printf("20-F list length %d\n",twentyFList.size());
 		System.out.printf("10-F list length %d\n",tenKList.size());
 		System.out.printf("10-Q list length %d\n",tenQFList.size());
 		System.out.printf("8-K list length %d\n",eightKFList.size());
 		System.out.printf("6-K list length %d\n",sixKFList.size());
-		
+		StringBuffer riskFactor = new StringBuffer("");
+		for(RequiredInfo each : list) {
+			riskFactor.append(each.getRiskFactor());
+		}
 		AggregateKeywords agre = new AggregateKeywords();
 		HashMap<String, Integer> words20F = agre.aggregate(twentyFList);
 		HashMap<String, Integer> words10K = agre.aggregate(tenKList);
@@ -314,6 +318,7 @@ public class GetRiskFactor {
 		
 		
 		RequiredInfo rst = new RequiredInfo();
+		rst.setRiskFactor(riskFactor.toString());
 		
 		return rst;
 	}
