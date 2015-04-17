@@ -41,6 +41,12 @@ import net.htmlparser.jericho.Source;
 import edu.cmu.sv.webcrawler.models.*;
 
 public class GetRiskFactor {
+	
+	private String riskFactor = "";
+
+	public String getRiskFactor() {
+		return riskFactor;
+	}
 
 	private StringBuffer GetContent(String urlStr) {
 		System.out.printf("Downloading Content from %s\n",urlStr);
@@ -174,6 +180,7 @@ public class GetRiskFactor {
 			result.setSymbo(symbol);
 			result.setCompanyName(companyName);
 			result.setRiskFactor(s);
+			riskFactor = riskFactor + result.getRiskFactor();
 			result.setSIC(SIC);
 			result.setSICName(SICName);
 			result.setYear(year);
