@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -287,7 +288,7 @@ public class GetRiskFactor {
 
 	public RequiredInfo crawlAll2(String CIK) {
 		System.out.printf("Executing Crawl All\n");
-		List<RequiredInfo> list = new ArrayList<RequiredInfo>();
+		
 		List<RequiredInfo> twentyFList = this.DownloadByCIKAndType(CIK, false,
 				"20-F");
 		List<RequiredInfo> tenKList = this.DownloadByCIKAndType(CIK, false,
@@ -303,17 +304,14 @@ public class GetRiskFactor {
 		System.out.printf("10-Q list length %d\n",tenQFList.size());
 		System.out.printf("8-K list length %d\n",eightKFList.size());
 		System.out.printf("6-K list length %d\n",sixKFList.size());
-		list.addAll(twentyFList);
-		list.addAll(tenKList);
-		list.addAll(tenQFList);
-		list.addAll(eightKFList);
-		list.addAll(sixKFList);
 		
+		AggregateKeywords agre = new AggregateKeywords();
+		HashMap<String, Integer> words20F = agre.aggregate(twentyFList);
+		HashMap<String, Integer> words10K = agre.aggregate(tenKList);
+		HashMap<String, Integer> words10Q = agre.aggregate(tenQFList);
+		HashMap<String, Integer> words8K = agre.aggregate(eightKFList);
+		HashMap<String, Integer> words6K = agre.aggregate(sixKFList);
 		
-		
-		for(RequiredInfo requiredInfor: list){
-			
-		}
 		
 		RequiredInfo rst = new RequiredInfo();
 		
