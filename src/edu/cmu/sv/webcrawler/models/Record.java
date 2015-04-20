@@ -13,6 +13,8 @@ import com.mongodb.DBObject;
 import edu.cmu.sv.webcrawler.services.KeywordExtractor;
 import edu.cmu.sv.webcrawler.services.KeywordsService;
 import edu.cmu.sv.webcrawler.util.MongoHelper;
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.digest.DigestUtils;
 
 public class Record {
 
@@ -25,7 +27,9 @@ public class Record {
 	String SIC;
 	String SICName;
 	String wordCount;
-	
+	//hash value for the riskFactor string
+	String sha256;
+
 	Map<String, Integer> keywords;
 	Map<String, Integer> categories;
 	
@@ -184,6 +188,8 @@ public class Record {
 		return document;
 	}
 
+	public void setSha256(String sha256) {this.sha256 = sha256;}
+	public String getSha256(){return this.sha256;}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -192,7 +198,8 @@ public class Record {
 	@Override
 	public String toString() {
 		return "Record [companyName" + companyName + ", year=" + year + ", riskFactor=" + riskFactor
-				+ ", symbol=" + symbol + ", url=" + url + ", SIC=" + SIC + ", SICName=" + SICName + ", wordCount=" + wordCount + "]";
+				+ ", symbol=" + symbol + ", url=" + url + ", SIC=" + SIC + ", SICName=" + SICName +
+				", wordCount=" + wordCount + ", sha256=" + this.sha256 + "]";
 	}
 
 	/**
@@ -234,6 +241,11 @@ public class Record {
 		doc.put("SIC", SIC);
 		doc.put("SICName", SICName);
 		doc.put("wordCount", wordCount);
+
+		this.sha256 = Hex.encodeHexString(DigestUtils.sha256(this.riskFactor));
+		System.out.printf("[Debug]: Record save() calculated hash value %s\n",this.sha256);
+		doc.put("sha256", this.sha256);
+
 		db.insert(doc);
 		this.keywords = map;
 		return true;
@@ -256,6 +268,8 @@ public class Record {
 				String url = (String) obj.get("url");
 				String wordCount = (String) obj.get("wordCount");
 				String docType = (String) obj.get("document");
+				String sha256 = (String) obj.get("sha256");
+
 				BasicDBList keywords = (BasicDBList) obj.get("keywords");
 				Map<String, Integer> map = Keywords.getMap(keywords);
 				Record record = new Record(docType, riskFactor, symbol, year, map);
@@ -264,6 +278,8 @@ public class Record {
 				record.setSICName(SICName);
 				record.setUrl(url);
 				record.setWordCount(wordCount);
+				record.setSha256(sha256);
+
 				records.add(record);
 			}
 		} catch (Exception e) {
@@ -288,6 +304,7 @@ public class Record {
 				String url = (String) obj.get("url");
 				String wordCount = (String) obj.get("wordCount");
 				String docType = (String) obj.get("document");
+				String sha256 = (String) obj.get("sha256");
 				BasicDBList keywords = (BasicDBList) obj.get("keywords");
 				Map<String, Integer> map = Keywords.getMap(keywords);
 				Record record = new Record(docType, riskFactor, symbol, year, map);
@@ -296,6 +313,8 @@ public class Record {
 				record.setSICName(SICName);
 				record.setUrl(url);
 				record.setWordCount(wordCount);
+				record.setSha256(sha256);
+
 				records.add(record);
 			}
 		} catch (Exception e) {
@@ -320,6 +339,7 @@ public class Record {
 				String SICName = (String) obj.get("SICName");
 				String url = (String) obj.get("url");
 				String wordCount = (String) obj.get("wordCount");
+				String sha256 = (String) obj.get("sha256");
 				BasicDBList keywords = (BasicDBList) obj.get("keywords");
 				Map<String, Integer> map = Keywords.getMap(keywords);
 				Record record = new Record(docType, riskFactor, symbol, year, map);
@@ -328,6 +348,10 @@ public class Record {
 				record.setSICName(SICName);
 				record.setUrl(url);
 				record.setWordCount(wordCount);
+				record.setSha256(sha256);
+
+				System.out.printf("[Debug]: Record Search() Find one %s record for %s %s sha256=%s!\n",
+						docType, symbol, year,sha256);
 				records.add(record);
 			}
 		} catch (Exception e) {

@@ -32,7 +32,7 @@ public class CategoriesResource {
     public Map<String, Integer> getCategoryBySymbol(
             @PathParam("param") String symbol, @QueryParam("year") String year, @QueryParam("docType") String docType) {
         Keywords ks = new Keywords();
-        Map<String, Integer> map = new HashMap<String, Integer>();
+        Map<String, Integer> map;
         if (docType == null || docType.isEmpty()){
         	map = ks.getKeywords(symbol, year);
         }
@@ -40,6 +40,7 @@ public class CategoriesResource {
         	map = ks.getKeywords(symbol, year, docType);
         }
         if (map == null){
+            map = new HashMap<String, Integer>();
             map.put("Error",0);
             return map;
         }

@@ -39,8 +39,8 @@
 
 				<tr class="success">
 					<td>GET</td>
-					<td><%=host + "/api/crawl/symbol"%></td>
-					<td>Begin to crawl the record from a given company symbol.</td>
+					<td><%=host + "/api/crawl/symbol?docType=[docType]"%></td>
+					<td>Begin to crawl the record from a given company symbol for a specific document type</td>
 				</tr>
 
 				<tr class="success">
