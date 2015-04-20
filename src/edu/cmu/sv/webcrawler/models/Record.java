@@ -10,6 +10,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import edu.cmu.sv.webcrawler.services.KeywordExtractor;
 import edu.cmu.sv.webcrawler.services.KeywordsService;
 import edu.cmu.sv.webcrawler.util.MongoHelper;
@@ -243,12 +244,75 @@ public class Record {
 		doc.put("wordCount", wordCount);
 
 		this.sha256 = Hex.encodeHexString(DigestUtils.sha256(this.riskFactor));
-		System.out.printf("[Debug]: Record save() calculated hash value %s\n",this.sha256);
+		System.out.printf("[Debug]: Record save() calculated hash value %s\n", this.sha256);
 		doc.put("sha256", this.sha256);
 
-		db.insert(doc);
+		//this will add extra work load for database, could think about any other way to check redundancy.
+		List<Record> recordList = this.searchBySha256(this.symbol,this.sha256);
+
+		//if there is no matching document in the MongoDB, insert the doc
+		if(recordList.size() == 0) {
+			System.out.printf("[Debug] Current doc with sha256 %s not existed in DB\n",this.sha256);
+			db.insert(doc);
+		}
+		else
+			System.out.printf("[Debug] Current doc with sha256 %s already existed in DB\n",this.sha256);
+
 		this.keywords = map;
 		return true;
+	}
+
+	/*
+		TODO debug this function, currently not working
+	 */
+	public static List<Record> searchBySha256(String symbol, String sha256){
+		System.out.printf("[Debug] searchBySha256(%s,%s)\n",symbol,sha256);
+		DBCollection db = MongoHelper.getCollection();
+		BasicDBObject query = new BasicDBObject();
+		query.put("symbol",symbol);
+		query.put("sha256",sha256);
+		DBCursor cursor = db.find(query);
+		int docCnt = 0;
+		List<Record> recordList = new ArrayList<Record>();
+		try{
+			while(cursor.hasNext()){
+				System.out.printf("[Debug] searchBySha256() find a doc\n");
+				docCnt++;
+				if(docCnt > 1){
+					System.out.printf("[WARNING]: searchBySha256() hash value collision happen\n");
+				}
+				DBObject obj = cursor.next();
+				Record record = getRecordFromDBObject(obj);
+				recordList.add(record);
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return recordList;
+	}
+
+	public static Record getRecordFromDBObject(DBObject obj){
+		String symbol = (String) obj.get("symbol");
+		String year = (String) obj.get("year");
+		String riskFactor = (String) obj.get("riskFactor");
+		String companyName = (String) obj.get("companyName");
+		String SIC = (String) obj.get("SIC");
+		String SICName = (String) obj.get("SICName");
+		String url = (String) obj.get("url");
+		String wordCount = (String) obj.get("wordCount");
+		String docType = (String) obj.get("document");
+		String sha256 = (String) obj.get("sha256");
+
+		BasicDBList keywords = (BasicDBList) obj.get("keywords");
+		Map<String, Integer> map = Keywords.getMap(keywords);
+		Record record = new Record(docType, riskFactor, symbol, year, map);
+		record.setCompanyName(companyName);
+		record.setSIC(SIC);
+		record.setSICName(SICName);
+		record.setUrl(url);
+		record.setWordCount(wordCount);
+		record.setSha256(sha256);
+		return record;
 	}
 
 	public static List<Record> search(String symbol) {
@@ -260,26 +324,7 @@ public class Record {
 		try {
 			while (cursor.hasNext()) {
 				DBObject obj = cursor.next();
-				String year = (String) obj.get("year");
-				String riskFactor = (String) obj.get("riskFactor");
-				String companyName = (String) obj.get("companyName");
-				String SIC = (String) obj.get("SIC");
-				String SICName = (String) obj.get("SICName");
-				String url = (String) obj.get("url");
-				String wordCount = (String) obj.get("wordCount");
-				String docType = (String) obj.get("document");
-				String sha256 = (String) obj.get("sha256");
-
-				BasicDBList keywords = (BasicDBList) obj.get("keywords");
-				Map<String, Integer> map = Keywords.getMap(keywords);
-				Record record = new Record(docType, riskFactor, symbol, year, map);
-				record.setCompanyName(companyName);
-				record.setSIC(SIC);
-				record.setSICName(SICName);
-				record.setUrl(url);
-				record.setWordCount(wordCount);
-				record.setSha256(sha256);
-
+				Record record = getRecordFromDBObject(obj);
 				records.add(record);
 			}
 		} catch (Exception e) {
@@ -297,6 +342,7 @@ public class Record {
 		try {
 			while (cursor.hasNext()) {
 				DBObject obj = cursor.next();
+				/* TODO: Determine whether the commented part could be delete
 				String riskFactor = (String) obj.get("riskFactor");
 				String companyName = (String) obj.get("companyName");
 				String SIC = (String) obj.get("SIC");
@@ -314,7 +360,8 @@ public class Record {
 				record.setUrl(url);
 				record.setWordCount(wordCount);
 				record.setSha256(sha256);
-
+				*/
+				Record record = getRecordFromDBObject(obj);
 				records.add(record);
 			}
 		} catch (Exception e) {
@@ -333,6 +380,7 @@ public class Record {
 		try {
 			while (cursor.hasNext()) {
 				DBObject obj = cursor.next();
+				/* TODO: Determine whether the commented part could be delete
 				String riskFactor = (String) obj.get("riskFactor");
 				String companyName = (String) obj.get("companyName");
 				String SIC = (String) obj.get("SIC");
@@ -349,9 +397,10 @@ public class Record {
 				record.setUrl(url);
 				record.setWordCount(wordCount);
 				record.setSha256(sha256);
-
+				*/
+				Record record = getRecordFromDBObject(obj);
 				System.out.printf("[Debug]: Record Search() Find one %s record for %s %s sha256=%s!\n",
-						docType, symbol, year,sha256);
+						docType, symbol, year,record.getSha256());
 				records.add(record);
 			}
 		} catch (Exception e) {
