@@ -41,6 +41,7 @@ public class Keywords {
 	}
 
 	public Map<String, Integer> getKeywords(String symbol,String year) {
+        Map<String, Integer> result=new HashMap<String,Integer>();
 		BasicDBObject doc = new BasicDBObject();
 		doc.put("symbol", symbol);
 		doc.put("year", year);
@@ -50,32 +51,16 @@ public class Keywords {
 			DBObject obj = cursor.next();
 			BasicDBList keywords = (BasicDBList) obj.get("keywords");
 			map = getMap(keywords);
+            merge(result, map);
 			/*break;*/
 		}
-		return map;
+		return result;
 	}
 	
-	public Map<String, Integer> getKeywords(String symbol, String year, String docType) {
+	public Map<String, Integer> getKeywordsFrequency(String symbol,String year) {
 		BasicDBObject doc = new BasicDBObject();
 		doc.put("symbol", symbol);
 		doc.put("year", year);
-		doc.put("document", docType);
-		DBCursor cursor = MongoHelper.getCollection().find(doc);
-		Map<String, Integer> map = null;
-		while (cursor.hasNext()) {
-			DBObject obj = cursor.next();
-			BasicDBList keywords = (BasicDBList) obj.get("keywords");
-			map = getMap(keywords);
-			/*break;*/
-		}
-		return map;
-	}
-	
-	public Map<String, Integer> getKeywordsFrequency(String symbol, String year, String docType) {
-		BasicDBObject doc = new BasicDBObject();
-		doc.put("symbol", symbol);
-		doc.put("year", year);
-		doc.put("document", docType);
 		DBCursor cursor = MongoHelper.getCollection().find(doc);
 		Map<String, Integer> map = null;
 		String wordCount;
@@ -88,6 +73,19 @@ public class Keywords {
 		}
 		return map;
 	}
+
+    private void merge( Map<String, Integer> a,  Map<String, Integer> b){
+        for(String key:b.keySet()){
+            int v_b=b.get(key);
+            if(a.containsKey(key)){
+                int v_a=a.get(key);
+                a.put(key,v_a+v_b);
+            }
+            else a.put(key,v_b);
+        }
+
+    }
+
 
 	public static Map<String, Integer> getMap(BasicDBList keywords) {
 		Map<String,Integer> map = new HashMap<String,Integer>();
