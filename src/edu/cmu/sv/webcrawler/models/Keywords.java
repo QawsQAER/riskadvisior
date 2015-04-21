@@ -57,10 +57,30 @@ public class Keywords {
 		return result;
 	}
 	
-	public Map<String, Integer> getKeywordsFrequency(String symbol,String year) {
+	public Map<String, Integer> getKeywords(String symbol, String year, String docType) {
 		BasicDBObject doc = new BasicDBObject();
+		Map<String, Integer> result=new HashMap<String,Integer>();
 		doc.put("symbol", symbol);
 		doc.put("year", year);
+		doc.put("document", docType);
+		DBCursor cursor = MongoHelper.getCollection().find(doc);
+		Map<String, Integer> map = null;
+		while (cursor.hasNext()) {
+			DBObject obj = cursor.next();
+			BasicDBList keywords = (BasicDBList) obj.get("keywords");
+			map = getMap(keywords);
+			merge(result, map);
+			/*break;*/
+		}
+		return result;
+	}
+	
+	public Map<String, Integer> getKeywordsFrequency(String symbol, String year, String docType) {
+		BasicDBObject doc = new BasicDBObject();
+		Map<String, Integer> result=new HashMap<String,Integer>();
+		doc.put("symbol", symbol);
+		doc.put("year", year);
+		doc.put("document", docType);
 		DBCursor cursor = MongoHelper.getCollection().find(doc);
 		Map<String, Integer> map = null;
 		String wordCount;
@@ -69,9 +89,9 @@ public class Keywords {
 			BasicDBList keywords = (BasicDBList) obj.get("keywords");
 			wordCount = (String) obj.get("wordCount");
 			map = getFrequencyMap(keywords, wordCount);
-			break;
+			merge(result, map);
 		}
-		return map;
+		return result;
 	}
 
     private void merge( Map<String, Integer> a,  Map<String, Integer> b){
