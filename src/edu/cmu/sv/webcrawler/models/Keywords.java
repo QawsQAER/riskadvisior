@@ -1,18 +1,9 @@
 package edu.cmu.sv.webcrawler.models;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
-import com.mongodb.BasicDBList;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-
+import com.mongodb.*;
 import edu.cmu.sv.webcrawler.util.MongoHelper;
+
+import java.util.*;
 
 public class Keywords {
 
