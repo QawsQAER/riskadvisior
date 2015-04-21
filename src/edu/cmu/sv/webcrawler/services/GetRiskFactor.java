@@ -197,7 +197,7 @@ public class GetRiskFactor {
 		String symbol = result.getSymbo();
 		String year = result.getYear();
 		Record record = new Record(documentType, riskFactor, symbol, year, null);
-		record.remove(symbol, year, documentType);
+//		record.remove(symbol, year, documentType);
 
 		record.setCompanyName(result.getCompanyName());
 		record.setSIC(result.getSIC());
