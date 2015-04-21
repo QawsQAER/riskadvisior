@@ -1,9 +1,18 @@
 package edu.cmu.sv.webcrawler.models;
 
-import com.mongodb.*;
-import edu.cmu.sv.webcrawler.util.MongoHelper;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
-import java.util.*;
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+
+import edu.cmu.sv.webcrawler.util.MongoHelper;
 
 public class Keywords {
 
@@ -41,7 +50,6 @@ public class Keywords {
 	}
 
 	public Map<String, Integer> getKeywords(String symbol,String year) {
-        Map<String, Integer> result=new HashMap<String,Integer>();
 		BasicDBObject doc = new BasicDBObject();
 		doc.put("symbol", symbol);
 		doc.put("year", year);
@@ -51,12 +59,11 @@ public class Keywords {
 			DBObject obj = cursor.next();
 			BasicDBList keywords = (BasicDBList) obj.get("keywords");
 			map = getMap(keywords);
-            merge(result, map);
 			/*break;*/
 		}
-		return result;
+		return map;
 	}
-	
+
 	public Map<String, Integer> getKeywordsFrequency(String symbol,String year) {
 		BasicDBObject doc = new BasicDBObject();
 		doc.put("symbol", symbol);
@@ -74,31 +81,16 @@ public class Keywords {
 		return map;
 	}
 
-    private void merge( Map<String, Integer> a,  Map<String, Integer> b){
-        for(String key:b.keySet()){
-            int v_b=b.get(key);
-            if(a.containsKey(key)){
-                int v_a=a.get(key);
-                a.put(key,v_a+v_b);
-            }
-            else a.put(key,v_b);
-        }
-
-    }
-
-
 	public static Map<String, Integer> getMap(BasicDBList keywords) {
 		Map<String,Integer> map = new HashMap<String,Integer>();
 		for (Iterator<Object> it = keywords.iterator(); it.hasNext();) {
 			BasicDBObject dbo = (BasicDBObject) it.next();
 			for (String s : dbo.keySet()) {
-				map.put(s, dbo.getInt(s));
+				map.put(s, dbo.gt(s));
 			}
 		}
-		return map;
-	}
-	
-	public static Map<String, Integer> getFrequencyMap(BasicDBList keywords, String wordCount) {
+		rM			/*break;*/
+        g, Integer> getFrequencyMap(BasicDBList keywords, String wordCount) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		int wc = Integer.parseInt(wordCount);
 		for (Iterator<Object> it = keywords.iterator(); it.hasNext();) {

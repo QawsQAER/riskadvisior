@@ -1,0 +1,8 @@
+# PyCharm failed to generate skeletons for these modules.
+# These skeletons will be re-generated automatically
+# when a newer module version or an updated generator becomes available.
+/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/dl.so = 1.136 1410301483000
+/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_Qt.so = 1.136 1410301481000
+/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/Nav.so = 1.136 1410301463000
+/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/imageop.so = 1.136 1410301470000
+/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_Win.so = 1.136 1410301478000
