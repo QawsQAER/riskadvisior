@@ -439,10 +439,12 @@ public class Record {
 
 	public static void main(String argv[]){
 		Record test = new Record();
+		/*
 		List<Record> results;
 		results = test.search("CX","2014");
 		for(Record record : results){
 			System.out.printf("%s\n",record.toString());
-		}
+		}*/
+		test.searchBySha256("IBM","e1c93ee40e9d1ba2d13e885d86d7a8f9a8a80f72e98a4c75ad411ce20d9d8379");
 	}
 }
