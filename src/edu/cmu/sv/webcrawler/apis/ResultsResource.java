@@ -24,9 +24,9 @@ public class ResultsResource {
 			@QueryParam("year") String year, @QueryParam("docType") String docType) {
 		Records records = new Records();
 		List<Record> list = null;
-		if (year == null || year.isEmpty()) {
-			list = Record.search(symbol);
-		} 
+		if (year == null || docType.isEmpty()){
+			list = Record.search(symbol, null, docType);
+		}
 		else if (docType == null || docType.isEmpty()) {
 			list = Record.search(symbol, year);
 		}

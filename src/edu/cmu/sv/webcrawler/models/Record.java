@@ -357,7 +357,8 @@ public class Record {
 		DBCollection db = MongoHelper.getCollection();
 		BasicDBObject doc = new BasicDBObject();
 		doc.put("symbol", symbol);
-		doc.put("year", year);
+		if (year != null)
+			doc.put("year", year);
 		doc.put("document", docType);
 		DBCursor cursor = db.find(doc);
 		try {
