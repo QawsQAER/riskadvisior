@@ -53,9 +53,9 @@ public class CategoriesResource {
     @Path("/frequency/{param}")
     @Produces(MediaType.APPLICATION_JSON)
     public Map<String, Double> getCategoryBySymbolWithFrequency(
-            @PathParam("param") String symbol, @QueryParam("year") String year) {
+            @PathParam("param") String symbol, @QueryParam("year") String year, @QueryParam("docType") String docType) {
         Keywords ks = new Keywords();
-        Map<String, Integer> map = ks.getKeywordsFrequency(symbol, year);
+        Map<String, Integer> map = ks.getKeywordsFrequency(symbol, year, docType);
         Categories c = new Categories(map);
         Map<String, Integer> imap = c.getMap();
         Map<String, Double> dmap = new HashMap<String, Double>();

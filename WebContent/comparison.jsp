@@ -35,6 +35,13 @@
 						</select>
 					</div>
 				</div>
+				<div class="col-sm-4">
+					<label for="docType" class="control-label">DocType</label> <select
+						id="docType" class="form-control">
+						<option value="10-K">10-K</option>
+						<option value="20-F">20-F</option>
+					</select>
+				</div>
 				<div class="col-sm-4"></div>
 			</div>
 			<button type="button" class="btn btn-primary">Compare</button>
@@ -53,8 +60,8 @@
 			var B = $('#companyB').val();
 			var year = $('#year').val();
 			var categoryurl = host+"/api/category/";
-			var categoryA = categoryurl + A + "?year="+year;
-			var categoryB = categoryurl + B + "?year="+year;
+			var categoryA = categoryurl + A + "?year=" + year + "&docType=" + docType;
+			var categoryB = categoryurl + B + "?year=" + year + "&docType=" + docType;
 			//for sync
 			var finished = 0;
 			var dataA = null;
@@ -63,8 +70,8 @@
 			var FA = $('#companyA').val();
 			var FB = $('#companyB').val();
 			var categoryFrequencyurl = host+"/api/category/frequency/";
-			var categoryFrequencyA = categoryFrequencyurl + FA + "?year="+year;
-			var categoryFrequencyB = categoryFrequencyurl + FB + "?year="+year;
+			var categoryFrequencyA = categoryFrequencyurl + FA + "?year=" + year + "&docType=" + docType;
+			var categoryFrequencyB = categoryFrequencyurl + FB + "?year=" + year + "&docType=" + docType;
 			var dataFrequencyA = null;
 			var dataFrequencyB = null;
 			

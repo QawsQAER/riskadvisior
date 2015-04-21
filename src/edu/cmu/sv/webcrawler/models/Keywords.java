@@ -80,10 +80,11 @@ public class Keywords {
 		return map;
 	}
 	
-	public Map<String, Integer> getKeywordsFrequency(String symbol,String year) {
+	public Map<String, Integer> getKeywordsFrequency(String symbol, String year, String docType) {
 		BasicDBObject doc = new BasicDBObject();
 		doc.put("symbol", symbol);
 		doc.put("year", year);
+		doc.put("document", docType);
 		DBCursor cursor = MongoHelper.getCollection().find(doc);
 		Map<String, Integer> map = null;
 		String wordCount;
