@@ -32,6 +32,18 @@
 					</select>
 				</div>
 			</div>
+			<div class="form-group">
+				<div class="col-sm-4">
+					<label for="docType" class="control-label">DocType</label> <select
+						id="docType" class="form-control">
+						<option value="10-K">10-K</option>
+						<option value="20-F">20-F</option>
+						<option value="8-K">8-K</option>
+						<option	value="10-Q">10-Q</option>
+						<option value="6-K">6-K</option>
+					</select>
+				</div>
+			</div>
 			<button id="searchrecords" class="btn btn-default">Show results!</button>
 		</form>
 	</div>
@@ -63,6 +75,7 @@
 				event.preventDefault();
 				var symbol = $("#symbol").val();
 				var year = $("#year option:selected").text();
+				var doc = $("#docType option:selected").text();
 				var crawlurl = host+"/api/results/" + symbol;
 				var categoryurl=host+"/api/category/" + symbol;
 				if (year != "all") {
@@ -71,9 +84,10 @@
 				}
 				else {
 					crawlurl = crawlurl + "/?year=2014";
-					categoryurl = categoryurl+"/?year=2014";
+					categoryurl = categoryurl+"/?year=2014"; 
 				}
-				
+				crawlurl = crawlurl + "&docType=" + doc;
+				categoryurl = categoryurl + "&docType=" + doc;
 				//get the result from api provided by current website
 				$.ajax({
 					url : crawlurl,

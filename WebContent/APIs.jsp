@@ -39,8 +39,8 @@
 
 				<tr class="success">
 					<td>GET</td>
-					<td><%=host + "/api/crawl/symbol"%></td>
-					<td>Begin to crawl the record from a given company symbol.</td>
+					<td><%=host + "/api/crawl/symbol?docType=[docType]"%></td>
+					<td>Begin to crawl the record from a given company symbol for a specific document type</td>
 				</tr>
 
 				<tr class="success">
@@ -55,6 +55,12 @@
 					<td>Show the results of a given company in a year.</td>
 				</tr>
 
+				<tr class="success">
+					<td>GET</td>
+					<td><%=host + "/api/results/symbol?year=yyyy&docType=xxx"%></td>
+					<td>Show the results of a given company in a year in a specific doc type.</td>
+				</tr>
+				
 				<tr class="success">
 					<td>DELETE</td>
 					<td><%=host + "/api/results/"%></td>
@@ -72,7 +78,7 @@
 					<td><%=host + "/api/results/symbol?year=yyyy"%></td>
 					<td>DELETE the results of a given company in a given year.</td>
 				</tr>
-
+				
 				<tr class="success">
 					<td>GET</td>
 					<td><%=host + "/api/keywords"%></td>
@@ -95,6 +101,12 @@
 					<td>GET</td>
 					<td><%=host + "/api/category/symbol?year=yyyy"%></td>
 					<td>Show the categories of one company in a given year.</td>
+				</tr>
+				
+				<tr class="success">
+					<td>GET</td>
+					<td><%=host + "/api/category/symbol?year=yyyy&docType=xxx"%></td>
+					<td>Show the categories of one company in a given year in a specific doc type.</td>
 				</tr>
 				
 				<tr class="success">

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -31,6 +32,8 @@ import net.htmlparser.jericho.Source;
 import edu.cmu.sv.webcrawler.models.*;
 
 public class GetRiskFactor {
+	
+	
 
 	public String GetContent(String urlStr) {
 		System.out.printf("Downloading Content from %s\n",urlStr);
@@ -152,10 +155,14 @@ public class GetRiskFactor {
 			}
 			if (s != null)
 				System.out.println("Finish one Crawl for:" + documentType);
-			else
+			else {
+				System.out.printf("docType %s of %s is not a well-formmatted doc\n",documentType,symbol);
 				continue;
+			}
 			String[] sp = s.split(" ");
 			int count = sp.length;
+			result.setSymbo(symbol);
+			result.setCompanyName(companyName);
 			result.setRiskFactor(s);
 			result.setSIC(SIC);
 			result.setSICName(SICName);
@@ -177,7 +184,7 @@ public class GetRiskFactor {
 		String symbol = result.getSymbo();
 		String year = result.getYear();
 		Record record = new Record(documentType, riskFactor, symbol, year, null);
-		record.remove(symbol, year);
+//		record.remove(symbol, year, documentType);
 
 		record.setCompanyName(result.getCompanyName());
 		record.setSIC(result.getSIC());
@@ -261,14 +268,70 @@ public class GetRiskFactor {
 		return list;
 	}
 
+	public RequiredInfo crawlAll2(String CIK) {
+		System.out.printf("Executing Crawl All\n");
+		
+		List<RequiredInfo> twentyFList = this.DownloadByCIKAndType(CIK, false,
+				"20-F");
+		List<RequiredInfo> tenKList = this.DownloadByCIKAndType(CIK, false,
+				"10-K");
+		List<RequiredInfo> tenQFList = this.DownloadByCIKAndType(CIK, false,
+				"10-Q");
+		List<RequiredInfo> eightKFList = this.DownloadByCIKAndType(CIK, false,
+				"8-K");
+		List<RequiredInfo> sixKFList = this.DownloadByCIKAndType(CIK, false,
+				"6-K");
+		List<RequiredInfo> list = new ArrayList<RequiredInfo>();
+		list.addAll(twentyFList);
+		list.addAll(tenKList);
+		list.addAll(tenQFList);
+		list.addAll(eightKFList);
+		list.addAll(sixKFList);
+		System.out.printf("20-F list length %d\n",twentyFList.size());
+		System.out.printf("10-F list length %d\n",tenKList.size());
+		System.out.printf("10-Q list length %d\n",tenQFList.size());
+		System.out.printf("8-K list length %d\n",eightKFList.size());
+		System.out.printf("6-K list length %d\n",sixKFList.size());
+		StringBuffer riskFactor = new StringBuffer("");
+		for(RequiredInfo each : list) {
+			riskFactor.append(each.getRiskFactor());
+		}
+		AggregateKeywords agre = new AggregateKeywords();
+		HashMap<String, Integer> words20F = agre.aggregate(twentyFList);
+		HashMap<String, Integer> words10K = agre.aggregate(tenKList);
+		HashMap<String, Integer> words10Q = agre.aggregate(tenQFList);
+		HashMap<String, Integer> words8K = agre.aggregate(eightKFList);
+		HashMap<String, Integer> words6K = agre.aggregate(sixKFList);
+		
+		HashMap<String, Integer> keywordMap = new HashMap<String, Integer>();
+		for (Map.Entry<String, Integer> entry : words20F.entrySet()) {
+			String keyword = entry.getKey();
+			int count20f = words20F.get(keyword);
+			int count10k = words10K.get(keyword);
+			int count10q = words10Q.get(keyword);
+			int count8k = words8K.get(keyword);
+			int count6k = words6K.get(keyword);
+			int count = (int)(count20f * 0.1 + count10k * 0.3 + count10q * 0.3 + count8k * 0.1 + count6k * 0.1);
+			keywordMap.put(keyword, count);
+		}
+		
+		RequiredInfo rst = new RequiredInfo();
+		rst.setRiskFactor(riskFactor.toString());
+		rst.setKeywords(keywordMap);
+		
+		return rst;
+	}
+	
 	// Main
 	public static void main(String[] args) {
 		System.out.println("Start crawling from www.sec.gov...");
-		String CIK = "GOOGL"; // "ABIO"
+		String CIK = "SAP"; // "ABIO"
 		GetRiskFactor getRisk = new GetRiskFactor();
-		List<RequiredInfo> l = getRisk.DownloadByCIKAndType(CIK, false, "10-K");
+		List<RequiredInfo> l = getRisk.DownloadByCIKAndType(CIK, false, "20-F");
+		System.out.printf("Size of RequiredInfo %d\n",l.size());
 		for (RequiredInfo info : l) {
-			getRisk.save(info);
+			//getRisk.save(info);
+			System.out.printf("%s\n",info);
 		}
 		// g10K.Download10KbyCIKList("stocksymbol");
 		System.out.println("Finished crawling.");
