@@ -239,22 +239,20 @@ public class Record {
 		doc.put("symbol", symbol);
 		doc.put("companyName", companyName);
 		doc.put("year", year);
-		System.out.printf("Saving from record\n");
 		doc.put("riskFactor", this.riskFactor);
-		System.out.printf("Saving done from record\n");
 		doc.put("keywords", list);
 		doc.put("url", url);
 		doc.put("document", document);
 		doc.put("SIC", SIC);
 		doc.put("SICName", SICName);
 		doc.put("wordCount", wordCount);
-
-		this.sha256 = Hex.encodeHexString(DigestUtils.sha256(this.riskFactor));
-		System.out.printf("[Debug]: Record save() calculated hash value %s\n", this.sha256);
-		doc.put("sha256", this.sha256);
+		System.out.printf("[Debug] saving %s\n",url);
+		//this.sha256 = Hex.encodeHexString(DigestUtils.sha256(this.riskFactor));
+		//System.out.printf("[Debug]: Record save() calculated hash value %s\n", this.sha256);
+		//doc.put("sha256", this.sha256);
 
 		//this will add extra work load for database, could think about any other way to check redundancy.
-		List<Record> recordList = this.searchBySha256(this.symbol, this.sha256);
+		List<Record> recordList = this.searchByUrl(this.symbol,this.url);
 
 		//if there is no matching document in the MongoDB, insert the doc
 		if(recordList.size() == 0) {
@@ -268,24 +266,22 @@ public class Record {
 		return true;
 	}
 
-	/*
-		TODO debug this function, currently not working
-	 */
-	public static List<Record> searchBySha256(String symbol, String sha256){
-		System.out.printf("[Debug] searchBySha256(%s,%s)\n",symbol,sha256);
+
+	public static List<Record> searchByUrl(String symbol, String url){
+		System.out.printf("[Debug] searchByUrl(%s,%s)\n",symbol,url);
 		DBCollection db = MongoHelper.getCollection();
 		BasicDBObject query = new BasicDBObject();
 		query.put("symbol", symbol);
-		query.put("sha256", sha256);
+		query.put("url", url);
 		DBCursor cursor = db.find(query);
 		int docCnt = 0;
 		List<Record> recordList = new ArrayList<Record>();
 		try{
 			while(cursor.hasNext()){
-				System.out.printf("[Debug] searchBySha256() find a doc\n");
+				System.out.printf("[Debug] searchByUrl() find a doc\n");
 				docCnt++;
 				if(docCnt > 1){
-					System.out.printf("[WARNING]: searchBySha256() hash value collision happen\n");
+					System.out.printf("[WARNING]: searchByUrl() collision happen\n");
 				}
 				DBObject obj = cursor.next();
 				Record record = getRecordFromDBObject(obj);
@@ -408,12 +404,6 @@ public class Record {
 
 	public static void main(String argv[]){
 		Record test = new Record();
-		/*
-		List<Record> results;
-		results = test.searchBySha256("IBM","7a940b5d42a954438df76bd05358771c3c08477cb26032271e68455ea0c4de02");
-		for(Record record : results){
-			System.out.printf("%s\n",record.toString());
-		}*/
-		test.searchBySha256("IBM","e1c93ee40e9d1ba2d13e885d86d7a8f9a8a80f72e98a4c75ad411ce20d9d8379");
+		
 	}
 }
