@@ -408,10 +408,12 @@ public class Record {
 
 	public static void main(String argv[]){
 		Record test = new Record();
+		/*
 		List<Record> results;
 		results = test.searchBySha256("IBM","7a940b5d42a954438df76bd05358771c3c08477cb26032271e68455ea0c4de02");
 		for(Record record : results){
 			System.out.printf("%s\n",record.toString());
-		}
+		}*/
+		test.searchBySha256("IBM","e1c93ee40e9d1ba2d13e885d86d7a8f9a8a80f72e98a4c75ad411ce20d9d8379");
 	}
 }
