@@ -3,6 +3,8 @@ package edu.cmu.sv.webcrawler.models;
 import edu.cmu.sv.webcrawler.services.Get10K;
 import edu.cmu.sv.webcrawler.services.GetRiskFactor;
 import edu.cmu.sv.webcrawler.services.RequiredInfo;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Crawler {
@@ -31,9 +33,14 @@ public class Crawler {
 	 */
 	public List<RequiredInfo> crawl(String symbol, String docType){
 		GetRiskFactor g = new GetRiskFactor();
+		List<RequiredInfo> results = new ArrayList<RequiredInfo>();
 		System.out.printf("Request received\ndocType is %s\n",docType);
-		if(docType.equals("all"))
-			return g.crawlAll(symbol);
+		if(docType.equals("all")) {
+			RequiredInfo info = g.crawlAll2(symbol);
+			results.add(info);
+			return results;
+		}
+		
 		return g.DownloadByCIKAndType(symbol, false, docType);
 
 	}
