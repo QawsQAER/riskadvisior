@@ -29,7 +29,6 @@ public class Record {
 	String SICName;
 	String wordCount;
 	//hash value for the riskFactor string
-	String sha256;
 
 	Map<String, Integer> keywords;
 	Map<String, Integer> categories;
@@ -189,13 +188,6 @@ public class Record {
 		return document;
 	}
 
-	public void setSha256(String sha256) {
-		this.sha256 = sha256;
-	}
-	
-	public String getSha256() {
-		return this.sha256;
-	}
 	
 	/*
 	 * (non-Javadoc)
@@ -206,7 +198,7 @@ public class Record {
 	public String toString() {
 		return "Record [companyName" + companyName + ", year=" + year + ", riskFactor=" + riskFactor
 				+ ", symbol=" + symbol + ", url=" + url + ", SIC=" + SIC + ", SICName=" + SICName +
-				", wordCount=" + wordCount + ", sha256=" + this.sha256 + "]";
+				", wordCount=" + wordCount + "]";
 	}
 
 	/**
@@ -247,20 +239,18 @@ public class Record {
 		doc.put("SICName", SICName);
 		doc.put("wordCount", wordCount);
 		System.out.printf("[Debug] saving %s\n",url);
-		//this.sha256 = Hex.encodeHexString(DigestUtils.sha256(this.riskFactor));
-		//System.out.printf("[Debug]: Record save() calculated hash value %s\n", this.sha256);
-		//doc.put("sha256", this.sha256);
+
 
 		//this will add extra work load for database, could think about any other way to check redundancy.
 		List<Record> recordList = this.searchByUrl(this.symbol,this.url);
 
 		//if there is no matching document in the MongoDB, insert the doc
 		if(recordList.size() == 0) {
-			System.out.printf("[Debug] Current doc with sha256 %s not existed in DB\n",this.sha256);
+			System.out.printf("[Debug] Current doc with url %s not existed in DB\n",this.url);
 			db.insert(doc);
 		}
 		else
-			System.out.printf("[Debug] Current doc with sha256 %s already existed in DB\n",this.sha256);
+			System.out.printf("[Debug] Current doc with url %s already existed in DB\n",this.url);
 
 		this.keywords = map;
 		return true;
@@ -303,7 +293,6 @@ public class Record {
 		String url = (String) obj.get("url");
 		String wordCount = (String) obj.get("wordCount");
 		String docType = (String) obj.get("document");
-		String sha256 = (String) obj.get("sha256");
 
 		BasicDBList keywords = (BasicDBList) obj.get("keywords");
 		Map<String, Integer> map = Keywords.getMap(keywords);
@@ -313,7 +302,6 @@ public class Record {
 		record.setSICName(SICName);
 		record.setUrl(url);
 		record.setWordCount(wordCount);
-		record.setSha256(sha256);
 		return record;
 	}
 
@@ -364,8 +352,8 @@ public class Record {
 			while (cursor.hasNext()) {
 				DBObject obj = cursor.next();
 				Record record = getRecordFromDBObject(obj);
-				System.out.printf("[Debug]: Record Search() Find one %s record for %s %s sha256=%s!\n",
-						docType, symbol, year,record.getSha256());
+				System.out.printf("[Debug]: Record Search() Find one %s record for %s %s\n",
+						docType, symbol, year);
 				records.add(record);
 			}
 		} catch (Exception e) {
