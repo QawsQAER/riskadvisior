@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
 <title>Risk Advisor</title>
 <%@  include file="./templates/includes.jsp"%></head>
 <body>
@@ -387,8 +388,11 @@
 			<input type="hidden" id="preferences" value='{"keywords":[]}'>
 		    <br>
 			<button type="submit" id="getUserPre" class="btn btn-primary">Analyze</button>
+			<div id="taWidgetContainer" class="col-lg-12 col-xs-12"></div>
 		</div>
 	</div>
+
+	<script type="text/javascript" src="https://ta-cdn.mybluemix.net/TradeoffAnalytics.js"></script>
 	<script>
 		$(document).ready(function() {
 			$('#company').multiselect({
@@ -937,26 +941,137 @@
 	        });
 	    });
 
-		$('#getUserPre').click(function () {
-			var json1 = JSON.parse($('#companies').val());
-			var json2 = JSON.parse($('#preferences').val());
-			var json = {"companies" : json1.companies, "keywords" : json2.keywords, "year" : "2014"};
-			alert(JSON.stringify(json));
-			$.ajax({
-				type: "POST",
-				beforeSend: function (request) {
-					request.setRequestHeader("Content-Type", "text/plain");
-				},
-				url:"/api/parser/select", 
-				data: JSON.stringify(json),
-				dataType: "json", 
-				success: function(data) {
-					alert(data);
-				}
-			});
-		});
-	</script>
+		'use strict';
 
+var taClient = null;
+var lastTheme = $("#themes option:first").val();
+var lastProfile = 'basic';
+//var MIN_BAR_SLIDE_PERIOD = 500;
+
+
+function getCategory(){
+
+}
+
+function onError() {
+  var errorMsg = 'Error processing the request.';
+  alert("error!!!")
+}
+
+function getJsonFromElement(element) {
+    var elementJson = null;
+    try{
+      elementJson = JSON.parse(element.val());
+    } catch(e) {
+      element.css('border','1px solid red');
+      onError({error: 'JSON is malformed.'});
+      return elementJson;
+    }
+    element.css('border','1px solid grey');
+    $('.errorArea').hide();
+    return elementJson;
+}
+
+
+function onAnalyzeClick() {
+	$('.analyze').hide();
+	$('.loading').show();
+	$('.decisionArea').hide();
+
+	$('.errorArea').hide();
+	hideResults();
+
+	var problemJson = getJsonFromElement($('.problemText'));
+	if (!problemJson)
+	  return;
+
+	var featuresJson = getJsonFromElement($('.featuresText'));
+	if (!featuresJson)
+	  return;
+
+	recreateWidgetIfNeeded(function() {
+	  showTradeoffAnalytcsWidget(problemJson);
+	});
+}
+
+function recreateWidgetIfNeeded(showWidget) {
+	var showAdvanced = $('.showAdvance').val() === 'yes';
+	var selectedProfile = showAdvanced ?  $('.profiles').val() : 'basic';
+    var selectedTheme =  showAdvanced ?  $('#themes').val() : $("#themes option:first").val();
+	var profile = showAdvanced && selectedProfile === 'custom' ? JSON.parse($('#featuresText').val()) : selectedProfile;
+    
+    if (selectedTheme !== lastTheme || JSON.stringify(profile) !== JSON.stringify(lastProfile))  {
+	  destroyTradeoffAnalytcsWidget(function() {
+		loadTradeoffAnalytics(profile, selectedTheme, showWidget, onError);
+	  });
+    } else {
+    	showWidget();
+    }
+    
+    lastProfile = profile;
+    lastTheme = selectedTheme;
+}
+
+function showTradeoffAnalytcsWidget(problem) {
+    taClient.show(problem, onResultsReady, onResultSelection);
+}
+
+function onResultSelection(){
+  
+}
+
+function onResultsReady() {
+  // $('.analyze').show();
+  // $('.loading').hide();
+
+  // showResults();
+  // resizeToParent();
+  // onPageReady();
+  jumpTo('#taWidgetContainer');
+}
+
+function hideResults() {
+    $('.viz').addClass('result');
+}
+
+function destroyTradeoffAnalytcsWidget(callback) {
+    taClient.destroy(callback);
+}
+
+
+$('#getUserPre').click(function () {
+  var json1 = JSON.parse($('#companies').val());
+  var json2 = JSON.parse($('#preferences').val());
+  var json = {"companies" : json1.companies, "keywords" : json2.keywords, "year" : "2014"};
+  //alert(JSON.stringify(json));
+  $.ajax({
+    type: "POST",
+    beforeSend: function (request) {
+      request.setRequestHeader("Content-Type", "text/plain");
+    },
+    url:"/api/parser/select", 
+    data: JSON.stringify(json),
+    dataType: "json", 
+    success: function(data) {
+      //alert(JSON.parse(data));
+      alert(data)
+
+      taClient = new TradeoffAnalytics({
+        dilemmaServiceUrl: '/demo',
+        customCssUrl: 'https://ta-cdn.mybluemix.net/modmt/styles/watson.css',
+        profile: 'basic',
+        errCallback: onError
+      }, 'taWidgetContainer');
+
+      taClient.start(function() {
+        showTradeoffAnalytcsWidget(JSON.parse(data));
+      });
+      //taClient.show(data)
+    }
+  });
+});
+	</script>
+	
 	<%@  include file="./templates/footer.jsp"%>
 </body>
 </html>

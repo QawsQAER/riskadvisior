@@ -10,12 +10,14 @@ import java.util.Map.Entry;
 import java.io.InputStream;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+ 
 @Path("/parser")   //http://localhost:8080/webapi/parser
 @Produces("text/plain")
 public class TradeOffParser {
@@ -32,7 +34,7 @@ public class TradeOffParser {
     @Path("/select")
     @Produces("application/json")
     @Consumes("text/plain")
-    public String get_seleKey(String incomingData)
+    public Response get_seleKey(String incomingData)
             throws JSONException {
 
         JSONObject object = new JSONObject(incomingData);
@@ -74,13 +76,19 @@ public class TradeOffParser {
         JSONArray pd;
         pd = parser(comp_data, nk);
         resd.put("options", pd);
-        return resd.toString()+"\n";
+        return Response.ok(resd.toString()+"\n") //200
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT").build();
     }
 
     public JSONObject crawl_generate(String company_name, String year) throws JSONException{
         JSONObject json = new JSONObject();
         try {
-            json = new JSONObject(IOUtils.toString(new URL("http://riskadvisor.mybluemix.net/api/results/"+company_name+"?year="+year), Charset.forName("UTF-8")));
+            json = new JSONObject(
+                IOUtils.toString(
+                    new URL(
+                        "http://riskanalysis.mybluemix.net/api/results/"+company_name+"?year="+year
+                        ), Charset.forName("UTF-8")));
         } catch (Exception ex) {
             System.err.println(ex);
         }
@@ -97,8 +105,14 @@ public class TradeOffParser {
         else{
             try{
                 json = new JSONObject();
-                URL tmp = new URL("http://riskadvisor.mybluemix.net/api/crawl/"+company_name);
-                JSONObject tmpJson = new JSONObject(IOUtils.toString(new URL("http://riskadvisor.mybluemix.net/api/results/"+company_name+"?year="+year), Charset.forName("UTF-8")));
+                String dummy = IOUtils.toString(new URL(
+                        "http://riskanalysis.mybluemix.net/api/crawl/" + company_name
+                ), Charset.forName("UTF-8"));
+                JSONObject tmpJson = new JSONObject(
+                    IOUtils.toString(
+                        new URL(
+                            "http://riskanalysis.mybluemix.net/api/results/"+company_name+"?year="+year
+                            ), Charset.forName("UTF-8")));
                 JSONObject rmDup = tmpJson.getJSONArray("records").getJSONObject(0);
                 rmDup.remove("riskFactor");
                 json.put("companyName", rmDup.getString("companyName"));
