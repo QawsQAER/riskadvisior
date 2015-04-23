@@ -105,9 +105,9 @@ public class TradeOffParser {
         else{
             try{
                 json = new JSONObject();
-                URL tmp = new URL(
-                    "http://riskanalysis.mybluemix.net/api/crawl/"+company_name+""
-                    );
+                String dummy = IOUtils.toString(new URL(
+                        "http://riskanalysis.mybluemix.net/api/crawl/" + company_name
+                ), Charset.forName("UTF-8"));
                 JSONObject tmpJson = new JSONObject(
                     IOUtils.toString(
                         new URL(
