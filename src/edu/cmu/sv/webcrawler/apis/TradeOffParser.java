@@ -80,7 +80,11 @@ public class TradeOffParser {
     public JSONObject crawl_generate(String company_name, String year) throws JSONException{
         JSONObject json = new JSONObject();
         try {
-            json = new JSONObject(IOUtils.toString(new URL("http://riskadvisor.mybluemix.net/api/results/"+company_name+"?year="+year), Charset.forName("UTF-8")));
+            json = new JSONObject(
+                IOUtils.toString(
+                    new URL(
+                        "http://riskanalysis.mybluemix.net/api/results/"+company_name+"?year="+year
+                        ), Charset.forName("UTF-8")));
         } catch (Exception ex) {
             System.err.println(ex);
         }
@@ -97,8 +101,14 @@ public class TradeOffParser {
         else{
             try{
                 json = new JSONObject();
-                URL tmp = new URL("http://riskadvisor.mybluemix.net/api/crawl/"+company_name);
-                JSONObject tmpJson = new JSONObject(IOUtils.toString(new URL("http://riskadvisor.mybluemix.net/api/results/"+company_name+"?year="+year), Charset.forName("UTF-8")));
+                URL tmp = new URL(
+                    "http://riskanalysis.mybluemix.net/api/crawl/"+company_name+""
+                    );
+                JSONObject tmpJson = new JSONObject(
+                    IOUtils.toString(
+                        new URL(
+                            "http://riskanalysis.mybluemix.net/api/results/"+company_name+"?year="+year
+                            ), Charset.forName("UTF-8")));
                 JSONObject rmDup = tmpJson.getJSONArray("records").getJSONObject(0);
                 rmDup.remove("riskFactor");
                 json.put("companyName", rmDup.getString("companyName"));
