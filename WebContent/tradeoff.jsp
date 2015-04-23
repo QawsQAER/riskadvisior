@@ -383,11 +383,9 @@
 				<ul id="comList">
 				</ul>
 			</div>
-			<input type="text" class="form-control" id="inputCompany" placeholder="Company Name">
 			<input type="hidden" id="companies" value='{}'>
 			<input type="hidden" id="preferences" value='{"keywords":[]}'>
 		    <br>
-			<button type="submit" id="appendComp" class="btn btn-success">Add</button>
 			<button type="submit" id="getUserPre" class="btn btn-primary">Analyze</button>
 		</div>
 	</div>
@@ -949,11 +947,11 @@
 				beforeSend: function (request) {
 					request.setRequestHeader("Content-Type", "text/plain");
 				},
-				url:"http://localhost:8080/webStarterApp/api/parser/select", 
+				url:"/api/parser/select", 
 				data: JSON.stringify(json),
 				dataType: "json", 
 				success: function(data) {
-					alert(JSON.parse(data));
+					alert(data);
 				}
 			});
 		});

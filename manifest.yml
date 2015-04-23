@@ -1,6 +1,6 @@
 applications:
 - disk_quota: 1024M
-  host: riskadvisor
+  host: risk-numerical
   name: risk advisor
   path: webStarterApp.war
   domain: mybluemix.net
