@@ -95,7 +95,7 @@ public class TradeOffParser {
         JSONArray ja = (JSONArray) json.get("records");
         if(ja.length()!=0){
             JSONObject rmDup = ja.getJSONObject(0);
-            String comp = rmDup.getString("companyName");
+            String comp = company_name;
             JSONObject ret = new JSONObject();
             rmDup.remove("riskFactor");
             ret.put("records", rmDup);
