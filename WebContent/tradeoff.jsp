@@ -395,6 +395,7 @@
 	</div>
 
 	<script type="text/javascript" src="js/myJS.js"></script>
+	<script type="text/javascript" src="https://ta-cdn.mybluemix.net/TradeoffAnalytics.js"></script>
 	<script>
 		$(document).ready(function() {
 			$('#company').multiselect({

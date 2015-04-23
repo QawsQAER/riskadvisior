@@ -91,7 +91,7 @@ $('#getUserPre').click(function () {
   var json1 = JSON.parse($('#companies').val());
   var json2 = JSON.parse($('#preferences').val());
   var json = {"companies" : json1.companies, "keywords" : json2.keywords, "year" : "2014"};
-  alert(JSON.stringify(json));
+  //alert(JSON.stringify(json));
   $.ajax({
     type: "POST",
     beforeSend: function (request) {
@@ -106,8 +106,8 @@ $('#getUserPre').click(function () {
       taClient = new TradeoffAnalytics({
         dilemmaServiceUrl: 'demo',
         customCssUrl: 'https://ta-cdn.mybluemix.net/modmt/styles/watson.css',
-        profile: profile,
-        errCallback: errCallback
+        profile: 'basic',
+        errCallback: onError
       }, 'taWidgetContainer');
 
       //taClient.start(callback);
