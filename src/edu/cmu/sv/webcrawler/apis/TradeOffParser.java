@@ -15,7 +15,7 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+ 
 @Path("/parser")   //http://localhost:8080/webapi/parser
 @Produces("text/plain")
 public class TradeOffParser {
