@@ -32,7 +32,7 @@ public class TradeOffParser {
     @Path("/select")
     @Produces("application/json")
     @Consumes("text/plain")
-    public String get_seleKey(String incomingData)
+    public Response get_seleKey(String incomingData)
             throws JSONException {
 
         JSONObject object = new JSONObject(incomingData);
@@ -74,7 +74,10 @@ public class TradeOffParser {
         JSONArray pd;
         pd = parser(comp_data, nk);
         resd.put("options", pd);
-        return resd.toString()+"\n";
+        return Response.ok(resd.toString()+"\n") //200
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .allow("OPTIONS").build();
     }
 
     public JSONObject crawl_generate(String company_name, String year) throws JSONException{
