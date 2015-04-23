@@ -10,6 +10,11 @@ function getCategory(){
 
 }
 
+function onError() {
+  var errorMsg = 'Error processing the request.';
+  alert("error!!!")
+}
+
 function getJsonFromElement(element) {
     var elementJson = null;
     try{
@@ -68,6 +73,20 @@ function showTradeoffAnalytcsWidget(problem) {
     taClient.show(problem, onResultsReady, onResultSelection);
 }
 
+function onResultSelection(){
+  
+}
+
+function onResultsReady() {
+  // $('.analyze').show();
+  // $('.loading').hide();
+
+  // showResults();
+  // resizeToParent();
+  // onPageReady();
+  jumpTo('#taWidgetContainer');
+}
+
 function hideResults() {
     $('.viz').addClass('result');
 }
@@ -101,17 +120,20 @@ $('#getUserPre').click(function () {
     data: JSON.stringify(json),
     dataType: "json", 
     success: function(data) {
-      alert(JSON.parse(data));
+      //alert(JSON.parse(data));
+      alert(data)
 
       taClient = new TradeoffAnalytics({
-        dilemmaServiceUrl: 'demo',
+        dilemmaServiceUrl: 'http://tradeoff-analytics-demo.mybluemix.net/demo',
         customCssUrl: 'https://ta-cdn.mybluemix.net/modmt/styles/watson.css',
         profile: 'basic',
         errCallback: onError
       }, 'taWidgetContainer');
 
-      //taClient.start(callback);
-      taClient.show(data)
+      taClient.start(function() {
+        showTradeoffAnalytcsWidget(JSON.parse(data));
+      });
+      //taClient.show(data)
     }
   });
 });
