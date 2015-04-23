@@ -10,6 +10,8 @@ import java.util.Map.Entry;
 import java.io.InputStream;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -76,8 +78,7 @@ public class TradeOffParser {
         resd.put("options", pd);
         return Response.ok(resd.toString()+"\n") //200
                 .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-                .allow("OPTIONS").build();
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT").build();
     }
 
     public JSONObject crawl_generate(String company_name, String year) throws JSONException{
