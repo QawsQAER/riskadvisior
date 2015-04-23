@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
 <title>Risk Advisor</title>
 <%@  include file="./templates/includes.jsp"%></head>
 <body>
@@ -389,8 +390,11 @@
 		    <br>
 			<button type="submit" id="appendComp" class="btn btn-success">Add</button>
 			<button type="submit" id="getUserPre" class="btn btn-primary">Analyze</button>
+			<div id="taWidgetContainer" class="col-lg-12 col-xs-12"></div>
 		</div>
 	</div>
+
+	<script type="text/javascript" src="js/myJS.js"></script>
 	<script>
 		$(document).ready(function() {
 			$('#company').multiselect({
@@ -938,25 +942,6 @@
 	        	}
 	        });
 	    });
-
-		$('#getUserPre').click(function () {
-			var json1 = JSON.parse($('#companies').val());
-			var json2 = JSON.parse($('#preferences').val());
-			var json = {"companies" : json1.companies, "keywords" : json2.keywords, "year" : "2014"};
-			alert(JSON.stringify(json));
-			$.ajax({
-				type: "POST",
-				beforeSend: function (request) {
-					request.setRequestHeader("Content-Type", "text/plain");
-				},
-				url:"http://localhost:8080/webStarterApp/api/parser/select", 
-				data: JSON.stringify(json),
-				dataType: "json", 
-				success: function(data) {
-					alert(JSON.parse(data));
-				}
-			});
-		});
 	</script>
 
 	<%@  include file="./templates/footer.jsp"%>
