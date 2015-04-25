@@ -42,7 +42,7 @@ public class TradeOffParser {
         JSONArray keywords = object.getJSONArray("keywords");
         String year = object.getString("year");
 
-        String subject = "Risk";
+        String subject = "risk";
 
         JSONArray comp_data = new JSONArray();
         for(int i = 0; i < companies.length(); i++){
@@ -60,8 +60,8 @@ public class TradeOffParser {
             String cate = tmpObject.getString("category");
             tmpjo.put("key", cate);
             tmpjo.put("full_name", cate);
-            tmpjo.put("type", "numeric");
-            tmpjo.put("is_objective", "TRUE");
+            tmpjo.put("type", "NUMERIC");
+            tmpjo.put("is_objective", true);
             tmpjo.put("goal", "MIN");
             columns.put(tmpjo);
             JSONArray keys = tmpObject.getJSONArray("factors");

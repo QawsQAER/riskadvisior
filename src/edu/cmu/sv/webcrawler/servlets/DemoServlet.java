@@ -103,7 +103,7 @@ public class DemoServlet extends HttpServlet {
 		} catch (Exception e) {
 			// Log something and return an error message
 			logger.log(Level.SEVERE, "got error: " + e.getMessage(), e);
-			resp.setStatus(HttpStatus.SC_BAD_GATEWAY);
+			resp.sendError(HttpStatus.SC_BAD_GATEWAY, baseURL);
 		}
 	}
 
