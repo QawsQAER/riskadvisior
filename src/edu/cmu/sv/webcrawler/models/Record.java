@@ -321,24 +321,6 @@ public class Record {
 		}
 		return records;
 	}
-
-	public static List<Record> search(String symbol, String year) {
-		List<Record> records = new ArrayList<Record>();
-		DBCollection db = MongoHelper.getCollection();
-		BasicDBObject doc = new BasicDBObject();
-		doc.put("symbol", symbol);
-		doc.put("year", year);
-		DBCursor cursor = db.find(doc);
-		try {
-			while (cursor.hasNext()) {
-				DBObject obj = cursor.next();
-				Record record = getRecordFromDBObject(obj);
-				records.add(record);
-			}
-		} catch (Exception e) {
-		}
-		return records;
-	}
 	
 	public static List<Record> search(String symbol, String year, String docType) {
 		List<Record> records = new ArrayList<Record>();
@@ -347,7 +329,8 @@ public class Record {
 		doc.put("symbol", symbol);
 		if (year != null)
 			doc.put("year", year);
-		doc.put("document", docType);
+		if (docType != null)
+			doc.put("document", docType);
 		DBCursor cursor = db.find(doc);
 		try {
 			while (cursor.hasNext()) {
