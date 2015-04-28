@@ -61,8 +61,10 @@ public class Keywords {
 		BasicDBObject doc = new BasicDBObject();
 		Map<String, Integer> result=new HashMap<String,Integer>();
 		doc.put("symbol", symbol);
-		doc.put("year", year);
-		doc.put("document", docType);
+		if (year != null)
+			doc.put("year", year);
+		if (docType != null)
+			doc.put("document", docType);
 		DBCursor cursor = MongoHelper.getCollection().find(doc);
 		Map<String, Integer> map = null;
 		while (cursor.hasNext()) {
