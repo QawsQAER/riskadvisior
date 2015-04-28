@@ -16,7 +16,7 @@
 				<label for="companyname">Crawl records of a company</label>
 				<input type="text" id="companyname" class="form-control col-sm-4"
 					placeholder="Empty = crawl all companies"></input>
-				<select id="docType">
+				<select id="docType_craw">
 					<option value="all" selected="selected">all</option>
 					<option value="10-K">10-K</option>
 					<option value="20-F">20-F</option>
@@ -33,6 +33,14 @@
 				<p class="bg-info" id="crawl-info"></p>
 			</div>
 			<label>Delete the records of a company</label>
+			<select id="docType_delete">
+				<option value="all" selected="selected">all</option>
+				<option value="10-K">10-K</option>
+				<option value="20-F">20-F</option>
+				<option value="8-K">8-K</option>
+				<option	value="10-Q">10-Q</option>
+				<option value="6-K">6-K</option>
+			</select>
 			<div class="form-group">
 				<input id="deletesymbol" type="text" class="form-control col-sm-4"
 					placeholder="Empty = delete all records" />
@@ -52,7 +60,7 @@
 			function(event) {
 				event.preventDefault();
 				var symbol = $("#companyname").val();
-				var docType = $("#docType").val();
+				var docType = $("#docType_craw").val();
 				var output = $("#crawl-info");
 				var crawlurl = host+"/api/crawl/" + symbol + "?docType=" + docType;
 				output.text("Trying to Crawl " + symbol);
@@ -65,6 +73,8 @@
 						}else{
 							var msg = "Some documents are crawled: ";
 							console.log(data);
+							if("all" in data)
+								msg += data["all"] + " all documents, ";
 							if("10-K" in data)
 								msg += data["10-K"] + " 10-K documents, ";
 							if("20-F" in data)
@@ -86,7 +96,8 @@
 				event.preventDefault();
 				var symbol = $("#deletesymbol").val();
 				var output = $("#crawl-delete");
-				var deleteurl = host+"/api/results/" + symbol;
+				var docType = $("#docType_delete").val();
+				var deleteurl = host+"/api/results/" + symbol+ "?docType=" + docType;
 				$.ajax({
 					type : "DELETE",
 					url : deleteurl,
