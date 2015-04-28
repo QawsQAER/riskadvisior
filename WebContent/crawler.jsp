@@ -26,7 +26,7 @@
 				</select>
 			</div>
 			<div class="form-group">
-				<button id="begincrawl" type="submit" class="btn btn-default">Crawl now!</button>
+				<button id="begincrawl" type="submit" class="btn btn-primary">Crawl now!</button>
 			</div>
 			<div>
 				<p class="bg-info" id="crawl-info"></p>
@@ -45,7 +45,7 @@
 					placeholder="Empty = delete all records" />
 			</div>
 			<div class="form-group">
-				<button id="deleterecord" class="btn btn-default">Delete</button>
+				<button id="deleterecord" class="btn btn-danger">Delete</button>
 			</div>
 			<div>
 				<p class="bg-info" id="crawl-delete"></p>

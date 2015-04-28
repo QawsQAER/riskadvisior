@@ -44,7 +44,7 @@
 					</select>
 				</div>
 			</div>
-			<button id="searchrecords" class="btn btn-default">Show results!</button>
+			<button id="searchrecords" class="btn btn-primary">Show results!</button>
 		</form>
 	</div>
 
