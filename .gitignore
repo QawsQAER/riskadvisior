@@ -1,3 +1,5 @@
+.DS_Store
+classes/
 .DS_store
 *.war
 bin/*
