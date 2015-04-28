@@ -1,6 +1,7 @@
 package edu.cmu.sv.webcrawler.util;
 
 import java.util.Comparator;
+
 public class TermComparator implements Comparator {
     public int compare(Object o1, Object o2) {
 

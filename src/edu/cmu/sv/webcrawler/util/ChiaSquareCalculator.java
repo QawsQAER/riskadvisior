@@ -13,18 +13,17 @@ public class ChiaSquareCalculator {
     DBCollection categoriesCollection = null;
     DBCollection webcrawlerCollection = null;
     DBCollection featureCollection=null;
-    //儲存所有詞彙
+    //store all the key words
     HashSet<String> vocabulary = new HashSet<String>();
-    //儲存每個類別的詞彙集合
-    //儲存所有類別名稱與相應的詞彙集合
+    //store the key word set of each categor
     protected HashMap<String, HashSet<String>> c_t_map = new HashMap<>();
-    //以類別名稱還有詞彙名稱作為key值 將該詞彙在該類別出現的次數儲存在內
+    //use the category name and key word name as key value, store the occurance of the keyword in this category
     protected HashMap<String, Float> t_c_matrix = new HashMap<String, Float>();
-    //以詞彙名稱作為key值 將該詞彙在所有類別出現的次數儲存在內
+    //use the keyword as key,  store the occurance of the keyword in this category
     protected HashMap<String, Float> t_matrix = new HashMap<String, Float>();
-    //以類別名稱作為key值 將該類別中所有詞彙出現的總次數儲存在內
+    //use the keyword as key,  store the occurance of the keyword in this category
     protected HashMap<String, Float> c_matrix = new HashMap<String, Float>();
-    //所有詞彙在所有類別出現的總次數
+    //store the occurance of the keyword in this category
     protected float N = 0;
 
     /**
@@ -124,7 +123,7 @@ public class ChiaSquareCalculator {
 
 
     /**
-     * Parse the tokon
+     * Parse the token
      *
      * @param tokon
      * @return

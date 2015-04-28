@@ -6,20 +6,19 @@ import java.util.*;
  * Created by bluebyte60 on 4/7/15.
  */
 public class FeatureSelection {
-    //儲存所有詞彙
     Set<String> vocabulary = new HashSet<String>();
-    //儲存所有類別名稱
+
     Set<String> categories = new HashSet<String>();
     protected HashMap<String, HashSet<String>> c_t_map = new HashMap<>();
-    //以類別名稱還有詞彙名稱作為key值 將該詞彙在該類別出現的次數儲存在內
+
     protected Map<String, Float> t_c_matrix = new HashMap<String, Float>();
-    //以詞彙名稱作為key值 將該詞彙在所有類別出現的次數儲存在內
+
     protected Map<String, Float> t_matrix = new HashMap<String, Float>();
-    //以類別名稱作為key值 將該類別中所有詞彙出現的總次數儲存在內
+
     protected Map<String, Float> c_matrix = new HashMap<String, Float>();
-    //所有詞彙在所有類別出現的總次數
+
     protected float N = 0;
-    //總亂度
+
     public float uncondition_entropy;
 
     private FeatureSelection() {
