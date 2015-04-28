@@ -36,6 +36,9 @@ public class CategoriesResource {
         if (docType == null || docType.isEmpty()){
         	map = ks.getKeywords(symbol, year);
         }
+        else if (year == null || year.isEmpty()) {
+        	map = ks.getKeywords(symbol, null, docType);
+        }
         else {
         	map = ks.getKeywords(symbol, year, docType);
         }

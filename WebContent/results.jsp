@@ -79,15 +79,15 @@
 				var crawlurl = host+"/api/results/" + symbol;
 				var categoryurl=host+"/api/category/" + symbol;
 				if (year != "all") {
-					crawlurl = crawlurl + "/?year=" + year;
-					categoryurl = categoryurl+"/?year=" + year;
+					crawlurl = crawlurl + "/?year=" + year + "&docType=" + doc;
+					categoryurl = categoryurl + "/?year=" + year + "&docType=" + doc;
 				}
-				else {
-					crawlurl = crawlurl + "/?year=2014";
-					categoryurl = categoryurl+"/?year=2014"; 
+				else  {
+					crawlurl = crawlurl + "/?docType=" + doc;
+					categoryurl = categoryurl + "/?docType=" + doc;
 				}
-				crawlurl = crawlurl + "&docType=" + doc;
-				categoryurl = categoryurl + "&docType=" + doc;
+				/* crawlurl = crawlurl + "&docType=" + doc;
+				categoryurl = categoryurl + "&docType=" + doc; */
 				//get the result from api provided by current website
 				$.ajax({
 					url : crawlurl,
