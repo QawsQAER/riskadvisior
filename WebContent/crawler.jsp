@@ -26,24 +26,25 @@
 				</select>
 			</div>
 			<div class="form-group">
-				<button id="begincrawl" type="submit" class="btn btn-default">Crawl
-					now!</button>
+				<button id="begincrawl" type="submit" class="btn btn-default">Crawl now!</button>
 			</div>
 			<div>
 				<p class="bg-info" id="crawl-info"></p>
 			</div>
-			<label>Delete the records of a company</label>
-			<select id="docType_delete">
-				<option value="all" selected="selected">all</option>
-				<option value="10-K">10-K</option>
-				<option value="20-F">20-F</option>
-				<option value="8-K">8-K</option>
-				<option	value="10-Q">10-Q</option>
-				<option value="6-K">6-K</option>
-			</select>
 			<div class="form-group">
+				<label>Delete the records of a company</label>
+				<select id="docType_delete">
+					<option value="all" selected="selected">all</option>
+					<option value="10-K">10-K</option>
+					<option value="20-F">20-F</option>
+					<option value="8-K">8-K</option>
+					<option	value="10-Q">10-Q</option>
+					<option value="6-K">6-K</option>
+				</select>
 				<input id="deletesymbol" type="text" class="form-control col-sm-4"
 					placeholder="Empty = delete all records" />
+			</div>
+			<div class="form-group">
 				<button id="deleterecord" class="btn btn-default">Delete</button>
 			</div>
 			<div>

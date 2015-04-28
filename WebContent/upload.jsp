@@ -11,14 +11,18 @@
 	
 
 	<div class="container">
-		<div class="col-sm-4">
-		<h4> Add Keyword Here</h4>
-		<label for="category" class="control-label">Category:</label> 
-		<input type="text" id="add_category" class="form-control col-sm-4"><br>
-		<label for="keyword" class="control-label">Keyword:</label>
-		<input type="text" id="add_keyword" class="form-control col-sm-4"><br>		
-		<button value="add this!" onclick="addKeyword()" class="btn btn-default">Add</button>
-		</div>	
+		<h3> Add Keyword Here</h3>
+		<form class="form-horizontal" role="form">
+			<div class="form-group">
+				<div class="col-sm-4">
+				<label for="category" class="control-label">Category:</label> 
+				<input type="text" id="add_category" class="form-control col-sm-4"><br>
+				<label for="keyword" class="control-label">Keyword:</label>
+				<input type="text" id="add_keyword" class="form-control col-sm-4"><br>	
+				</div>	
+			</div>	
+			<button value="add this!" onclick="addKeyword()" class="btn btn-default">Add</button>
+		</form>
 	</div>
 	<br>
 	<div class="container">
