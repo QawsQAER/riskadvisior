@@ -23,7 +23,8 @@
 						type="text" class="form-control" id="companyB"
 						placeholder="Enter the symbol of the second company." />
 				</div>
-				<div class="form-group">
+			</div>
+			<div class="form-group">
 				<div class="col-sm-4">
 					<label for="year" class="control-label">Year</label> 
 						<select id="year" class="form-control">
@@ -33,7 +34,6 @@
 							<option>2012</option>
 							<option>2011</option>
 						</select>
-					</div>
 				</div>
 				<div class="col-sm-4">
 					<label for="docType" class="control-label">DocType</label> 

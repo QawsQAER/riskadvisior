@@ -318,6 +318,9 @@ public class GetRiskFactor {
 		RequiredInfo rst = new RequiredInfo();
 		rst.setRiskFactor(riskFactor.toString());
 		rst.setKeywords(keywordMap);
+		rst.setSymbo(CIK);
+		rst.setDocumentType("all");
+		save(rst);
 		
 		return rst;
 	}
