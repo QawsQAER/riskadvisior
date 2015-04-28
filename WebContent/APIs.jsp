@@ -33,32 +33,38 @@
 
 				<tr class="success">
 					<td>GET</td>
-					<td><%=host + "/api/crawl/"%></td>
-					<td>Begin to crawl the record from all companies' symbols.</td>
+					<td><%=host + "/api/crawl"%></td>
+					<td>Begin to crawl the 10-K documents from all companies' symbols.</td>
 				</tr>
 
 				<tr class="success">
 					<td>GET</td>
-					<td><%=host + "/api/crawl/symbol?docType=[docType]"%></td>
+					<td><%=host + "/api/crawl/:symbol?docType=:docType"%></td>
 					<td>Begin to crawl the record from a given company symbol for a specific document type</td>
 				</tr>
 
 				<tr class="success">
 					<td>GET</td>
-					<td><%=host + "/api/results/symbol"%></td>
+					<td><%=host + "/api/results/:symbol"%></td>
 					<td>Show the results of a given company.</td>
 				</tr>
 
 				<tr class="success">
 					<td>GET</td>
-					<td><%=host + "/api/results/symbol?year=yyyy"%></td>
+					<td><%=host + "/api/results/:symbol?year=:year"%></td>
 					<td>Show the results of a given company in a year.</td>
+				</tr>
+				
+				<tr class="success">
+					<td>GET</td>
+					<td><%=host + "/api/results/:symbol?docType=:docType"%></td>
+					<td>Show the results of a given company in a specific document type.</td>
 				</tr>
 
 				<tr class="success">
 					<td>GET</td>
-					<td><%=host + "/api/results/symbol?year=yyyy&docType=xxx"%></td>
-					<td>Show the results of a given company in a year in a specific doc type.</td>
+					<td><%=host + "/api/results/:symbol?year=:year&docType=:docType"%></td>
+					<td>Show the results of a given company in a year with a specific document type.</td>
 				</tr>
 				
 				<tr class="success">
@@ -69,14 +75,20 @@
 				
 				<tr class="success">
 					<td>DELETE</td>
-					<td><%=host + "/api/results/symbol"%></td>
-					<td>DELETE the results of a given company.</td>
+					<td><%=host + "/api/results/:symbol?year=:year"%></td>
+					<td>DELETE the results of a given company in a given year.</td>
 				</tr>
-
+				
 				<tr class="success">
 					<td>DELETE</td>
-					<td><%=host + "/api/results/symbol?year=yyyy"%></td>
-					<td>DELETE the results of a given company in a given year.</td>
+					<td><%=host + "/api/results/:symbol?docType=:docType"%></td>
+					<td>DELETE the results of a given company in a specific document type.</td>
+				</tr>
+				
+				<tr class="success">
+					<td>DELETE</td>
+					<td><%=host + "/api/results/:symbol?year=:year&docType=:docType"%></td>
+					<td>DELETE the results of a given company in a year with a specific document type.</td>
 				</tr>
 				
 				<tr class="success">
@@ -87,7 +99,7 @@
 				
 				<tr class="success">
 					<td>GET</td>
-					<td><%=host + "/api/keywords/symbol?year=yyyy"%></td>
+					<td><%=host + "/api/keywords/:symbol?year=:year"%></td>
 					<td>Show keywords of a given company in a given year.</td>
 				</tr>
 				
@@ -99,25 +111,37 @@
 				
 				<tr class="success">
 					<td>GET</td>
-					<td><%=host + "/api/category/symbol?year=yyyy"%></td>
+					<td><%=host + "/api/category/:symbol?year=:year"%></td>
 					<td>Show the categories of one company in a given year.</td>
 				</tr>
 				
 				<tr class="success">
 					<td>GET</td>
-					<td><%=host + "/api/category/symbol?year=yyyy&docType=xxx"%></td>
-					<td>Show the categories of one company in a given year in a specific doc type.</td>
+					<td><%=host + "/api/category/:symbol?docType=:docType"%></td>
+					<td>Show the categories of one company in a specific document type.</td>
 				</tr>
 				
 				<tr class="success">
 					<td>GET</td>
-					<td><%=host + "/api/category/addKeyword?category=[categoryName]&keyword=[keywordString]"%></td>
+					<td><%=host + "/api/category/:symbol?year=:year&docType=:docType"%></td>
+					<td>Show the categories of one company in a given year with a specific document type.</td>
+				</tr>
+				
+				<tr class="success">
+					<td>GET</td>
+					<td><%=host + "/api/category/frequency/:symbol?year=:year&docType=:docType"%></td>
+					<td>Show the normalized categories of one company in a given year with a specific document type.</td>
+				</tr>
+				
+				<tr class="success">
+					<td>GET</td>
+					<td><%=host + "/api/category/addKeyword?category=:categoryName&keyword=:keywordString"%></td>
 					<td>Add keyword according to category</td>
 				</tr>
 				
 				<tr class="success">
 					<td>GET</td>
-					<td><%=host + "/api/category/deleteKeyword?category=[categoryName]&keyword=[keywordString]"%></td>
+					<td><%=host + "/api/category/deleteKeyword?category=:categoryName&keyword=:keywordString"%></td>
 					<td>delete keyword according to category</td>
 				</tr>
 				
@@ -125,13 +149,13 @@
 		</table>
 	</div>
 
-	<div id="instructions" class="bg-info">
+<!-- 	<div id="instructions" class="bg-info">
 		<label>Instructions</label>
 		<ul>
 			<li>Replace symbol with a REAL company symbol(e.g., NWSA, FUBC).</li>
 			<li>Replace the yyyy with a REAL year(e.g., 2013, 2012)</li>
 		</ul>
-	</div>
+	</div> -->
 
 	<%@  include file="./templates/footer.jsp"%>
 </body>
