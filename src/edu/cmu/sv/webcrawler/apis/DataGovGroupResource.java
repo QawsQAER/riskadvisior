@@ -13,7 +13,7 @@ import org.json.JSONException;
 import com.google.gson.Gson;
 
 import edu.cmu.sv.webcrawler.util.PackageCrawler;
-
+import edu.cmu.sv.webcrawler.util.Common;
 
 
 @Path("/groupName")
@@ -41,7 +41,7 @@ public class DataGovGroupResource {
 		Gson gson = new Gson();
 		String json = gson.toJson(packageCrawler.getTopPackages(num));
 		int count = packageCrawler.getRealDataPackages().size();
-		return ("{"+count+"}"+json);
+		return (Common.formatCountJson(count,json));
 	}
 	@GET
 	@Path("/{groupName}/topTags/{num}")
@@ -55,7 +55,7 @@ public class DataGovGroupResource {
 		Gson gson = new Gson();
 		String json = gson.toJson(packageCrawler.getTopTags(num));
 		int count = packageCrawler.getRealTags().size();
-		return ("{"+count+"}"+json);
+		return (Common.formatCountJson(count,json));
 	}
 
 }

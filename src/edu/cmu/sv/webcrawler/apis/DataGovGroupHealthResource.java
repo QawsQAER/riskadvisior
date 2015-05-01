@@ -12,6 +12,7 @@ import org.json.JSONException;
 
 import com.google.gson.Gson;
 
+import edu.cmu.sv.webcrawler.util.Common;
 import edu.cmu.sv.webcrawler.util.HealthCrawler;
 
 
@@ -40,7 +41,7 @@ public class DataGovGroupHealthResource {
 		Gson gson = new Gson();
 		String json = gson.toJson(healthCrawler.getTopTags(num));
 		int count = healthCrawler.getRealTags().size();
-		return ("{"+count+"}"+json);
+		return (Common.formatCountJson(count,json));
 	}
 	
 	@GET
@@ -55,7 +56,7 @@ public class DataGovGroupHealthResource {
 		Gson gson = new Gson();
 		String json = gson.toJson(healthCrawler.getTopPackages(num));
 		int count = healthCrawler.getRealTags().size();
-		return ("{"+count+"}"+json);
+		return (Common.formatCountJson(count,json));
 	}
 	
 }
