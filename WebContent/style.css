@@ -253,4 +253,19 @@ html.noScroll {
 
 .decisionArea {
 	z-index: -1;
+=======
+	margin-top: 50px;
+}
+
+#crawlerform {
+	padding-top: 50px;
+	width: 500px;
+}
+
+.apis a{
+	pointer-events: none;
+	cursor: default;
+}
+.hidden{
+	display: none;
 }

@@ -1,3 +1,5 @@
+.DS_Store
+classes/
 .DS_store
 *.war
 bin/*
@@ -8,3 +10,6 @@ bin/*
 *.war
 webStarterApp.war
 /bin
+.idea/
+out/
+riskadvisor.iml

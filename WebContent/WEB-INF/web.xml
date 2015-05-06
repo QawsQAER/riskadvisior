@@ -26,5 +26,4 @@
 		<servlet-name>api-serlvet</servlet-name>
 		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
-
 </web-app>

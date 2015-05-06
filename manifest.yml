@@ -5,4 +5,4 @@ applications:
   path: webStarterApp.war
   domain: mybluemix.net
   instances: 1
-  memory: 512Mb
+  memory: 512M
