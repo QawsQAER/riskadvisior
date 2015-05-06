@@ -23,7 +23,8 @@
 						type="text" class="form-control" id="companyB"
 						placeholder="Enter the symbol of the second company." />
 				</div>
-				<div class="form-group">
+			</div>
+			<div class="form-group">
 				<div class="col-sm-4">
 					<label for="year" class="control-label">Year</label> 
 						<select id="year" class="form-control">
@@ -33,7 +34,16 @@
 							<option>2012</option>
 							<option>2011</option>
 						</select>
-					</div>
+				</div>
+				<div class="col-sm-4">
+					<label for="docType" class="control-label">DocType</label> 
+					<select id="docType" class="form-control">
+						<option value="10-K">10-K</option>
+						<option value="20-F">20-F</option>
+						<option value="8-K">8-K</option>
+						<option value="10-Q">10-Q</option>
+						<option value="6-K">6-K</option>
+					</select>
 				</div>
 				<div class="col-sm-4"></div>
 			</div>
@@ -42,6 +52,7 @@
 	</div>
 
 	<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+	<div id="chartContainer2" style="height: 300px; width: 100%;"></div>
 	<%@  include file="./templates/footer.jsp"%>
 	<script>
 	var url = location.href;
@@ -51,13 +62,23 @@
 			var A = $('#companyA').val();
 			var B = $('#companyB').val();
 			var year = $('#year').val();
+			var docType = $('#docType').val();
 			var categoryurl = host+"/api/category/";
-			var categoryA = categoryurl + A + "?year="+year;
-			var categoryB = categoryurl + B + "?year="+year;
+			var categoryA = categoryurl + A + "?year=" + year + "&docType=" + docType;
+			var categoryB = categoryurl + B + "?year=" + year + "&docType=" + docType;
 			//for sync
 			var finished = 0;
 			var dataA = null;
 			var dataB = null;
+			//for frequency
+			var FA = $('#companyA').val();
+			var FB = $('#companyB').val();
+			var categoryFrequencyurl = host+"/api/category/frequency/";
+			var categoryFrequencyA = categoryFrequencyurl + FA + "?year=" + year + "&docType=" + docType;
+			var categoryFrequencyB = categoryFrequencyurl + FB + "?year=" + year + "&docType=" + docType;
+			var dataFrequencyA = null;
+			var dataFrequencyB = null;
+			
 			$.ajax({
 				url : categoryA,
 				success : function(dataA) {
@@ -65,10 +86,23 @@
 						url: categoryB,
 						success:function(dataB){
 							showComparison(dataA, dataB, A, B);
+							$.ajax({
+								url : categoryFrequencyA,
+								success : function(dataFrequencyA) {
+									$.ajax({
+										url: categoryFrequencyB,
+										success:function(dataFrequencyB){
+											showFrequencyComparison(dataFrequencyA, dataFrequencyB, FA, FB); 
+											/* showComparison(dataFrequencyA, dataFrequencyB, A, B); */
+										}
+									});
+								}
+							});
 						}
 					});
 				}
 			});
+			
 		});
 		function showComparison(dataA, dataB, A, B) {
 			var keys = [];
@@ -92,9 +126,36 @@
 					dataPoints : dpB
 				} ]
 			});
-
 			chart.render();
 		}
+		
+		function showFrequencyComparison(dataA, dataB, A, B){
+			var keysF = [];
+			keysF = gatherKeys(dataA,keysF);
+			keysF = gatherKeys(dataB,keysF);
+			var dpFA = convert(dataA,keysF);
+			var dpFB = convert(dataB,keysF);
+			
+			var chart_frequency = new CanvasJS.Chart("chartContainer2", {
+				title : {
+					text : "Financial Risk Frequency Comparison (appear in every thousand words)"
+				},
+				data : [ {
+					legendText : A,
+					type : "stackedBar",
+					showInLegend: "true",
+					dataPoints : dpFA
+				}, {
+					legendText : B,
+					type : "stackedBar",
+					showInLegend: "true",
+					dataPoints : dpFB
+				} ]
+			});
+
+			chart_frequency.render();
+		} 
+		
 		function gatherKeys(data,keys) {
 			// append unique keys from the data set
 			for (key in data) {

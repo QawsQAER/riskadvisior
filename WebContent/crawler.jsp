@@ -16,23 +16,36 @@
 				<label for="companyname">Crawl records of a company</label>
 				<input type="text" id="companyname" class="form-control col-sm-4"
 					placeholder="Empty = crawl all companies"></input>
-				<select id="docType">
-					<option value="10-K" selected="selected">10-K</option>
+				<select id="docType_craw">
+					<option value="all" selected="selected">all</option>
+					<option value="10-K">10-K</option>
 					<option value="20-F">20-F</option>
+					<option value="8-K">8-K</option>
+					<option	value="10-Q">10-Q</option>
+					<option value="6-K">6-K</option>
 				</select>
 			</div>
 			<div class="form-group">
-				<button id="begincrawl" type="submit" class="btn btn-default">Crawl
-					now!</button>
+				<button id="begincrawl" type="submit" class="btn btn-primary">Crawl now!</button>
 			</div>
 			<div>
 				<p class="bg-info" id="crawl-info"></p>
 			</div>
-			<label>Delete the records of a company</label>
 			<div class="form-group">
+				<label>Delete the records of a company</label>
+				<select id="docType_delete">
+					<option value="all" selected="selected">all</option>
+					<option value="10-K">10-K</option>
+					<option value="20-F">20-F</option>
+					<option value="8-K">8-K</option>
+					<option	value="10-Q">10-Q</option>
+					<option value="6-K">6-K</option>
+				</select>
 				<input id="deletesymbol" type="text" class="form-control col-sm-4"
 					placeholder="Empty = delete all records" />
-				<button id="deleterecord" class="btn btn-default">Delete</button>
+			</div>
+			<div class="form-group">
+				<button id="deleterecord" class="btn btn-danger">Delete</button>
 			</div>
 			<div>
 				<p class="bg-info" id="crawl-delete"></p>
@@ -48,13 +61,33 @@
 			function(event) {
 				event.preventDefault();
 				var symbol = $("#companyname").val();
-				var docType = $("#docType").val();
+				var docType = $("#docType_craw").val();
 				var output = $("#crawl-info");
 				var crawlurl = host+"/api/crawl/" + symbol + "?docType=" + docType;
+				output.text("Trying to Crawl " + symbol);
 				$.ajax({
 					url : crawlurl,
 					success : function(data) {
-					output.text(data);
+						if(data["size"] == 0){
+							var msg = "No Document are crawlled";
+							output.text(msg);
+						}else{
+							var msg = "Some documents are crawled: ";
+							console.log(data);
+							if("all" in data)
+								msg += data["all"] + " all documents, ";
+							if("10-K" in data)
+								msg += data["10-K"] + " 10-K documents, ";
+							if("20-F" in data)
+								msg += data["20-F"] + " 20-F documents, ";
+							if("8-K" in data)
+								msg += data["8-K"] + " 8-K documents, ";
+							if("10-Q" in data)
+								msg += data["10-Q"] + " 10-Q documents, ";
+							if("6-K" in data)
+								msg += data["6-K"] + " 6-K documents, ";
+							output.text(msg);
+						}
 					}
 				});
 		});
@@ -64,7 +97,8 @@
 				event.preventDefault();
 				var symbol = $("#deletesymbol").val();
 				var output = $("#crawl-delete");
-				var deleteurl = host+"/api/results/" + symbol;
+				var docType = $("#docType_delete").val();
+				var deleteurl = host+"/api/results/" + symbol+ "?docType=" + docType;
 				$.ajax({
 					type : "DELETE",
 					url : deleteurl,

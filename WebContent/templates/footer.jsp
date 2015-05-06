@@ -4,9 +4,9 @@
 
 <div class="footer">
 	<div class="container">
-		<img src="./img/Carnegie_Mellon_Silicon_Valley.png" width="200px">
-		<img src="./img/IBM_logo.png" width="60px">
-		<img src="./img/codenamebluemix.png" width="60px">
+		<a href="http://www.cmu.edu/silicon-valley/"><img src="./img/Carnegie_Mellon_Silicon_Valley.png" width="200px"></a>
+		<a href="http://www.ibm.com/us/en/"><img src="./img/IBM_logo.png" width="60px"></a>
+		<a href="https://console.ng.bluemix.net/"><img src="./img/codenamebluemix.png" width="60px"></a>
 		
 	</div>
 </div>

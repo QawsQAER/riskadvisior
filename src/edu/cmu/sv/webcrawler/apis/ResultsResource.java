@@ -1,5 +1,6 @@
 package edu.cmu.sv.webcrawler.apis;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.DELETE;
@@ -20,13 +21,22 @@ public class ResultsResource {
 	@Path("/{param}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Records getResult(@PathParam("param") String symbol,
-			@QueryParam("year") String year) {
+			@QueryParam("year") String year, @QueryParam("docType") String docType) {
 		Records records = new Records();
 		List<Record> list = null;
-		if (year == null || year.isEmpty()) {
+		if (year == null && docType == null) {
 			list = Record.search(symbol);
-		} else {
-			list = Record.search(symbol, year);
+			records.setRecords(list);
+			return records;
+		}
+		if (year == null || year.isEmpty()){
+			list = Record.search(symbol, null, docType);
+		}
+		else if (docType == null || docType.isEmpty()) {
+			list = Record.search(symbol, year, null);
+		}
+		else {
+			list = Record.search(symbol, year, docType);
 		}
 		records.setRecords(list);
 		return records;
@@ -35,9 +45,9 @@ public class ResultsResource {
 	@DELETE
 	@Path("/{param}")
 	public Response removeResult(@PathParam("param") String symbol,
-			@QueryParam("year") String year) {
-		Record record = new Record("10-K", null, symbol, year, null);
-		record.remove(symbol, year);
+			@QueryParam("year") String year, @QueryParam("docType") String docType) {
+		Record record = new Record(docType, null, symbol, year, null);
+		record.remove(symbol, year, docType);
 		return Response.status(200).entity("Remove a result with the symbol "+symbol).build();
 	}
 	
@@ -65,7 +75,7 @@ class Records {
 	 *            the records to set
 	 */
 	public void setRecords(List<Record> records) {
-		this.records = records;
+		this.records = new ArrayList<Record>(records);
 	}
 
 }

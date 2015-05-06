@@ -1,0 +1,50 @@
+<html>
+<head>
+    <title>Navigation - Top Tags Per Group</title>
+    <meta charset="utf-8">
+
+<link rel="stylesheet" href="stylesheets/main.css">
+<link rel="stylesheet" href="stylesheets/bootstrap.css">
+
+<link rel="stylesheet" href="bower_components/jqcloud2/dist/jqcloud.min.css">
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/tinycolor/tinycolor.js"></script>
+	<script src="bower_components/tinygradient/tinygradient.js"></script>
+	<script src="bower_components/jqcloud2/dist/jqcloud.min.js"></script>
+    <script src="javascripts/core_tests.js"></script>
+    </head>
+<body>
+	<div id="wrapper" class="jumbotron">
+		<div class="row">
+			<h3>Get Top Tags for Group</h3>
+			<div id="sidebar-wrapper" class="col-md-5 sidebar">
+					
+				
+				<button type="button" class="btn btn-default fixed" onclick="groupTopTag('agriculture8571')"><img src="http://www.data.gov/app/themes/roots-nextdatagov/assets/img/topic-food.svg"/><br/><small>Agriculture</small></button>
+				<button type="button" class="btn btn-default fixed" onclick="groupTopTag('energy9485')"><img src="http://www.data.gov/app/themes/roots-nextdatagov/assets/img/topic-energy.svg"/><br/><small>Energy</small></button>
+				<button type="button" class="btn btn-default fixed" onclick="groupTopTag('education2168')"><img src="http://www.data.gov/app/themes/roots-nextdatagov/assets/img/topic-education.svg"/><br/><small>Education</small></button>
+				<button type="button" class="btn btn-default fixed" onclick="groupTopTag('consumer9350')"><img src="http://www.data.gov/app/themes/roots-nextdatagov/assets/img/topic-consumer.svg"/><br/><small>Consumer</small></button>
+				<button type="button" class="btn btn-default fixed" onclick="groupTopTag('ecosystems0617')"><img src="http://www.data.gov/app/themes/roots-nextdatagov/assets/img/topic-development.svg"/><br/><small>Ecosystems</small></button>
+				<button type="button" class="btn btn-default fixed" onclick="groupTopTag('finance3432')"><img src="http://www.data.gov/app/themes/roots-nextdatagov/assets/img/topic-finance.svg"/><br/><small>Finance</small></button>
+				<button type="button" class="btn btn-default fixed" onclick="groupTopTag('businessusa4208')"><img src="http://www.data.gov/app/themes/roots-nextdatagov/assets/img/topic-business.svg"/><br/><small>Business</small></button>
+				<button type="button" class="btn btn-default fixed" onclick="groupTopHealthTag()"><img src="http://www.data.gov/app/themes/roots-nextdatagov/assets/img/topic-health.svg"/><br/><small>Health</small></button>
+				<button type="button" class="btn btn-default fixed" onclick="groupTopTag('manufacturing7382')"><img src="http://www.data.gov/app/themes/roots-nextdatagov/assets/img/topic-manufacturing.svg"/><br/><small>Manufacturing</small></button>
+				<button type="button" class="btn btn-default fixed" onclick="groupTopTag('ocean9585')"><img src="http://www.data.gov/app/themes/roots-nextdatagov/assets/img/topic-ocean.svg"/><br/><small>Ocean</small></button>
+				<button type="button" class="btn btn-default fixed" onclick="groupTopTag('research9385')"><img src="http://www.data.gov/app/themes/roots-nextdatagov/assets/img/topic-research.svg"/><br/><small>Research & Development</small></button>
+				<button type="button" class="btn btn-default fixed" onclick="groupTopTag('safety3175')"><img src="http://www.data.gov/app/themes/roots-nextdatagov/assets/img/topic-safety.svg"/><br/><small>Public Safety</small></button>
+				<!-- @*<button type="button" class="btn btn-default fixed" onclick="groupTopTag('local')"><img src="http://www.data.gov/app/themes/roots-nextdatagov/assets/img/topic-states.svg"/><br/><small>Local Government</small></button>*@ -->
+				<button type="button" class="btn btn-default fixed" onclick="groupTopTag('climate5434')"><img src="http://www.data.gov/app/themes/roots-nextdatagov/assets/img/topic-climate.svg"/><br/><small>Climate</small></button>
+				<button type="button" class="btn btn-default fixed" onclick="groupTopTag('law1129')"><img src="http://www.data.gov/app/themes/roots-nextdatagov/assets/img/topic-law.svg"/><br/><small>Law</small></button>
+
+				
+			</div>
+			<div class="col-md-7">
+				<h3 id="totalcount" class="text-right"></h3>
+				<div id="container8" class="container"></div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

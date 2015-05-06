@@ -10,9 +10,12 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import edu.cmu.sv.webcrawler.services.KeywordExtractor;
 import edu.cmu.sv.webcrawler.services.KeywordsService;
 import edu.cmu.sv.webcrawler.util.MongoHelper;
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.digest.DigestUtils;
 
 public class Record {
 
@@ -20,14 +23,19 @@ public class Record {
 	String year;
 	String riskFactor;
 	String symbol;
-	String documentType;
+	String document;
 	String url;
 	String SIC;
 	String SICName;
 	String wordCount;
-	
+	//hash value for the riskFactor string
+
 	Map<String, Integer> keywords;
 	Map<String, Integer> categories;
+	
+	public Record() {
+		
+	}
 	
 	public Record(String document, String riskFactor, String symbol, String year,
 			Map<String, Integer> keywords) {
@@ -35,7 +43,7 @@ public class Record {
 		this.riskFactor = riskFactor;
 		this.symbol = symbol;
 		this.keywords = keywords;
-		this.documentType = document;
+		this.document = document;
 	}
 	
 	/**
@@ -172,7 +180,15 @@ public class Record {
 	public void setWordCount(String wordCount) {
 		this.wordCount = wordCount;
 	}
+	
+	/**
+	 * @return the document
+	 */
+	public String getDocument() {
+		return document;
+	}
 
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -181,7 +197,8 @@ public class Record {
 	@Override
 	public String toString() {
 		return "Record [companyName" + companyName + ", year=" + year + ", riskFactor=" + riskFactor
-				+ ", symbol=" + symbol + ", url=" + url + ", SIC=" + SIC + ", SICName=" + SICName + ", wordCount=" + wordCount + "]";
+				+ ", symbol=" + symbol + ", url=" + url + ", SIC=" + SIC + ", SICName=" + SICName +
+				", wordCount=" + wordCount + "]";
 	}
 
 	/**
@@ -214,18 +231,78 @@ public class Record {
 		doc.put("symbol", symbol);
 		doc.put("companyName", companyName);
 		doc.put("year", year);
-		System.out.printf("Saving from record\n");
 		doc.put("riskFactor", this.riskFactor);
-		System.out.printf("Saving done from record\n");
 		doc.put("keywords", list);
 		doc.put("url", url);
-		doc.put("document", documentType);
+		doc.put("document", document);
 		doc.put("SIC", SIC);
 		doc.put("SICName", SICName);
 		doc.put("wordCount", wordCount);
-		db.insert(doc);
+		System.out.printf("[Debug] saving %s\n",url);
+
+
+		//this will add extra work load for database, could think about any other way to check redundancy.
+		List<Record> recordList = this.searchByUrl(this.symbol,this.url);
+
+		//if there is no matching document in the MongoDB, insert the doc
+		if(recordList.size() == 0) {
+			System.out.printf("[Debug] Current doc with url %s not existed in DB\n",this.url);
+			db.insert(doc);
+		}
+		else
+			System.out.printf("[Debug] Current doc with url %s already existed in DB\n",this.url);
+
 		this.keywords = map;
 		return true;
+	}
+
+
+	public static List<Record> searchByUrl(String symbol, String url){
+		System.out.printf("[Debug] searchByUrl(%s,%s)\n",symbol,url);
+		DBCollection db = MongoHelper.getCollection();
+		BasicDBObject query = new BasicDBObject();
+		query.put("symbol", symbol);
+		query.put("url", url);
+		DBCursor cursor = db.find(query);
+		int docCnt = 0;
+		List<Record> recordList = new ArrayList<Record>();
+		try{
+			while(cursor.hasNext()){
+				System.out.printf("[Debug] searchByUrl() find a doc\n");
+				docCnt++;
+				if(docCnt > 1){
+					System.out.printf("[WARNING]: searchByUrl() collision happen\n");
+				}
+				DBObject obj = cursor.next();
+				Record record = getRecordFromDBObject(obj);
+				recordList.add(record);
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return recordList;
+	}
+
+	public static Record getRecordFromDBObject(DBObject obj){
+		String symbol = (String) obj.get("symbol");
+		String year = (String) obj.get("year");
+		String riskFactor = (String) obj.get("riskFactor");
+		String companyName = (String) obj.get("companyName");
+		String SIC = (String) obj.get("SIC");
+		String SICName = (String) obj.get("SICName");
+		String url = (String) obj.get("url");
+		String wordCount = (String) obj.get("wordCount");
+		String docType = (String) obj.get("document");
+
+		BasicDBList keywords = (BasicDBList) obj.get("keywords");
+		Map<String, Integer> map = Keywords.getMap(keywords);
+		Record record = new Record(docType, riskFactor, symbol, year, map);
+		record.setCompanyName(companyName);
+		record.setSIC(SIC);
+		record.setSICName(SICName);
+		record.setUrl(url);
+		record.setWordCount(wordCount);
+		return record;
 	}
 
 	public static List<Record> search(String symbol) {
@@ -237,52 +314,30 @@ public class Record {
 		try {
 			while (cursor.hasNext()) {
 				DBObject obj = cursor.next();
-				String year = (String) obj.get("year");
-				String riskFactor = (String) obj.get("riskFactor");
-				String companyName = (String) obj.get("companyName");
-				String SIC = (String) obj.get("SIC");
-				String SICName = (String) obj.get("SICName");
-				String url = (String) obj.get("url");
-				String wordCount = (String) obj.get("wordCount");
-				BasicDBList keywords = (BasicDBList) obj.get("keywords");
-				Map<String, Integer> map = Keywords.getMap(keywords);
-				Record record = new Record("10-K", riskFactor, symbol, year, map);
-				record.setCompanyName(companyName);
-				record.setSIC(SIC);
-				record.setSICName(SICName);
-				record.setUrl(url);
-				record.setWordCount(wordCount);
+				Record record = getRecordFromDBObject(obj);
 				records.add(record);
 			}
 		} catch (Exception e) {
 		}
 		return records;
 	}
-
-	public static List<Record> search(String symbol, String year) {
+	
+	public static List<Record> search(String symbol, String year, String docType) {
 		List<Record> records = new ArrayList<Record>();
 		DBCollection db = MongoHelper.getCollection();
 		BasicDBObject doc = new BasicDBObject();
 		doc.put("symbol", symbol);
-		doc.put("year", year);
+		if (year != null)
+			doc.put("year", year);
+		if (docType != null)
+			doc.put("document", docType);
 		DBCursor cursor = db.find(doc);
 		try {
 			while (cursor.hasNext()) {
 				DBObject obj = cursor.next();
-				String riskFactor = (String) obj.get("riskFactor");
-				String companyName = (String) obj.get("companyName");
-				String SIC = (String) obj.get("SIC");
-				String SICName = (String) obj.get("SICName");
-				String url = (String) obj.get("url");
-				String wordCount = (String) obj.get("wordCount");
-				BasicDBList keywords = (BasicDBList) obj.get("keywords");
-				Map<String, Integer> map = Keywords.getMap(keywords);
-				Record record = new Record("10-K", riskFactor, symbol, year, map);
-				record.setCompanyName(companyName);
-				record.setSIC(SIC);
-				record.setSICName(SICName);
-				record.setUrl(url);
-				record.setWordCount(wordCount);
+				Record record = getRecordFromDBObject(obj);
+				System.out.printf("[Debug]: Record Search() Find one %s record for %s %s\n",
+						docType, symbol, year);
 				records.add(record);
 			}
 		} catch (Exception e) {
@@ -299,10 +354,28 @@ public class Record {
 		}
 		db.remove(doc);
 	}
+	
+	public void remove(String symbol, String year, String docType) {
+		DBCollection db = MongoHelper.getCollection();
+		BasicDBObject doc = new BasicDBObject();
+		doc.put("symbol", symbol);
+		if (year != null && !year.isEmpty()) {
+			doc.put("year", year);
+		}
+		if (docType != null && !docType.isEmpty()) {
+			doc.put("document", docType);
+		}
+		db.remove(doc);
+	}
 
 	public static void removeAll() {
 		DBCollection db = MongoHelper.getCollection();
 		BasicDBObject doc = new BasicDBObject();
 		db.remove(doc);
+	}
+
+	public static void main(String argv[]){
+		Record test = new Record();
+		
 	}
 }

@@ -20,6 +20,11 @@
 					<li>Jacky Chen, jacky.chen@sv.cmu.edu</li>
 					<li>Gonghan Wang, gonghan.wang@sv.cmu.edu</li>
 					<li>Ting Yu, ting.yu@sv.cmu.edu</li>
+					<li><a href="https://www.linkedin.com/in/zilongh">Zilong Huang, edward.huang@sv.cmu.edu</a></li>
+					<li><a href="https://www.linkedin.com/in/chiachuanwu">Chia-Chuan Wu, chia.chuan.wu@sv.cmu.edu</a></li>
+					<li><a href="https://www.linkedin.com/pub/ming-qi/a5/6a2/225">Ming Qi, ming.qi@sv.cmu.edu</a></li>
+					<li><a href="https://www.linkedin.com/in/chenrangong/en">Chenran Gong, chenran.gong@sv.cmu.edu</a></li>
+					<li><a href="https://www.linkedin.com/in/tongtongbao/en">Tongtong Bao, tongtong.bao@sv.cmu.edu</a></li>
 				</ul>
 			</div>
 		</div>

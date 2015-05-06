@@ -4,10 +4,11 @@
 	<property environment="env" />
 	<property name="srcDir" value="." />
 	<property name="debuglevel" value="source,lines,vars" />
-	<property name="target" value="1.6" />
-	<property name="source" value="1.6" />
+	<property name="target" value="1.7" />
+	<property name="source" value="1.7" />
 	<path id="classpathDir">
 		<pathelement location="bin" />
+		<pathelement location="WebContent/WEB-INF/lib/gson-2.3.1.jar"/>
 		<pathelement location="WebContent/WEB-INF/lib/commons-codec-1.10.jar" />
 		<pathelement location="WebContent/WEB-INF/lib/httpclient-4.3.4.jar" />
 		<pathelement location="WebContent/WEB-INF/lib/httpcore-4.3.2.jar" />
@@ -65,8 +66,10 @@
 			</fileset>
 			<fileset dir="WebContent">
 				<include name="*" />
-				<include name="img/*" />
+                <include name="img/*" />
+                <include name="images/*" />
 				<include name="templates/*" />
+				<include name="tagcloud/**" />
 			</fileset>
 			<lib dir="WebContent/WEB-INF/lib" />
 			<classes dir="bin" />

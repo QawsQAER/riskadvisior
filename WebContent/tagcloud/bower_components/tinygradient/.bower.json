@@ -1,0 +1,42 @@
+{
+  "name": "tinygradient",
+  "version": "0.3.0",
+  "authors": [
+    {
+      "name": "Damien \"Mistic\" Sorel",
+      "homepage": "http://www.strangeplanet.fr"
+    }
+  ],
+  "description": "Fast and small gradients manipulation, built on top of TinyColor",
+  "license": "MIT",
+  "homepage": "https://github.com/mistic100/tinygradient",
+  "main": "tinygradient.js",
+  "dependencies": {
+    "tinycolor": "~1.0.0"
+  },
+  "keywords": [
+    "color",
+    "gradient"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mistic100/tinygradient.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "0.3.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.3.0",
+    "commit": "d147bfa4ee62eef24be49757d72150d0fed3fd08"
+  },
+  "_source": "git://github.com/mistic100/tinygradient.git",
+  "_target": "~0.3.0",
+  "_originalSource": "tinygradient",
+  "_direct": true
+}

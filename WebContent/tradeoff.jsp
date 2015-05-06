@@ -1079,8 +1079,8 @@
                 }
 
                 function destroyTradeoffAnalytcsWidget(callback) {
-                	if(taClient != null)
-                    	taClient.destroy(callback);
+                    if(taClient != null)
+                        taClient.destroy(callback);
                 }
 
                 function onMaximize() {
@@ -1149,7 +1149,7 @@
                 });
 
                 $('#analyze').click(function() {
-                	destroyTradeoffAnalytcsWidget();
+                    destroyTradeoffAnalytcsWidget();
                     var json1 = JSON.parse($('#companies').val());
                     var json2 = JSON.parse($('#preferences').val());
                     var json = {
@@ -1167,9 +1167,6 @@
                         data: JSON.stringify(json),
                         dataType: "json",
                         success: function(data) {
-                            //alert(JSON.parse(data));
-                            alert(data)
-
                             taClient = new TradeoffAnalytics({
                                 dilemmaServiceUrl: '/demo',
                                 customCssUrl: 'https://ta-cdn.mybluemix.net/modmt/styles/watson.css',
@@ -1180,7 +1177,7 @@
                             }, 'taWidgetContainer');
 
                             taClient.start(function() {
-			                    showTradeoffAnalytcsWidget(JSON.parse(data));
+                                showTradeoffAnalytcsWidget(JSON.parse(data));
                             });
                             //taClient.show(data)
                         }

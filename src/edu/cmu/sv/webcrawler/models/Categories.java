@@ -24,7 +24,6 @@ public class Categories {
     Map<String, List<String>> categories;
     Map<String, Integer> map;
     DBCollection collection;
-    String _id;
 
     public Categories() {
         categories = new HashMap<String, List<String>>();
@@ -48,13 +47,12 @@ public class Categories {
         }
         for (String key : keywordsMap.keySet()) {
             String cateKey = getCateKey(key);
-            System.out.println(cateKey);
+            //System.out.println(cateKey);
             if (cateKey != null) {
                 map.put(cateKey, map.get(cateKey) + keywordsMap.get(key));
             }
         }
     }
-
 
     /**
      * @return the initMap
@@ -67,7 +65,7 @@ public class Categories {
         for (String cateKey : this.categories.keySet()) {
             List<String> list = categories.get(cateKey);
             if (list.contains(key)) {
-                System.out.println(cateKey);
+               /* System.out.println(cateKey);*/
                 return cateKey;
             }
         }
@@ -82,7 +80,6 @@ public class Categories {
                 DBObject obj = cursor.next();
                 for (String key : obj.keySet()) {
                     if (key.equals("_id")) {
-                        this._id = doc.getString(key);
                         continue;
                     }
                     BasicDBList category = (BasicDBList) obj.get(key);
@@ -115,7 +112,7 @@ public class Categories {
                     }
                     categories.put(key, list);
                 }
-                System.out.println(categories);
+               /* System.out.println(categories);*/
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -126,7 +123,6 @@ public class Categories {
 
     private void save() {
         BasicDBObject doc = new BasicDBObject();
-        doc.put("_id", this._id);
         for (String key : this.categories.keySet()) {
             BasicDBList list = new BasicDBList();
             for (String value : this.categories.get(key)) {

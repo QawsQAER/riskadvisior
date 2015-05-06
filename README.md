@@ -4,63 +4,6 @@ Risk Advisor use Public Big Data to retrieve and analyze the "Risk Factors" for 
 
 The current url is [riskanalysis.mybluemix.net](http://riskanalysis.mybluemix.net/).
 
-##End-point for backend
-http://54.191.103.199:8080/tradeoffParser/webapi/parser/select
-
-##Sample json input
-```
-see the a.json file in the root directory
-```
-##Sample json output
-```json
-{
-    "columns": [
-        {
-            "full_name": "Funding risks",
-            "goal": "MIN",
-            "is_objective": "TRUE",
-            "key": "Funding risks",
-            "type": "numeric"
-        },
-        {
-            "full_name": "Competition risks",
-            "goal": "MIN",
-            "is_objective": "TRUE",
-            "key": "Competition risks",
-            "type": "numeric"
-        }
-    ],
-    "options": [
-        {
-            "description_html": "Risk Advisor feat. TradeOff Analysis",
-            "key": "0",
-            "name": "AMAZON COM INC",
-            "values": {
-                "Competition risks": 0,
-                "Funding risks": 3
-            }
-        },
-        {
-            "description_html": "Risk Advisor feat. TradeOff Analysis",
-            "key": "1",
-            "name": "INTERNATIONAL BUSINESS MACHINES CORP",
-            "values": {
-                "Competition risks": 0,
-                "Funding risks": 1
-            }
-        }
-    ],
-    "subject": "Risk"
-}
-```
-
-##How to test (on Mac only)
-```sh
-brew install httpie
-cd IBM-RiskAdvisor-Tradeoff
-http POST http://54.191.103.199:8080/tradeoffParser/webapi/parser/select @a.json
-```
-
 ## Prequisite
 
 Be sure the followings are installed successfully on your machine.
@@ -338,3 +281,4 @@ This is the main collection and the place where all raw data is stored.
         }
     ]
 }
+```
