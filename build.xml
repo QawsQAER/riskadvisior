@@ -32,6 +32,10 @@
 		<pathelement location="WebContent/WEB-INF/lib/jersey-client-1.18.jar" />
 		<pathelement location="WebContent/WEB-INF/lib/java-json.jar" />
 		<pathelement location="WebContent/WEB-INF/lib/json-simple-1.1.1.jar" />
+		<pathelement location="WebContent/WEB-INF/lib/com.springsource.org.json-1.0.0.jar" />
+		<pathelement location="WebContent/WEB-INF/lib/commons-io-2.4.jar" />
+		<pathelement location="WebContent/WEB-INF/lib/genson-1.2.jar" />
+		<pathelement location="WebContent/WEB-INF/lib/com.ibm.websphere.appserver.api.json_1.0.2.jar" />
 	</path>
 	<target name="init">
 		<mkdir dir="bin" />
