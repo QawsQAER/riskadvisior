@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.io.InputStream;
+import java.util.List;
+
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -17,6 +19,8 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import edu.cmu.sv.webcrawler.models.Record;
+
  
 @Path("/parser")   //http://localhost:8080/webapi/parser
 @Produces("text/plain")
@@ -84,18 +88,32 @@ public class TradeOffParser {
     public JSONObject crawl_generate(String company_name, String year) throws JSONException{
         JSONObject json = new JSONObject();
         try {
-            json = new JSONObject(
-                IOUtils.toString(
-                    new URL(
-                        "http://riskanalysis.mybluemix.net/api/results/"+company_name+"?year="+year
-                        ), Charset.forName("UTF-8")));
+            Records records = new Records();
+            String docType = "10-K";
+            List<Record> list = null;
+            if (year == null && docType == null) {
+                list = Record.search(company_name);
+                records.setRecords(list);
+            }
+            if (year == null || year.isEmpty()){
+                list = Record.search(company_name, null, docType);
+            }
+            else if (docType == null || docType.isEmpty()) {
+                list = Record.search(company_name, year, null);
+            }
+            else {
+                list = Record.search(company_name, year, docType);
+            }
+            records.setRecords(list);
+            json = new JSONObject(records.toString());
         } catch (Exception ex) {
             System.err.println(ex);
         }
         JSONArray ja = (JSONArray) json.get("records");
+        
         if(ja.length()!=0){
             JSONObject rmDup = ja.getJSONObject(0);
-            String comp = company_name;
+            String comp = rmDup.getString("companyName");
             JSONObject ret = new JSONObject();
             rmDup.remove("riskFactor");
             ret.put("records", rmDup);
