@@ -10,6 +10,6 @@ bin/*
 *.war
 webStarterApp.war
 /bin
-.idea/
+.idea/*
 out/
 riskadvisor.iml

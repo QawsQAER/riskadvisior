@@ -88,39 +88,20 @@ public class TradeOffParser {
     public JSONObject crawl_generate(String company_name, String year) throws JSONException{
         JSONObject json = new JSONObject();
         try {
-            Records records = new Records();
             String docType = "10-K";
             List<Record> list = null;
-            if (year == null && docType == null) {
-                list = Record.search(company_name);
-                records.setRecords(list);
-            }
-            if (year == null || year.isEmpty()){
-                list = Record.search(company_name, null, docType);
-            }
-            else if (docType == null || docType.isEmpty()) {
-                list = Record.search(company_name, year, null);
-            }
-            else {
-                list = Record.search(company_name, year, docType);
-            }
-            records.setRecords(list);
-            json = new JSONObject(records.toString());
+            list = Record.search(company_name, year, docType);
+            json = new JSONObject(list.get(0).toString());
         } catch (Exception ex) {
             System.err.println(ex);
         }
-        JSONArray ja = (JSONArray) json.get("records");
-        
-        if(ja.length()!=0){
-            JSONObject rmDup = ja.getJSONObject(0);
-            String comp = rmDup.getString("companyName");
-            JSONObject ret = new JSONObject();
-            rmDup.remove("riskFactor");
-            ret.put("records", rmDup);
-            ret.put("companyName", comp);
-            return ret;
-        }
-        else{
+        String comp = json.getString("companyName");
+        JSONObject ret = new JSONObject();
+        json.remove("riskFactor");
+        ret.put("records", json);
+        ret.put("companyName", comp);
+        return ret;
+        /*else{
             try{
                 json = new JSONObject();
                 String dummy = IOUtils.toString(new URL(
@@ -139,7 +120,7 @@ public class TradeOffParser {
                 System.err.println(ex);
             }
             return json;
-        }
+        }*/
     }
 
 
