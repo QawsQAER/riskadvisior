@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.io.InputStream;
+import java.util.List;
+
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -17,6 +19,8 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import edu.cmu.sv.webcrawler.models.Record;
+
  
 @Path("/parser")   //http://localhost:8080/webapi/parser
 @Produces("text/plain")
@@ -84,25 +88,20 @@ public class TradeOffParser {
     public JSONObject crawl_generate(String company_name, String year) throws JSONException{
         JSONObject json = new JSONObject();
         try {
-            json = new JSONObject(
-                IOUtils.toString(
-                    new URL(
-                        "http://riskanalysis.mybluemix.net/api/results/"+company_name+"?year="+year
-                        ), Charset.forName("UTF-8")));
+            String docType = "10-K";
+            List<Record> list = null;
+            list = Record.search(company_name, year, docType);
+            json = new JSONObject(list.get(0));
         } catch (Exception ex) {
             System.err.println(ex);
         }
-        JSONArray ja = (JSONArray) json.get("records");
-        if(ja.length()!=0){
-            JSONObject rmDup = ja.getJSONObject(0);
-            String comp = company_name;
-            JSONObject ret = new JSONObject();
-            rmDup.remove("riskFactor");
-            ret.put("records", rmDup);
-            ret.put("companyName", comp);
-            return ret;
-        }
-        else{
+        String comp = json.getString("companyName");
+        JSONObject ret = new JSONObject();
+        json.remove("riskFactor");
+        ret.put("records", json);
+        ret.put("companyName", comp);
+        return ret;
+        /*else{
             try{
                 json = new JSONObject();
                 String dummy = IOUtils.toString(new URL(
@@ -121,7 +120,7 @@ public class TradeOffParser {
                 System.err.println(ex);
             }
             return json;
-        }
+        }*/
     }
 
 
