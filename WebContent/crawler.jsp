@@ -68,10 +68,13 @@
 				$.ajax({
 					url : crawlurl,
 					success : function(data) {
+						//TODO fix bug data is a JSON String, not a object
 						if(data["size"] == 0){
-							var msg = "No Document are crawlled";
+							var msg = "No Document are crawled";
 							output.text(msg);
 						}else{
+							console.log(data);
+							data = JSON.parse(data);
 							var msg = "Some documents are crawled: ";
 							console.log(data);
 							if("all" in data)
