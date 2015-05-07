@@ -91,7 +91,7 @@ public class TradeOffParser {
             String docType = "10-K";
             List<Record> list = null;
             list = Record.search(company_name, year, docType);
-            json = new JSONObject(list.get(0).toString());
+            json = new JSONObject(list.get(0));
         } catch (Exception ex) {
             System.err.println(ex);
         }
