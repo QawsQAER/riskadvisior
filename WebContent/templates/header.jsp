@@ -24,6 +24,7 @@
 				<li><a href=<%=basepath + "/APIs.jsp"%>>APIs</a></li>
 				<li><a href=<%=basepath + "/about.jsp"%>>About</a></li>
 				<li><a href=<%=basepath + "/tutorial.jsp"%>>Tutorial</a></li>
+				<li><a href=<%=basepath + "/tradeoff.jsp"%>>TradeOff Analysis</a></li>
 				<!--  <li><a href=<%=basepath + "/Envs"%>>Envs</a></li>-->
 			</ul>
 		</div>
