@@ -24,9 +24,6 @@ $(function () {
 		cache: true,
 		success: function (data) {
 			console.log('success: '+data);
-//			var count = data.match(/\d+/g)[0];
-//			$("#totalcount").text(count);
-//			data = data.match(/\[.+\]/g)[0];
 			var count = data.count;
 			$("#totalcount").text(count);
 			console.log(data);
@@ -73,10 +70,6 @@ $(function () {
 			cache: true,
 			success: function (data) {
 				console.log('success: '+data);
-//				var count = data.match(/\d+/g)[0];
-//				$("#totalcount").text(count);
-//				data = data.match(/\[.+\]/g)[0];
-//				var jsonData = $.parseJSON(data);
 				var count = data.count;
 				$("#totalcount").text(count);
 				console.log(data);
