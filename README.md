@@ -28,8 +28,8 @@ This is a public project, so you can clone the repo directly.
 
 ```
 cd your_workspace_path
-git clone https://github.com/QawsQAER/riskadvisor.git
-cd riskadvisor
+git clone https://github.com/cmusv-sc/IBM-RiskAdvisor-Tradeoff.git
+cd app_repository
 ant
 ```
 
@@ -115,7 +115,7 @@ Interface for user to modify keywords to be considered in text analysis.
 
 #### tradeoff.jsp
 
-[TODO]: add introduction here
+Users can call Watson API to analyze companies' risk factors based on data crawled.
 
 ### Model
 
@@ -298,3 +298,38 @@ This is the main collection and the place where all raw data is stored.
     ]
 }
 ```
+
+#### User's preference
+
+This is the representation of user's preference for tradeoff analysis
+
+```
+{
+  "companies": [
+    "IBM",
+    "UA"
+  ],
+  "keywords": [
+    {
+      "category": "Funding risks",
+      "factors": [
+        "raise capital",
+        "capital resource"
+      ]
+    },
+    {
+      "category": "Concentration on few large customers",
+      "factors": [
+        "large customer"
+      ]
+    },
+    {
+      "category": "Competition risks",
+      "factors": [
+        "highly competitive",
+        "less competitive"
+      ]
+    }
+  ],
+  "year": "2014"
+}
