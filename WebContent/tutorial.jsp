@@ -17,7 +17,7 @@
 
 <p>Risk Advisor use Public Big Data to retrieve and analyze the "Risk Factors" for US publicly traded companies. Publicly available data sources (such as 10-K) are retrieved to create profiles for the companies and segment them based on their "risk factors" and "needs."</p>
 
-<p>The current url is <a href="http://riskanalysis.mybluemix.net/">riskanalysis.mybluemix.net</a>.</p>
+<p>The current url is <a href="http://riskadvisor.mybluemix.net/">riskadvisor.mybluemix.net</a>.</p>
 
 <h2>Prequisite</h2>
 
@@ -36,20 +36,20 @@
 <p>There are two places you can clone from.</p>
 
 <ul>
-<li>From GitHub</li>
+<li>From <a href="https://github.com/cmusv-sc/IBM-RiskAdvisor-Tradeoff">GitHub</a></li>
 </ul>
 
 <p>This is a public project, so you can clone the repo directly.</p>
 
 <p><code>
 cd your_workspace_path
-git clone git@github.com:Gonghan/WebCrawlerApp.git
-cd WebCrawlerApp
+git clone https://github.com/cmusv-sc/IBM-RiskAdvisor-Tradeoff.git
+cd [IBM-RiskAdvisor-Tradeoff]
 ant
 </code></p>
 
 <ul>
-<li>From Jazz Hub</li>
+<li>From Jazz Hub (Deprecated) </li>
 </ul>
 
 <p><code>
@@ -134,6 +134,9 @@ Follow the instructions above and done.</li>
 <h4>APIs.jsp</h4>
 
 <p>Give a table of all available APIs.</p>
+
+    <h4>upload.jsp</h4>
+    <p>For user to modify the keyword that they might be interested in</p>
 
 <h3>Model</h3>
 
