@@ -1,6 +1,7 @@
 package edu.cmu.sv.webcrawler.apis;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,6 +13,8 @@ import org.json.JSONException;
 
 import com.google.gson.Gson;
 
+import edu.cmu.sv.webcrawler.models.DataGovViewReport;
+import edu.cmu.sv.webcrawler.models.TagCloudEntry;
 import edu.cmu.sv.webcrawler.util.Common;
 import edu.cmu.sv.webcrawler.util.HealthCrawler;
 
@@ -32,31 +35,29 @@ public class DataGovGroupHealthResource {
 	@GET
 	@Path("/topTags/{number}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getTopTagsByHealth(@PathParam("number") String number) throws IOException, JSONException {
+	public DataGovViewReport getTopTagsByHealth(@PathParam("number") String number) throws IOException, JSONException {
 		int num = Integer.parseInt(number);
 		HealthCrawler healthCrawler = new HealthCrawler();
 		if (num < 0) {
-			return ("cannot be negtive");
+			return null;
 		}
-		Gson gson = new Gson();
-		String json = gson.toJson(healthCrawler.getTopTags(num));
+		List<TagCloudEntry> content = healthCrawler.getTopTags(num);
 		int count = healthCrawler.getRealTags().size();
-		return (Common.formatCountJson(count,json));
+		return new DataGovViewReport(content, count);
 	}
 	
 	@GET
 	@Path("/topDataset/{number}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getTopDatasetsByHealth(@PathParam("number") String number) throws IOException, JSONException {
+	public DataGovViewReport getTopDatasetsByHealth(@PathParam("number") String number) throws IOException, JSONException {
 		int num = Integer.parseInt(number);
 		HealthCrawler healthCrawler = new HealthCrawler();
 		if (num < 0) {
-			return ("cannot be negtive");
+			return null;
 		}
-		Gson gson = new Gson();
-		String json = gson.toJson(healthCrawler.getTopPackages(num));
+		List<TagCloudEntry> content = healthCrawler.getTopPackages(num);
 		int count = healthCrawler.getRealTags().size();
-		return (Common.formatCountJson(count,json));
+		return new DataGovViewReport(content, count);
 	}
 	
 }

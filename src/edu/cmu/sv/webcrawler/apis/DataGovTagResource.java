@@ -1,6 +1,7 @@
 package edu.cmu.sv.webcrawler.apis;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,6 +13,8 @@ import org.json.JSONException;
 
 import com.google.gson.Gson;
 
+import edu.cmu.sv.webcrawler.models.DataGovViewReport;
+import edu.cmu.sv.webcrawler.models.TagCloudEntry;
 import edu.cmu.sv.webcrawler.util.PackageCrawler;
 import edu.cmu.sv.webcrawler.util.Common;
 
@@ -31,31 +34,28 @@ public class DataGovTagResource {
 	@GET
 	@Path("/{tagName}/topDataset/{num}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getTopDatasetsByTag(@PathParam("tagName") String tagName, @PathParam("num") String number) throws IOException, JSONException {
+	public DataGovViewReport getTopDatasetsByTag(@PathParam("tagName") String tagName, @PathParam("num") String number) throws IOException, JSONException {
 		int num = Integer.parseInt(number);
 		PackageCrawler packageCrawler = new PackageCrawler(tagName, "tag");
 		if (num < 0) {
-			return ("cannot be negative");
+			return null;
 		}
-
-		Gson gson = new Gson();
-		String json = gson.toJson(packageCrawler.getTopPackages(num));
+		List<TagCloudEntry> content = packageCrawler.getTopPackages(num);
 		int count = packageCrawler.getRealDataPackages().size();
-		return (Common.formatCountJson(count,json));
+		return new DataGovViewReport(content, count);
 	}
 	@GET
 	@Path("/{tagName}/topTags/{num}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getTopTagsByTag(@PathParam("tagName") String tagName, @PathParam("num") String number) throws IOException, JSONException {
+	public DataGovViewReport getTopTagsByTag(@PathParam("tagName") String tagName, @PathParam("num") String number) throws IOException, JSONException {
 		int num = Integer.parseInt(number);
 		PackageCrawler packageCrawler = new PackageCrawler(tagName, "tag");
 		if (num < 0) {
-			return ("cannot be negative");
+			return null;
 		}
-		Gson gson = new Gson();
-		String json = gson.toJson(packageCrawler.getTopTags(num));
+		List<TagCloudEntry> content = packageCrawler.getTopTags(num);
 		int count = packageCrawler.getRealTags().size();
-		return (Common.formatCountJson(count,json));
+		return new DataGovViewReport(content, count);
 	}
 
 }
