@@ -21,9 +21,14 @@ import edu.cmu.sv.webcrawler.services.FeatureWeighting;
 public class CategoriesResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Categories getCategory(@PathParam("param") String symbol) {
+    //public Categories getCategory(@PathParam("param") String symbol) {
+
+    public String getCategory() {
+        System.out.printf("[Debug] CategoriesResource getCategory()\n");
         Categories c = new Categories();
-        return c;
+        System.out.printf("[Debug] returning categories\n");
+        Gson gson = new Gson();
+        return gson.toJson(c.getInitMap());
     }
 
     @GET
@@ -104,5 +109,10 @@ public class CategoriesResource {
         m.put("keyword", keyword);
         Gson gson = new Gson();
         return gson.toJson(m);
+    }
+
+    public static void main(){
+        CategoriesResource cr = new CategoriesResource();
+        cr.getCategory();
     }
 }

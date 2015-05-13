@@ -57,7 +57,7 @@
 			console.log(data);
 			var table = document.getElementById("CategoryTable");
 			table.innerHTML = "";
-			var categories = data.initMap;
+			var categories = JSON.parse(data);
 			console.log(categories);
 			for(var category in categories){
 				console.log(category);

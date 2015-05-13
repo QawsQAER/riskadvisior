@@ -135,7 +135,7 @@ Follow the instructions above and done.</li>
 
 <p>Give a table of all available APIs.</p>
 
-    <h4>upload.jsp</h4>
+    <h4>customize.jsp</h4>
     <p>For user to modify the keyword that they might be interested in</p>
 
 <h3>Model</h3>

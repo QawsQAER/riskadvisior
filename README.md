@@ -109,7 +109,7 @@ Show the details financial risks of a given company.
 
 Give a table of all available APIs.
 
-#### upload.jsp
+#### customize.jsp
 
 Interface for user to modify keywords to be considered in text analysis.
 
