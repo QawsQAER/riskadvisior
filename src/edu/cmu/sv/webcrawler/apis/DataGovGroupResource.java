@@ -56,5 +56,4 @@ public class DataGovGroupResource {
 		int count = packageCrawler.getRealTags().size();
 		return new DataGovViewReport(content, count);
 	}
-
 }

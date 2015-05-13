@@ -16,7 +16,6 @@ import com.google.gson.Gson;
 import edu.cmu.sv.webcrawler.models.DataGovViewReport;
 import edu.cmu.sv.webcrawler.models.TagCloudEntry;
 import edu.cmu.sv.webcrawler.util.PackageCrawler;
-import edu.cmu.sv.webcrawler.util.Common;
 
 
 @Path("/tagName")
